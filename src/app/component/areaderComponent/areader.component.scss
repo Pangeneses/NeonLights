@@ -1,0 +1,145 @@
+.areader-container {
+  position: relative;
+  top: 0%;
+  height: 100%;
+  left: 0%;
+  width: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.areader-header {
+  position: absolute;
+  top: 0%;
+  height: 30%;
+  left: 0%;
+  width: 100%;
+}
+
+.areader {
+  position: absolute;
+  top: 30%;
+  height: 65%;
+  left: 0%;
+  width: 100%;
+}
+
+.areader-card {
+  position: absolute;
+  top: 0%;
+  height: 92%;
+  left: 10%;
+  width: 80%;
+  padding: .4em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap: 0.3em;
+  border-radius: 10px 10px 0px 10px;
+  background-color: #544380;
+}
+
+.areader-confirm {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 3%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.areader-confirm-close {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 100%;
+  background-color: whitesmoke;
+  border-radius: 10px 0px 0px 10px;
+}
+
+.areader-journal-info {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  border-radius: 0px 0px 0px 0px;
+}
+
+.areader-image {
+  flex: 0 0 auto;
+  background-image: url('../../../../public/RedDragon.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50%;
+  width: 100%;
+}
+
+.areader-details {
+  flex: 0 0 auto;
+  height: 50%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+}
+
+.areader-details p {
+  flex: 0 0 auto;
+  height: 15%;
+  padding: 0.4em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  text-wrap: wrap;
+  font-size: 100%;
+}
+
+.areader-content {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 72%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+  border-radius: 0px 0px 0px 0px;
+}
+
+.areader-title {
+  flex: 0 0 auto;
+  height: 10%;
+  width: 100%;
+  resize: none;
+  padding: 0.75%;
+  box-sizing: border-box;
+  border-radius: 0px 10px 0px 0px;
+  background-color: whitesmoke;
+}
+
+.areader-title::placeholder {
+  font-size: 150%;
+}
+
+.areader-text {
+  height: 90%;
+  width: 100%;
+  overflow-y: scroll;
+  resize: none;
+  box-sizing: border-box;
+  background-color: whitesmoke;
+  scrollbar-color: #544380 whitesmoke;
+}
+
+.areader-footer {
+  position: absolute;
+  bottom: 0%;
+  height: 5%;
+  left: 0%;
+  width: 100%;
+}

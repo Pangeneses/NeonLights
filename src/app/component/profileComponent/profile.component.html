@@ -1,0 +1,174 @@
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <div class="profile-nav">            
+
+            <div class="profile-save" (click)="this.onSave()">
+                <mat-icon>save</mat-icon>
+            </div>
+
+            <div class="profile-delete" (click)="this.onDelete()">
+                <mat-icon>delete</mat-icon>
+            </div>
+            
+        </div>
+
+        <form [formGroup]="form" autocomplete="off" (ngSubmit)="onSave()">      
+
+            <div class="profile-content">
+
+                <div class="profile-cover">
+
+                    <div class="profile-picture-card" (click)="this.onFileSelectTriggered()">
+                        <img [src]="this.avatarURL">
+                    </div>
+                    <input 
+                        type="file" 
+                        #fileInput 
+                        (change)="this.onFileSelected($event)" 
+                        accept=".jpg,.webp" 
+                        style="display: none"/>
+
+                    <textarea
+                        class="profile-journal-description"  
+                        type="text" 
+                        formControlName="JournalDesc"
+                        (blur)="this.onJournalDescBlur()" 
+                        autocomplete="off"
+                        [placeholder]="this.journalDescPlaceholder">
+                    </textarea>
+
+                </div>
+
+                <input 
+                    class="profile-username"  
+                    type="text" 
+                    formControlName="UserName"
+                    (blur)="this.onUserNameBlur()" 
+                    autocomplete="off"
+                    [placeholder]="this.userNamePlaceholder"/>
+
+                <div class="profile-users-name">
+
+                    <input 
+                        class="profile-users-first-name"  
+                        type="text" 
+                        formControlName="FirstName" 
+                        (blur)="this.onFirstNameBlur()" 
+                        autocomplete="off"
+                        [placeholder]="this.firstNamePlaceholder"/>
+
+                    <input 
+                        class="profile-users-last-name"  
+                        type="text" 
+                        formControlName="LastName" 
+                        (blur)="this.onLastNameBlur()" 
+                        autocomplete="off"
+                        [placeholder]="this.lastNamePlaceholder"/>
+
+                </div>
+
+                <input 
+                    class="profile-address-one"  
+                    type="text" 
+                    formControlName="AddressOne" 
+                    (blur)="this.onAddressOneBlur()" 
+                    autocomplete="off"
+                    [placeholder]="this.addressOnePlaceholder"/>
+
+                <input 
+                    class="profile-address-two"  
+                    type="text" 
+                    formControlName="AddressTwo" 
+                    (blur)="this.onAddressTwoBlur()" 
+                    autocomplete="off"
+                    [placeholder]="this.addressTwoPlaceholder"/>
+
+                <div class="profile-local">
+
+                    <input 
+                        class="profile-city"
+                        type="text" 
+                        formControlName="City" 
+                        (blur)="this.onCityBlur()" 
+                        autocomplete="off"
+                        [placeholder]="this.cityPlaceholder"/>
+
+                    <input 
+                        class="profile-region"  
+                        type="text" 
+                        formControlName="Region" 
+                        (blur)="this.onRegionBlur()" 
+                        autocomplete="off"
+                        [placeholder]="this.regionPlaceholder"/>
+
+                    <input 
+                        class="profile-post"  
+                        type="text" 
+                        formControlName="Post" 
+                        (blur)="this.onPostBlur()" 
+                        autocomplete="off"
+                        [placeholder]="this.postPlaceholder"/>
+
+                </div>
+
+                <input 
+                    class="profile-country" 
+                    type="text" 
+                    formControlName="Country" 
+                    (blur)="this.onCountryBlur()" 
+                    autocomplete="off"
+                    [placeholder]="this.countryPlaceholder"/>
+
+                <input 
+                    class="profile-email" 
+                    type="email" 
+                    formControlName="EMail" 
+                    (blur)="this.onEMailBlur()" 
+                    autocomplete="off"
+                    [placeholder]="this.emailPlaceholder"/>
+
+                <div class="profile-sms">
+
+                    <input 
+                        class="profile-cellphone" 
+                        type="text" 
+                        formControlName="Cellphone" 
+                        (blur)="this.onCellphoneBlur()" 
+                        autocomplete="off"
+                        [placeholder]="this.cellphonePlaceholder"/>
+
+                    <input 
+                        class="profile-birth-date" 
+                        type="date" 
+                        formControlName="DateOfBirth" 
+                        (blur)="this.onDateOfBirthBlur()" 
+                        autocomplete="off"
+                        [placeholder]="this.dateOfBirthPlaceholder"/>
+
+                </div>
+
+                <input 
+                    class="profile-password" 
+                    type="password" 
+                    formControlName="Password" 
+                    (blur)="this.onPasswordBlur()" 
+                    autocomplete="off"
+                    [placeholder]="this.passwordPlaceholder"/>
+
+                <input 
+                    class="profile-re-enter-password" 
+                    type="password" 
+                    formControlName="ReEnter" 
+                    (blur)="this.onReEnterBlur()" 
+                    autocomplete="off"
+                    [placeholder]="this.reenterPlaceholder"/>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

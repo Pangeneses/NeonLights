@@ -1,0 +1,41 @@
+<div class="user-container">
+
+    <div class="user-card">
+        
+        <div class="user-spacer"></div>
+        
+        <div class="user-option" aria-label="Profile">
+            <mat-icon class="user-option-ico">account_circle</mat-icon>
+            <div class="user-option-text" (click)="this.onProfilePopUp()"><p>Profile</p></div>
+        </div>
+        <div class="user-option" aria-label="Purchases">
+            <mat-icon class="user-option-ico">payments</mat-icon>
+            <div class="user-option-text" (click)="this.onPurchasesPopUp()"><p>Purchases</p></div>
+        </div>
+        <div class="user-option" aria-label="Wallet">
+            <mat-icon class="user-option-ico">wallet</mat-icon>
+            <div class="user-option-text" (click)="this.onWalletPopUp()"><p>Wallet</p></div>
+        </div>
+        <div class="user-option" aria-label="Settings">
+            <mat-icon class="user-option-ico">settings</mat-icon>
+            <div class="user-option-text" (click)="this.onSettingsPopUp()"><p>Settings</p></div>
+        </div>
+        <div class="user-option" aria-label="Contact">
+            <mat-icon class="user-option-ico">email</mat-icon>
+            <div class="user-option-text" (click)="this.onContactPopUp()"><p>Contact</p></div>
+        </div>
+        <div class="user-option" aria-label="Logout">
+            <mat-icon class="user-option-ico">logout</mat-icon>
+            <div class="user-option-text" (click)="this.onLogoutPopUp()"><p>Logout</p></div>
+        </div>
+
+    </div>
+
+    <app-component-profile *ngIf="this.isProfilePopUp" (notify)="this.onClose()"></app-component-profile>
+    <app-component-purchases *ngIf="this.isPurchasesPopUp" (notify)="this.onClose()"></app-component-purchases>
+    <app-component-wallet *ngIf="this.isWalletPopUp" (notify)="this.onClose()"></app-component-wallet>
+    <app-component-settings *ngIf="this.isSettingsPopUp" (notify)="this.onClose()"></app-component-settings>
+    <app-component-contact *ngIf="this.isContactPopUp" (notify)="this.onClose()"></app-component-contact>
+    <app-component-logout *ngIf="this.isLogoutPopUp" (notify)="this.onClose()"></app-component-logout>
+    
+</div>

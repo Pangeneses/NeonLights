@@ -1,0 +1,59 @@
+.aindex-container {
+  position: relative;
+  top: 0%;
+  height: 100%;
+  left: 0%;
+  width: 100%;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.aindex-header {
+  position: absolute;
+  top: 0%;
+  height: 30%;
+  left: 0%;
+  width: 100%;
+}
+
+.aindex-list-card {
+  position: absolute;
+  top: 30%;
+  height: 61%;
+  left: 25%;
+  width: 50%;
+  padding: .5em;
+  display: flex;
+  flex-direction: row;
+  gap: 0.35em;
+  background-color: #544380;
+  border-radius: 10px 0px 0px 10px;
+}
+
+.aindex-list-new {
+  flex: 0 0 4%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: whitesmoke;
+  border-radius: 10px 0px 0px 10px;
+}
+
+.aindex-listed-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  gap: 0.35em;
+  scrollbar-color: #544380 whitesmoke;
+}
+
+.aindex-footer {
+  position: absolute;
+  bottom: 0%;
+  height: 5%;
+  left: 0%;
+  width: 100%;
+}

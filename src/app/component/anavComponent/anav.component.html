@@ -1,0 +1,93 @@
+<div class="anav-container">
+    
+    <!-- Left Panel: Filters & Results -->
+    <div class="anav-card">
+
+        <!-- Category Dropdown -->
+        <select class="anav-category" [(ngModel)]="selectedCategory" (change)="fetchArticles()">
+          <option *ngFor="let cat of categoryOptions" [value]="cat.value">
+            {{ cat.label }}
+          </option>
+        </select>
+
+        <!-- User Dropdown with Autocomplete -->
+        <input
+            class="anav-user"
+            type="text"
+            [(ngModel)]="selectedUser"
+            (focus)="onUserInputChange('')"
+            (ngModelChange)="onUserInputChange($event)"
+            [matAutocomplete]="auto"
+            placeholder="Search by user" />
+        <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption>
+            <mat-option [value]="''">Any</mat-option>
+            @for (user of filteredUsers; track user) {
+                <mat-option [value]="user">
+                    {{ user }}
+                </mat-option>
+            }
+            @empty {
+                <mat-option disabled>No users found</mat-option>
+            }
+        </mat-autocomplete>
+
+        <!-- Hashtag Input -->
+        <input
+            class="anav-hashtags"
+            type="text"
+            [(ngModel)]="hashtags"
+            (input)="formatHashtags()"
+            placeholder="#hashtags (space-separated)" />
+
+        <!-- Article List -->
+        <div class="anav-listing">
+            @for (article of articles; track article.Title) {
+                <div class="article-card">
+                    <h4>{{ article.Title }}</h4>
+                </div>
+            }
+            @empty {
+                <div class="article-card">
+                    <h4>No articles found.</h4>
+                </div>
+            }          
+        </div>
+
+    </div>
+
+    <div class="anav-datepicker-card">
+
+        <div class="anav-datepicker-title">Article's From Date Range</div>
+
+        <mat-form-field appearance="outline" floatLabel="always" class="anav-datepicker">
+            
+            <mat-date-range-input name="dateRange" class="anav-date-range-input">
+              <input 
+                name="startDate"
+                class="anav-date-input" 
+                matStartDate 
+                placeholder="Start Date" 
+                [(ngModel)]="dateRange.start"/>
+              <input 
+                name="endDate"
+                class="anav-date-input" 
+                matEndDate 
+                placeholder="End Date" 
+                [(ngModel)]="dateRange.end"/>
+            </mat-date-range-input>
+
+            @if (calendarVisible) {
+              <mat-calendar
+                class="anav-mat-calendar"
+                [startAt]="dateSelected"
+                [selected]="dateRange.start"
+                (selectedChange)="onCalendarDateSelect($event)"
+                [dateClass]="dateClass">
+              </mat-calendar>
+            }
+
+        </mat-form-field>
+
+    </div>
+
+</div>

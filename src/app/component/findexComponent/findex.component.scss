@@ -1,0 +1,160 @@
+.findex-container {
+  position: relative;
+  top: 0%;
+  height: 100%;
+  left: 0%;
+  width: 100%;
+}
+
+.findex-header {
+  position: absolute;
+  top: 0%;
+  height: 30%;
+  left: 0%;
+  width: 100%;
+}
+
+.findex {
+  position: absolute;
+  top: 30%;
+  height: 65%;
+  left: 0%;
+  width: 100%;
+}
+
+.findex-index-card {
+  position: absolute;
+  top: 0%;
+  height: 92%;
+  left: 2%;
+  width: 20%;
+  padding: .45em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: .3em;
+  background-color: #544380;
+  border-radius: 10px;
+}
+
+.findex-index-by {
+  flex: 0 0 auto;
+  height: 10%;
+  width: 100%;
+  font-size: 18px;
+  background-color: whitesmoke;
+  border-radius: 10px;
+}
+
+.findex-listing {
+  flex: 0 0 auto;
+  width: 100%;
+  border-radius: 10px;
+  background-color: whitesmoke;
+}
+
+.findex-list-card {
+  position: absolute;
+  top: 0%;
+  height: 92%;
+  left: 25%;
+  width: 50%;
+  padding: .45em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap: 0.35em;
+  background-color: #544380;
+  border-radius: 10px 0px 0px 10px;
+}
+
+.findex-list-nav {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 5%;
+  box-sizing: border-box;
+}
+
+.findex-list-new {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: whitesmoke;
+  border-radius: 10px 0px 0px 10px;
+}
+
+.findex-listed-container {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 95%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  gap: 0.35em;
+  //background-color: #9683c5;
+  scrollbar-color: #544380 whitesmoke;
+}
+
+.findex-listed {
+  flex: 0 0 auto;
+  height: 125px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-shrink: 0;
+}
+
+.findex-listed-card {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 97%;
+  padding: 0.35em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+}
+
+.findex-listed-card-title {
+  flex: 0 0 auto;
+  font-size: 20px;
+  height: 40%;
+}
+
+.findex-listed-card-date {
+  flex: 0 0 auto;
+  font-size: 16px;
+  padding-left: 0.5em;
+}
+
+.findex-listed-card-avatar {
+  flex: 0 0 auto;
+  background-image: url('../../../../public/RedDragon.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.findex-datepicker-card {
+  position: absolute;
+  top: 0%;
+  height: 92%;
+  right: 2%;
+  width: 20%;
+  background-color: #544380;
+  border-radius: 10px;
+}
+
+.findex-footer {
+  position: absolute;
+  bottom: 0%;
+  height: 5%;
+  left: 0%;
+  width: 100%;
+}

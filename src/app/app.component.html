@@ -1,0 +1,24 @@
+<div class="app-container">
+
+    <img class="app-landing" *ngIf="this.isLanding" [src]="this.LandingURL"/>
+    
+    <button mat-button class="app-login-button" *ngIf="this.isEnter" (click)="this.navLogin()">
+        <p>LOGIN</p>
+    </button>
+
+    <app-component-login 
+        class="app-login" 
+        *ngIf="this.isLogin" 
+        (login)="onLogin()"
+        (newuser)="onNewUser()">
+    </app-component-login>
+    
+    <app-component-new-user 
+        class="app-new-user" 
+        *ngIf="this.isNew" 
+        (notify)="navLogin()">
+    </app-component-new-user>
+    
+    <router-outlet *ngIf="this.isLoaded"/>
+    
+</div>

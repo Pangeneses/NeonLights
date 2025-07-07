@@ -1,0 +1,113 @@
+.fnew-container {
+  position: relative;
+  top: 0%;
+  height: 100%;
+  left: 0%;
+  width: 100%;
+}
+
+.fnew-header {
+  position: absolute;
+  top: 0%;
+  height: 30%;
+  left: 0%;
+  width: 100%;
+}
+
+.fnew {
+  position: absolute;
+  top: 30%;
+  height: 65%;
+  left: 0%;
+  width: 100%;
+}
+
+.fnew-card {
+  position: absolute;
+  top: 0%;
+  height: 92%;
+  left: 10%;
+  width: 80%;
+  padding: .4em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap: 0.35em;
+  background-color: #544380;
+  border-radius: 10px 10px 0px 10px;
+}
+
+.fnew-confirm {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 3%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+
+.fnew-confirm-accept {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 10px 0px 0px 0px;
+}
+
+.fnew-confirm-reject {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 0px 0px 0px 10px;
+}
+
+.fnew-content {
+  flex: 0 0 auto;
+  height: 100%;
+  width: 97%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3em;
+}
+
+.fnew-title {
+  flex: 0 0 auto;
+  height: 10%;
+  width: 100%;
+  background-color: whitesmoke;
+  border-radius: 0px 10px 0px 0px;
+}
+
+.fnew-title p {
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  padding-left: 0.5em;
+  box-sizing: border-box;
+}
+
+.fnew-text {
+  flex: 0 0 auto;
+  height: 90%;
+  width: 99.5%;
+  resize: none;
+  overflow-y: scroll;
+  text-wrap: wrap;
+  background-color: whitesmoke;
+  scrollbar-color: #544380 whitesmoke;
+}
+
+.fnew-footer {
+  position: absolute;
+  bottom: 0%;
+  height: 5%;
+  left: 0%;
+  width: 100%;
+}

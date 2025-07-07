@@ -1,0 +1,153 @@
+.contact-container {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+    background-color: transparent;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.contact-card {
+    position: relative;
+    top: 6%;
+    height: 88%;
+    left: 32%;
+    width: 36%;
+    padding: 0.5em;
+    display: flex;
+    flex-direction: row;
+    gap: 0.35em;
+    background-color: #544380;
+    border-radius: 10px;
+}
+
+input[type="text"],
+textarea {
+    padding: 0.5em;
+    border: none;
+    outline: none;
+    height: 100%;
+}
+
+.contact-nav {
+    flex: 0 0 auto;
+    width: 7%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+}
+
+.contact-send {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    border-radius: 10px 0px 0px 0px;
+}
+
+.contact-delete {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    border-radius: 0px 0px 0px 10px;
+}
+
+.contact {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35em;
+}
+
+.contact-admin {
+    flex: 0 0 auto;
+    height: 42.2%;
+    display: flex;
+    flex-direction: row;
+    gap: 0.35em;
+}
+
+.contact-admin-message {
+    flex: 1;
+    padding: 0.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2em;
+    background-color: whitesmoke;
+}
+
+.contact-admin-message-text {
+    flex: 0 0 auto;
+    font-size: 1em;
+    white-space: normal;
+    hyphens: auto;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    text-align: justify;
+}
+
+.contact-issue {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-issue-tabs {
+    flex: 0 0 3.7%;
+    display: flex;
+    flex-direction: row;
+    gap: 2%;
+}
+
+.contact-issue-tab {
+    flex: 0 0 22%;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    border-radius: 0px 8px 0px 0px;
+    background-color: whitesmoke;
+}
+
+.contact-issue-card-button {
+    flex: 0 0 auto;
+}
+
+.contact-issue-ico {
+    font-size: 1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.contact-issue-picture {
+    flex: 0 0 90%;
+    background-image: url('../../../../public/camera.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: whitesmoke;
+}
+
+.contact-message-title {
+    flex: 0 0 6.5%;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.contact-message {
+    flex: 0 0 49.5%;
+    resize: none;
+    background-color: whitesmoke;
+}

@@ -1,0 +1,109 @@
+.featured-container {
+  position: relative;
+  top: 0%;
+  height: 100%;
+  left: 0%;
+  width: 100%;
+}
+
+.featured-header {
+  position: absolute;
+  top: 0%;
+  height: 30%;
+  left: 0%;
+  width: 100%;
+}
+
+.featured {
+  position: absolute;
+  top: 30%;
+  height: 65%;
+  left: 0%;
+  width: 100%;
+}
+
+.featured-scroll-button {
+  position: absolute;
+  top: 36%;
+  height: 18%;
+  aspect-ratio: 1 / 1;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.featured-carousel-track {
+  position: absolute;
+  top: 0%;
+  height: 96.5%;
+  left: 10%;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  overflow-x: hidden;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  gap: 3%;
+}
+
+.featured-articles {
+  flex: 0 0 28%;
+  flex-shrink: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  background-color: #544380;
+  border-radius: 10px;
+}
+
+.card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-header {
+  flex: 0 0 7.5;
+  background-color: whitesmoke;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.card-header p {
+  font-size: 1.25em;
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.35em;
+  box-sizing: border-box;
+  color: black;
+}
+
+.card-img {
+  flex: 0 0 40%;
+  background-image: url('../../../../public/RedDragon.webp');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.card-content {
+  flex: 0 0 auto;
+  background-color: whitesmoke;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.card-content p {
+  font-size: 1.25em;
+  text-wrap: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.35em;
+  box-sizing: border-box;
+  color: black;
+}
+
+.featured-footer {
+  position: absolute;
+  bottom: 0%;
+  height: 5%;
+  left: 0%;
+  width: 100%;
+}

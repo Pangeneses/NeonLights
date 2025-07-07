@@ -1,0 +1,36 @@
+<div class="login-container">
+
+  <div class="login-card">
+
+    <form class="new-user-form-group" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      
+      <input class="login-username" formControlName="UserName" type="text" placeholder="User Name"/>
+      <input class="login-password" formControlName="Password" type="password" placeholder="Password"/>
+
+    </form>
+
+    <div class="login-invalid" *ngIf="!this.isLoginFailed">
+      <p>SITE IS IN PREVIEW; JUST HIT LOGIN!</p>
+    </div>
+
+    <div class="login-invalid" *ngIf="this.isLoginFailed">
+      <p>Username and/or Password Invalid</p>
+    </div>
+
+    <button class="login" (click)="this.onLogin()">Login</button>
+
+    <div class="login-forgot-password">
+      <p>Forgot Password</p>
+    </div>
+
+    <div class="login-create-user" (click)="this.onNewUser()">
+      <p>Create Account</p>
+    </div>
+    
+    <div class="login-copyright">
+      <p>©2025 All Rights Reserved</p>
+    </div>
+
+  </div>
+      
+</div>

@@ -1,0 +1,217 @@
+.profile-container{
+    position: fixed;
+    top: 0;
+    height: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    backdrop-filter: blur(2px);
+    background-color: transparent;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+.profile-card{
+    position: relative;
+    top: 10%;
+    height: 80%;
+    left: 32%;
+    width: 36%;
+    padding: 0.5em;
+    display: flex;
+    flex-direction: row;
+    gap: 0.35em;
+    background-color: #544380;
+    border-radius: 10px;
+}
+
+.profile-nav{
+    flex: 0 0 auto;
+    width: 7%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+}
+
+.profile-save{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    border-radius: 10px 0px 0px 0px;
+}
+
+.profile-delete{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: whitesmoke;
+    border-radius: 0px 0px 0px 10px;
+}
+
+.profile-content{
+    flex: 1 1 auto;
+    width: 91.75%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="password"],
+textarea {
+  padding: 0.5em;
+  border: none;
+  outline: none;
+  height: 100%;
+}
+
+.profile-local > *,
+.profile-sms > *,
+.proflie-users-name > * {
+    min-width: 0;
+}
+
+.profile-cover{
+    flex: 1 1 auto;
+    height: 34%;
+    min-width: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 0.35em;
+}
+
+.profile-picture-card{
+    flex: 1;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background-color: whitesmoke;
+}
+
+.profile-journal-description{
+    flex: 1;
+    display: flex;
+    align-content: start;
+    justify-content: start;
+    white-space: pre-wrap;
+    resize: none;
+    background-color: whitesmoke;
+    border-radius: 0px 10px 0px 0px;
+}
+
+.profile-username{
+    flex: 1;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-users-name{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 0.2em;
+}
+
+.profile-users-first-name{
+    flex: 0.5;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-users-last-name{
+    flex: 0.5;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-address-one{
+    flex: 1;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-address-two{
+    flex: 1;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-local{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 0.2em;
+}
+
+.profile-city{
+    flex: 0.4;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-region{
+    flex: 0.4;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-post{
+    flex: 0.2;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-country{
+    flex: 1;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-email{
+    flex: 1;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-sms{
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 0.2em;
+}
+
+.profile-cellphone{
+    flex: 0.6;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-birth-date{
+    flex: 0.4;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-password{
+    flex: 1;
+    resize: none;
+    background-color: whitesmoke;
+}
+
+.profile-re-enter-password{
+    flex: 1;
+    resize: none;
+    background-color: whitesmoke;
+    border-radius: 0px 0px 10px 0px;
+}

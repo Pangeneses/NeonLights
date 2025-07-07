@@ -1,0 +1,18 @@
+<div class="footer-container">
+
+    <div class="footer-table">
+
+        <div class="footer-table-cell" (click)="this.onAboutPopUp()"><p class="footer-table-text">About</p></div>
+        <div class="footer-table-cell" (click)="this.onToSPopUp()"><p class="footer-table-text">Terms of Service</p></div>
+        <div class="footer-table-cell" (click)="this.onPrivacyPopUp()"><p class="footer-table-text">Privacy</p></div>
+        <div class="footer-table-cell" (click)="this.onLegalPopUp()"><p class="footer-table-text">Legal</p></div>
+        <div class="footer-table-cell"><p class="footer-table-text-copyright">©2025 All Rights Reserved</p></div>
+
+    </div>
+
+    <app-component-about *ngIf="this.isAboutPopUp" (notify)="onClose($event)"></app-component-about>
+    <app-component-tos *ngIf="this.isToSPopUp" (notify)="onClose($event)"></app-component-tos>
+    <app-component-privacy *ngIf="this.isPrivacyPopUp" (notify)="onClose($event)"></app-component-privacy>
+    <app-component-legal *ngIf="this.isLegalPopUp" (notify)="onClose($event)"></app-component-legal>
+    
+</div>

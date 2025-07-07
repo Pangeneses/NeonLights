@@ -1,0 +1,156 @@
+<div class="new-user-container">
+
+    <div class="new-user-card">
+
+        <div class="new-user-nav">            
+            <div class="new-user-save" (click)="this.onSave()">
+                <mat-icon>save</mat-icon>
+            </div>
+            <div class="new-user-delete" (click)="this.onDelete()">
+                <mat-icon>delete</mat-icon>
+            </div>
+        </div>
+
+        <div class="new-user-content">      
+
+            <form class="new-user-form-group" [formGroup]="form" (ngSubmit)="onSave()">
+                
+                <div class="new-user-cover">
+
+                    <div class="new-user-picture-card" (click)="this.onFileSelectTriggered()">
+                        <img [src]="this.avatarURL">
+                    </div>
+                    <input 
+                        type="file" 
+                        #fileInput 
+                        (change)="this.onFileSelected($event)" 
+                        accept=".jpg,.webp" 
+                        style="display: none"/>
+
+                    <textarea
+                        class="new-user-journal-description"  
+                        type="text" 
+                        formControlName="JournalDesc"
+                        (blur)="this.onJournalDescBlur()" 
+                        [placeholder]="this.journalDescPlaceholder">
+                    </textarea>
+
+                </div>
+
+                <input 
+                    class="new-user-username"  
+                    type="text" 
+                    formControlName="UserName"
+                    (blur)="this.onUserNameBlur()" 
+                    [placeholder]="this.userNamePlaceholder"/>
+
+                <div class="proflie-users-name">
+
+                    <input 
+                        class="new-user-users-first-name"  
+                        type="text" 
+                        formControlName="FirstName" 
+                        (blur)="this.onFirstNameBlur()" 
+                        [placeholder]="this.firstNamePlaceholder"/>
+
+                    <input 
+                        class="new-user-users-last-name"  
+                        type="text" 
+                        formControlName="LastName" 
+                        (blur)="this.onLastNameBlur()" 
+                        [placeholder]="this.lastNamePlaceholder"/>
+
+                </div>
+
+                <input 
+                    class="new-user-address-one"  
+                    type="text" 
+                    formControlName="AddressOne" 
+                    (blur)="this.onAddressOneBlur()" 
+                    [placeholder]="this.addressOnePlaceholder"/>
+
+                <input 
+                    class="new-user-address-two"  
+                    type="text" 
+                    formControlName="AddressTwo" 
+                    (blur)="this.onAddressTwoBlur()" 
+                    [placeholder]="this.addressTwoPlaceholder"/>
+
+                <div class="new-user-local">
+
+                    <input 
+                        class="new-user-city"
+                        type="text" 
+                        formControlName="City" 
+                        (blur)="this.onCityBlur()" 
+                        [placeholder]="this.cityPlaceholder"/>
+
+                    <input 
+                        class="new-user-region"  
+                        type="text" 
+                        formControlName="Region" 
+                        (blur)="this.onRegionBlur()" 
+                        [placeholder]="this.regionPlaceholder"/>
+
+                    <input 
+                        class="new-user-post"  
+                        type="text" 
+                        formControlName="Post" 
+                        (blur)="this.onPostBlur()" 
+                        [placeholder]="this.postPlaceholder"/>
+
+                </div>
+
+                <input 
+                    class="new-user-country" 
+                    type="text" 
+                    formControlName="Country" 
+                    (blur)="this.onCountryBlur()" 
+                    [placeholder]="this.countryPlaceholder"/>
+
+                <input 
+                    class="new-user-email" 
+                    type="email" 
+                    formControlName="EMail" 
+                    (blur)="this.onEMailBlur()" 
+                    [placeholder]="this.emailPlaceholder"/>
+
+                <div class="new-user-sms">
+
+                    <input 
+                        class="new-user-cellphone" 
+                        type="text" 
+                        formControlName="Cellphone" 
+                        (blur)="this.onCellphoneBlur()" 
+                        [placeholder]="this.cellphonePlaceholder"/>
+
+                    <input 
+                        class="new-user-birth-date" 
+                        type="date" 
+                        formControlName="DateOfBirth" 
+                        (blur)="this.onDateOfBirthBlur()" 
+                        [placeholder]="this.dateOfBirthPlaceholder"/>
+
+                </div>
+
+                <input 
+                    class="new-user-password" 
+                    type="password" 
+                    formControlName="Password" 
+                    (blur)="this.onPasswordBlur()" 
+                    [placeholder]="this.passwordPlaceholder"/>
+
+                <input 
+                    class="new-user-re-enter-password" 
+                    type="password" 
+                    formControlName="ReEnter" 
+                    (blur)="this.onReEnterBlur()" 
+                    [placeholder]="this.reenterPlaceholder"/>
+            
+            </form>
+
+        </div>       
+
+    </div>
+
+</div>

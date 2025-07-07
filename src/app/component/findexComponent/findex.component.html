@@ -1,0 +1,60 @@
+<div class="findex-container">
+
+    <app-component-header class="findex-header"></app-component-header>
+
+    <div class="findex">
+
+        <div class="findex-index-card">
+            <select class="findex-index-by" [(ngModel)]="SearchForumBy" (change)="onDropdownChange(this.SearchForumBy)">
+                <option [ngValue]="EnumSearchForumBy.Category">Category</option>
+                <option [ngValue]="EnumSearchForumBy.User">User</option>
+                <option [ngValue]="EnumSearchForumBy.Hashtag">Hashtag</option>
+            </select>
+            <div class="findex-listing"></div>
+        </div>
+
+        <div class="findex-list-card">
+
+            <div class="findex-list-nav">
+                <div class="findex-list-new" [routerLink]="['/fnew']" routerLinkActive="active">
+                    <mat-icon>note_add</mat-icon>
+                </div>
+            </div>
+
+            <div class="findex-listed-container">
+
+                <div class="findex-listed" [routerLink]="['/freader']" routerLinkActive="active">
+                    <div class="findex-listed-card">
+                        <p class="findex-listed-card-title">WELCOME TO THE RED DRAGONS SOCIETY</p>
+                        <p class="findex-listed-card-date">April 05; 2025 06:58PM</p>
+                    </div>
+                    <div class="findex-listed-card-avatar"></div>
+                </div>
+                <div class="findex-listed" [routerLink]="['/freader']" routerLinkActive="active">
+                    <div class="findex-listed-card">
+                        <p class="findex-listed-card-title">WELCOME TO THE RED DRAGONS SOCIETY</p>
+                        <p class="findex-listed-card-date">April 05; 2025 06:58PM</p>
+                    </div>
+                    <div class="findex-listed-card-avatar"></div>
+                </div>
+                <div class="findex-listed" [routerLink]="['/freader']" routerLinkActive="active">
+                    <div class="findex-listed-card">
+                        <p class="findex-listed-card-title">WELCOME TO THE RED DRAGONS SOCIETY</p>
+                        <p class="findex-listed-card-date">April 05; 2025 06:58PM</p>
+                    </div>
+                    <div class="findex-listed-card-avatar"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="findex-datepicker-card">
+            <mat-calendar [(selected)]="selectedDate"></mat-calendar>
+        </div>
+
+    </div>
+
+    <app-component-footer class="findex-footer"></app-component-footer>
+
+</div>

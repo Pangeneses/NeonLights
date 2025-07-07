@@ -1,0 +1,37 @@
+<div class="fnew-container">
+
+  <app-component-header class="fnew-header"></app-component-header>
+     
+  <div class="fnew">
+
+    <div class="fnew-card">
+
+        <div class="fnew-confirm">
+
+            <div class="fnew-confirm-accept">
+                <mat-icon>save</mat-icon>
+            </div>
+
+            <div class="fnew-confirm-reject" [routerLink]="['/findex']" routerLinkActive="active">
+                <mat-icon>delete</mat-icon>
+            </div>
+
+        </div>
+
+        <div class="fnew-content">
+
+            <div class="fnew-title">
+                <p>WELCOME TO THE RED DRAGON SOCIETY</p>
+            </div>
+
+            <textarea class="fnew-text"></textarea>
+
+        </div>
+    
+    </div>
+
+  </div>
+
+  <app-component-footer class="fnew-footer"></app-component-footer>
+
+</div>

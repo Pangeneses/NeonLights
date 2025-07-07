@@ -1,0 +1,102 @@
+<div class="contact-container">
+
+    <div class="contact-card">
+
+        <div class="contact-nav">
+
+            <button class="contact-send" mat-icon-button aria-label="Send" (click)="this.onSend()">
+                <mat-icon>mail</mat-icon>
+            </button>
+
+            <button class="contact-delete" mat-icon-button aria-label="Delete" (click)="this.onDelete()">
+                <mat-icon>delete</mat-icon>
+            </button>
+
+        </div>
+
+        <div class="contact">
+
+            <div class="contact-admin">
+
+                <div class="contact-admin-message">
+
+                    <p class="contact-admin-message-text">
+                        By writing and submitting a message below
+                        you are submitting a site issue to the Administration.
+                        If your issue can be better expressed using an image,
+                        append it in the box on the right. We will get back to
+                        you in a timely manner as possible.
+                    </p>
+
+                    <p class="contact-admin-message-text">
+                        Have a good day! 
+                    </p>
+
+                    <p class="contact-admin-message-text">
+                        Entangled-Logic Alpha
+                    </p>
+
+                </div>
+
+                <div class="contact-issue">
+
+                    <div class="contact-issue-tabs">
+
+                        <div class="contact-issue-tab" (click)="this.onAppendImageOne()">
+                            <div class="contact-issue-tab-button" style="border-right: 3px solid black;">
+                                <mat-icon class="contact-issue-ico" style="color: green;">visibility</mat-icon>
+                            </div>
+                            <div class="contact-issue-tab-button">
+                                <mat-icon class="contact-issue-ico">delete</mat-icon>
+                            </div>
+                        </div>
+
+                        <div class="contact-issue-tab" (click)="this.onAppendImageTwo()">
+                            <div class="contact-issue-tab-button" style="border-right: 3px solid black;">
+                                <mat-icon class="contact-issue-ico">visibility</mat-icon>
+                            </div>
+                            <div class="contact-issue-tab-button">
+                                <mat-icon class="contact-issue-ico">delete</mat-icon>
+                            </div>
+                        </div>
+
+                        <div class="contact-issue-tab" (click)="this.onAppendImageThree()">
+                            <div class="contact-issue-tab-button" style="border-right: 3px solid black;">
+                                <mat-icon class="contact-issue-ico">visibility</mat-icon>
+                            </div>
+                            <div class="contact-issue-tab-button">
+                                <mat-icon class="contact-issue-ico">delete</mat-icon>
+                            </div>
+                        </div>
+
+                        <div class="contact-issue-tab" (click)="this.onAppendImageFour()">
+                            <div class="contact-issue-tab-button" style="border-right: 3px solid black;">
+                                <mat-icon class="contact-issue-ico">visibility</mat-icon>
+                            </div>
+                            <div class="contact-issue-tab-button">
+                                <mat-icon class="contact-issue-ico">delete</mat-icon>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="contact-issue-picture"></div>
+                    <input 
+                        type="file" 
+                        #fileInput 
+                        (change)="this.onFileSelected($event)" 
+                        accept=".jpg,.webp" 
+                        style="display: none"/>
+                </div>
+
+            </div>
+
+            <textarea class="contact-message-title" placeholder="Message Tilte"></textarea>
+
+            <textarea class="contact-message" placeholder="Message . . ."></textarea>
+
+        </div>
+    
+    </div>
+          
+</div>

@@ -1,0 +1,60 @@
+<div class="anew-container">
+
+    <app-component-header class="anew-header"></app-component-header>
+
+    <div class="anew-card">
+
+        <div class="anew-confirm">
+
+            <div class="anew-confirm-accept">
+                <mat-icon>save</mat-icon>
+            </div>
+
+            <div class="anew-confirm-reject" [routerLink]="['/aindex']" routerLinkActive="active">
+                <mat-icon>delete</mat-icon>
+            </div>
+
+        </div>
+
+        <div class="anew-journal-info">
+
+            <div class="anew-image"></div>
+
+            <div class="anew-details">
+                <p>Author: {{ form.get('FirstName')?.value }} {{ form.get('LastName')?.value }}</p>
+                <p>Date: {{ today | date:'longDate' }}</p>
+                <p>Details: {{ form.get('JournalDesc')?.value }}</p>
+            </div>
+            
+            <!-- Category Dropdown -->
+            <select class="anew-category" [(ngModel)]="selectedCategory">
+              <option *ngFor="let cat of categoryOptions" [value]="cat.value">
+                {{ cat.label }}
+              </option>
+            </select>
+
+        </div>
+
+        <div class="anew-content">
+
+            <textarea class="anew-title" placeholder="ARTICLE TITLE"></textarea>
+            
+            <div class="anew-text-container">
+                
+                <quill-editor
+                    class="anew-text"
+                    [(ngModel)]="richTextContent"
+                    [styles]="{ height: '100%' }"
+                    [modules]="quillModules"
+                    theme="snow">
+                </quill-editor> 
+
+            </div>           
+
+        </div>
+
+    </div>
+
+    <app-component-footer class="anew-footer"></app-component-footer>
+
+</div>
