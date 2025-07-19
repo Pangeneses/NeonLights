@@ -2,55 +2,35 @@
 
     <app-component-header class="findex-header"></app-component-header>
 
-    <div class="findex">
+    <thread-component-fnav class="findex-nav" (filtersChanged)="onFiltersChanged($event)" />
 
-        <div class="findex-index-card">
-            <select class="findex-index-by" [(ngModel)]="SearchForumBy" (change)="onDropdownChange(this.SearchForumBy)">
-                <option [ngValue]="EnumSearchForumBy.Category">Category</option>
-                <option [ngValue]="EnumSearchForumBy.User">User</option>
-                <option [ngValue]="EnumSearchForumBy.Hashtag">Hashtag</option>
-            </select>
-            <div class="findex-listing"></div>
+    <div class="findex-list-card">
+
+        <div class="findex-list-new" [routerLink]="['/anew']" routerLinkActive="active">
+            <mat-icon>note_add</mat-icon>
         </div>
 
-        <div class="findex-list-card">
-
-            <div class="findex-list-nav">
-                <div class="findex-list-new" [routerLink]="['/fnew']" routerLinkActive="active">
-                    <mat-icon>note_add</mat-icon>
+        <div class="findex-listed-container">
+            @for (thread of allThreads(); track threadTrackFn($index, thread)) {
+            <div class="findex-thread-card" (click)="readThread(thread.ThreadID)">
+                <div class="thread-content">
+                    <div class="thread-title" [innerHTML]="thread.ThreadTitle"></div>
+                    <div class="thread-body" [innerHTML]="thread.ThreadBody"></div>
+                    <div class="thread-footer">
+                        <div class="thread-author">{{ thread.AuthorName }}</div>
+                        <div class="thread-date">{{ thread.ThreadDate.slice(0, 10) }}</div>
+                        <div class="thread-category">{{ thread.ThreadCategory }}</div>
+                    </div>
+                    <div class="thread-hashtags">{{ thread.ThreadHashtags.join(' ') }}</div>
                 </div>
+                <img class="thread-image" [src]="SERVER_URI + '/images/' + thread.ThreadImage" alt="Thread Image" />
             </div>
-
-            <div class="findex-listed-container">
-
-                <div class="findex-listed" [routerLink]="['/freader']" routerLinkActive="active">
-                    <div class="findex-listed-card">
-                        <p class="findex-listed-card-title">WELCOME TO THE RED DRAGONS SOCIETY</p>
-                        <p class="findex-listed-card-date">April 05; 2025 06:58PM</p>
-                    </div>
-                    <div class="findex-listed-card-avatar"></div>
-                </div>
-                <div class="findex-listed" [routerLink]="['/freader']" routerLinkActive="active">
-                    <div class="findex-listed-card">
-                        <p class="findex-listed-card-title">WELCOME TO THE RED DRAGONS SOCIETY</p>
-                        <p class="findex-listed-card-date">April 05; 2025 06:58PM</p>
-                    </div>
-                    <div class="findex-listed-card-avatar"></div>
-                </div>
-                <div class="findex-listed" [routerLink]="['/freader']" routerLinkActive="active">
-                    <div class="findex-listed-card">
-                        <p class="findex-listed-card-title">WELCOME TO THE RED DRAGONS SOCIETY</p>
-                        <p class="findex-listed-card-date">April 05; 2025 06:58PM</p>
-                    </div>
-                    <div class="findex-listed-card-avatar"></div>
-                </div>
-
+            }
+            @empty {
+            <div class="thread-card">
+                <div class="thread-title">No threads found.</div>
             </div>
-
-        </div>
-
-        <div class="findex-datepicker-card">
-            <mat-calendar [(selected)]="selectedDate"></mat-calendar>
+            }
         </div>
 
     </div>

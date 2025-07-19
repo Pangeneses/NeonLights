@@ -6,7 +6,7 @@
 
         <div class="anew-confirm">
 
-            <div class="anew-confirm-accept">
+            <div class="anew-confirm-accept" (click)="submitArticle()">
                 <mat-icon>save</mat-icon>
             </div>
 
@@ -17,8 +17,14 @@
         </div>
 
         <div class="anew-journal-info">
-
-            <div class="anew-image"></div>
+                 
+            <img class="anew-image" [src]="this.pictureURL"  (click)="this.onFileSelectTriggered()">
+            <input 
+                type="file" 
+                #fileInput 
+                (change)="this.onFileSelected($event)" 
+                accept=".jpg,.webp" 
+                style="display: none"/>
 
             <div class="anew-details">
                 <p>Author: {{ form.get('FirstName')?.value }} {{ form.get('LastName')?.value }}</p>
@@ -33,11 +39,19 @@
               </option>
             </select>
 
+            <input 
+                type="text" 
+                class="anew-hashtags" 
+                [(ngModel)]="hashtagInput" 
+                placeholder="up to 5 #hashtags"
+                (input)="onHashtagInput($event)"
+                (keydown)="onHashtagKeyDown($event)"/>
+
         </div>
 
         <div class="anew-content">
 
-            <textarea class="anew-title" placeholder="ARTICLE TITLE"></textarea>
+            <textarea class="anew-title" placeholder="ARTICLE TITLE" [(ngModel)]="articleTitle"></textarea>
             
             <div class="anew-text-container">
                 

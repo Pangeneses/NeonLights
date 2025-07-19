@@ -1,4 +1,4 @@
-.anav-container {
+.fnav-container {
   position: relative;
   top: 0%;
   height: 100%;
@@ -10,7 +10,7 @@
     box-sizing: border-box;
 }
 
-.anav-card {
+.fnav-card {
   position: absolute;
   height: 94%;
   left: 2%;
@@ -23,7 +23,7 @@
   border-radius: 10px;
 }
 
-.anav-category {
+.fnav-category {
   flex: 0 1 auto;
   height: 2.4em;
   font-size: 1em;
@@ -33,7 +33,7 @@
   border-radius: 10px 10px 0px 0px;
 }
 
-.anav-hashtags {
+.fnav-hashtags {
   flex: 0 1 auto;
   height: 2.4em;
   font-size: 1em;
@@ -42,7 +42,7 @@
   border-color: whitesmoke;
 }
 
-.anav-user-regex{
+.fnav-user-regex{
   flex: 0 1 auto;
   height: 2.4em;
   font-size: 1em;
@@ -51,26 +51,26 @@
   border-color: whitesmoke;
 }
 
-.anav-user-list{
+.fnav-user-list{
   flex: 1 1 auto;
   background-color: whitesmoke;
   border-color: whitesmoke;
   border-radius: 0px 0px 10px 10px;
 }
 
-.anav-user-item {
+.fnav-user-item {
   flex: 0 1 auto;
   height: 2em;
   font-size: 1em;
   padding: .4em;
 }
 
-.anav-user-item.selected {
+.fnav-user-item.selected {
   font-size: 1em;
   background-color: #d3cce3;
 }
 
-.anav-datepicker-card {
+.fnav-datepicker-card {
   position: absolute;
   height: 94%;
   right: 2%;
@@ -83,7 +83,7 @@
   border-radius: 10px;
 }
 
-.anav-datepicker-title {
+.fnav-datepicker-title {
   flex: 1 1 10%;
   font-size: 1em;
   display: flex;
@@ -93,36 +93,36 @@
   border-radius: 10px 10px 0px 0px;
 }
 
-.anav-date-range-input {
+.fnav-date-range-input {
   width: 100% !important;
   display: flex; 
   flex-wrap: nowrap;
 }
 
-.anav-datepicker .mdc-form-field-outline,
-.anav-datepicker .mdc-notched-outline {
+.fnav-datepicker .mdc-form-field-outline,
+.fnav-datepicker .mdc-notched-outline {
   display: none !important;
 }
 
-.anav-datepicker .mdc-text-field-wrapper {
+.fnav-datepicker .mdc-text-field-wrapper {
   padding: 0 !important;
   border: none !important;
   background-color: transparent !important;
   box-shadow: none !important;
 }
 
-.anav-datepicker {
+.fnav-datepicker {
   width: 100%;
   height: 87%;
   background-color: whitesmoke;
   border-radius: 0px 0px 10px 10px;
 }
 
-.anav-datepicker .mat-form-field {
+.fnav-datepicker .mat-form-field {
   width: 100%;
 }
 
-.anav-datepicker input {
+.fnav-datepicker input {
   flex: 0 0 auto;
   font-size: 14px;
   padding: 0.35em;
@@ -132,35 +132,35 @@
   background: transparent;
 }
 
-.anav-datepicker button {
+.fnav-datepicker button {
   color: black;
 }
 
-.anav-mat-calendar {
+.fnav-mat-calendar {
   padding: 0.4em;
   display: flex;
   flex-direction: column;
   gap: 0.4em;
 }
 
-.anav-mat-calendar .mat-calendar-table-header th {
+.fnav-mat-calendar .mat-calendar-table-header th {
   color: black !important;
 }
 
-.anav-mat-calendar .mat-calendar-period-button {
+.fnav-mat-calendar .mat-calendar-period-button {
   color: black !important;
 }
 
-.anav-mat-calendar .mat-calendar-period-button .mdc-button__label {
+.fnav-mat-calendar .mat-calendar-period-button .mdc-button__label {
   color: black !important;
 }
 
-.anav-mat-calendar .mat-calendar-period-button .mat-calendar-arrow {
+.fnav-mat-calendar .mat-calendar-period-button .mat-calendar-arrow {
   color: black !important;
   fill: black !important;
 }
 
-.anav-mat-calendar .mat-calendar-body-cell.mat-calendar-body-active .mat-calendar-body-cell-content {
+.fnav-mat-calendar .mat-calendar-body-cell.mat-calendar-body-active .mat-calendar-body-cell-content {
   background-color: transparent !important;
   color: inherit !important;
   border: none !important;
@@ -168,25 +168,25 @@
   box-shadow: none !important;
 }
 
-.anav-mat-calendar .mat-calendar-body-cell.date-start .mat-calendar-body-cell-content {
+.fnav-mat-calendar .mat-calendar-body-cell.date-start .mat-calendar-body-cell-content {
   background-color: #ff4081 !important;
   color: white !important;
   border-radius: 50%;
 }
 
-.anav-mat-calendar .mat-calendar-body-cell.date-end .mat-calendar-body-cell-content {
+.fnav-mat-calendar .mat-calendar-body-cell.date-end .mat-calendar-body-cell-content {
   background-color: #ff4081 !important;
   color: white !important;
   border-radius: 50%;
 }
 
-.anav-mat-calendar .mat-calendar-body-cell.date-range-middle .mat-calendar-body-cell-content {
+.fnav-mat-calendar .mat-calendar-body-cell.date-range-middle .mat-calendar-body-cell-content {
   background-color: #ffb0c8 !important;
   color: black !important;
   border-radius: 0;
 }
 
-.anav-mat-calendar .mat-calendar-period-button {
+.fnav-mat-calendar .mat-calendar-period-button {
   color: black !important;
 }
 

@@ -20,6 +20,8 @@ export class UserService {
 
   public currentUser$: Observable<FormGroup | null> = this.currentUserSubject.asObservable();
 
+  private usersCache: any[] | null = null;
+
   constructor(
     private http: HttpClient,
     private imageService: ImageService) {
@@ -110,12 +112,6 @@ export class UserService {
   getCurrentUser(): FormGroup | null {
 
     return this.currentUserSubject.value;
-
-  }
-
-  getAllUsers(): Observable<any[]> {
-    
-    return this.http.get<any[]>(`${SERVER_URI}/api/users/all`);
 
   }
 
@@ -389,6 +385,12 @@ export class UserService {
 
     return true;
 
+  }
+
+  getUserById(userId: string): Observable<any | null> {
+    
+    return this.http.get<any>(`${SERVER_URI}/api/users/${userId}`);
+    
   }
 
 }

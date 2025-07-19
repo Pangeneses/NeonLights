@@ -20,22 +20,13 @@
   width: 100%;
 }
 
-.areader {
-  position: absolute;
-  top: 30%;
-  height: 65%;
-  left: 0%;
-  width: 100%;
-}
-
 .areader-card {
   position: absolute;
-  top: 0%;
-  height: 92%;
+  top: 30%;
+  height: 62%;
   left: 10%;
   width: 80%;
   padding: .4em;
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   gap: 0.3em;
@@ -44,9 +35,7 @@
 }
 
 .areader-confirm {
-  flex: 0 0 auto;
-  height: 100%;
-  width: 3%;
+  flex: 0 0 3%;
   display: flex;
   flex-direction: column;
   gap: 0.3em;
@@ -54,86 +43,82 @@
 }
 
 .areader-confirm-close {
-  flex: 0 0 auto;
-  height: 100%;
-  width: 100%;
+  flex: 0 0 100%;
   background-color: whitesmoke;
+  border: whitesmoke;
   border-radius: 10px 0px 0px 10px;
 }
 
 .areader-journal-info {
-  flex: 0 0 auto;
-  height: 100%;
-  width: 25%;
+  flex: 0 0 25%;
   display: flex;
   flex-direction: column;
   gap: 0.3em;
-  border-radius: 0px 0px 0px 0px;
+  overflow: hidden;
 }
 
 .areader-image {
-  flex: 0 0 auto;
-  background-image: url('../../../../public/RedDragon.webp');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 50%;
-  width: 100%;
+  flex: 0 0 18.23%;
+  max-width: 100%;
 }
 
 .areader-details {
-  flex: 0 0 auto;
-  height: 50%;
-  width: 100%;
+  flex: 1 1 auto;
+  padding: 0.4em;
   display: flex;
   flex-direction: column;
   background-color: whitesmoke;
+  scrollbar-color: #544380 whitesmoke;
 }
 
 .areader-details p {
-  flex: 0 0 auto;
-  height: 15%;
+  font-size: 1em;
+  line-height: 1.4em;
+}
+
+.areader-category {  
+  flex: 0 0 8%;
   padding: 0.4em;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  text-wrap: wrap;
-  font-size: 100%;
+  background-color: whitesmoke;
+}
+
+.areader-hashtags {
+  flex: 0 0 8%;
+  padding: 0.4em;
+  background-color: whitesmoke;
+  scrollbar-color: #544380 whitesmoke;
 }
 
 .areader-content {
-  flex: 0 0 auto;
-  height: 100%;
-  width: 72%;
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
   gap: 0.3em;
-  border-radius: 0px 0px 0px 0px;
 }
 
 .areader-title {
-  flex: 0 0 auto;
-  height: 10%;
-  width: 100%;
-  resize: none;
-  padding: 0.75%;
-  box-sizing: border-box;
-  border-radius: 0px 10px 0px 0px;
+  flex: 0 0 10%;
+  font-size: 1.4em;
+  padding: 0.4em;
   background-color: whitesmoke;
+  border-radius: 0px 10px 0px 0px;
 }
 
-.areader-title::placeholder {
-  font-size: 150%;
-}
-
-.areader-text {
-  height: 90%;
-  width: 100%;
+.areader-text-container {
+  flex: 0 1 auto;
   overflow-y: scroll;
-  resize: none;
-  box-sizing: border-box;
   background-color: whitesmoke;
   scrollbar-color: #544380 whitesmoke;
+}
+
+::ng-deep .areader-text-container p {
+  display: block;
+  flex: 0 0 auto;
+  min-height: auto;
+  height: auto;
+  margin: 0.4em 0;
+  padding: 0.4em;
+  line-height: 1.4;
 }
 
 .areader-footer {

@@ -84,15 +84,23 @@
     gap: 0.35em;
 }
 
-.new-user-picture-card {
-    flex: 0 0 auto;
-    height: 100%;
-    width: 50%;
-    display: flex;
-    align-content: center;
-    justify-content: center;
-    box-sizing: border-box;
-    background-color: whitesmoke;
+.new-user-picture {
+  flex: 0 0 auto;
+  height: 50%;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  box-sizing: border-box;
+  background-color: whitesmoke;
+}
+
+.new-user-picture img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  box-sizing: border-box;
+  background-color: whitesmoke;
 }
 
 .new-user-journal-description {

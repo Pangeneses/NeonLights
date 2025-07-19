@@ -1,10 +1,10 @@
-<div class="anav-container">
+<div class="fnav-container">
     
     <!-- Left Panel: Filters & Results -->
-    <div class="anav-card">
+    <div class="fnav-card">
 
         <!-- Category Dropdown -->
-        <select class="anav-category" [(ngModel)]="selectedCategory" (change)="fetchArticles()">
+        <select class="fnav-category" [(ngModel)]="selectedCategory" (change)="fetchThreads()">
           @for (category of categoryOptions; track categoryTrackFn($index, category)) {
             <option [value]="category.value">
               {{ category.label }}
@@ -17,32 +17,31 @@
 
         <!-- Hashtag Input -->
         <input
-            class="anav-hashtags"
+            class="fnav-hashtags"
             type="text"
             [(ngModel)]="hashtags"
             (input)="formatHashtags()"
             placeholder="#hashtags" />
 
         <input
-            class="anav-user-regex"
+            class="fnav-user-regex"
             type="text"
             [(ngModel)]="userRegex"
             (input)="searchByRegex()"
             placeholder="Search Users by Regex." />
 
-        <div class="anav-user-list">
+        <div class="fnav-user-list">
             
             @for (user of filteredUsers; track userTrackFn($index, user)) {
 
                 <div
-                    class="anav-user-item"
+                    class="fnav-user-item"
                     (click)="selectUser(user.UserName)"
                     [class.selected]="user.UserName === selectedUser">
                         {{ user.UserName }}
                 </div>
             }
             @empty {
-
                 <div>No users found.</div>
             }
 
@@ -50,22 +49,22 @@
 
     </div>
 
-    <div class="anav-datepicker-card">
+    <div class="fnav-datepicker-card">
 
-        <div class="anav-datepicker-title">Article's From Date Range</div>
+        <div class="fnav-datepicker-title">Thread's From Date Range</div>
 
-        <mat-form-field appearance="outline" floatLabel="always" class="anav-datepicker">
+        <mat-form-field appearance="outline" floatLabel="always" class="fnav-datepicker">
             
-            <mat-date-range-input name="dateRange" class="anav-date-range-input">
+            <mat-date-range-input name="dateRange" class="fnav-date-range-input">
               <input 
                 name="startDate"
-                class="anav-date-input" 
+                class="fnav-date-input" 
                 matStartDate 
                 placeholder="Start Date" 
                 [(ngModel)]="dateRange.start"/>
               <input 
                 name="endDate"
-                class="anav-date-input" 
+                class="fnav-date-input" 
                 matEndDate 
                 placeholder="End Date" 
                 [(ngModel)]="dateRange.end"/>
@@ -73,7 +72,7 @@
 
             @if (calendarVisible) {
               <mat-calendar
-                class="anav-mat-calendar"
+                class="fnav-mat-calendar"
                 [startAt]="dateSelected"
                 [selected]="dateRange.start"
                 (selectedChange)="onCalendarDateSelect($event)"

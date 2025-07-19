@@ -6,6 +6,10 @@
     width: 100%;
 }
 
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
 .header-banner {
     position: absolute;
     overflow: hidden;
@@ -84,10 +88,8 @@
 }
 
 .header-navigation-ico {
-    flex: 0 0 auto;
-    width: 1.75em;
+    flex: 0 0 1.75em;
     padding: 0.25em;
-    box-sizing: border-box;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -101,7 +103,7 @@
 }
 
 .header-navigation-text {
-    flex: 0 0 75%;
+    flex: 1 1 auto;
     font-size: 1.25em;
     font-weight: 400;
     display: flex;

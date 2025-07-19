@@ -1,20 +1,29 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
+import { ListedUserService, ListedUser } from '../usersService/users.service';
+
 import { SERVER_URI } from '../../../../environment';
-import { ImageService } from '../imageService/image.service';
 
 export interface Article {
-  _id:            string;               
-  Title:          string;
-  Author:         string;            
-  UserName:       string;         
-  Content:        string;
-  PublishedDate:  string;     
-  Category:       number;          
-  Tags:           string[];            
+  ArticleID:       string;
+  AuthorID: string | { _id: string, UserName: string }               
+  ArticleTitle:    string;         
+  ArticleBody:     string;
+  ArticleImage:    string;
+  ArticleDate:     string;     
+  ArticleCategory: EnumArticleCategory;          
+  ArticleHashtags: string[];            
+}
+
+export interface ArticleWithUserName extends Article {
+  AuthorName?: string;
+}
+
+export interface ArticlesResponse {
+  Articles: Article[];
 }
 
 @Injectable({
@@ -28,7 +37,8 @@ export class ArticleService {
 
   constructor(
     private http: HttpClient,
-    private imageService: ImageService) {
+    private userService: ListedUserService,
+    private fb: FormBuilder) {
 
     const savedArticles = localStorage.getItem('articles');
 
@@ -44,45 +54,47 @@ export class ArticleService {
 
   }
 
+  getListedUsers(): ListedUser[] {
+    
+    return this.userService.getUsers();
+
+  }
+
   createArticleForm(): FormGroup {
 
-    const fb = new FormBuilder();
-
-    return fb.group({
-      ID: [''],
-      Title: ['', { validators: [Validators.pattern("^$|^[a-zA-Z0-9-# ]+$")], updateOn: 'blur' }],
-      Author: ['', { validators: [Validators.required] }],
-      Content: ['', { validators: [Validators.pattern("^$|^[a-zA-Z0-9-# ]+$")], updateOn: 'blur' }],
-      PublishedDate: ['', { validators: [Validators.pattern('^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/(19|20)\d{2}$')], updateOn: 'blur' }],
-      Category: [''],
-      Tags: [[]]
+    return this.fb.group({
+      ArticleID:        [''],
+      AuthorID:         [''],
+      ArticleTitle:     ['', { validators: [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9.\\- ]+$')], updateOn: 'blur' }],
+      ArticleBody:      ['', { validators: [Validators.required, Validators.minLength(500)], updateOn: 'blur' }],
+      ArticleImage:     [''],
+      ArticleDate:      ['', { validators: [Validators.pattern(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/)], updateOn: 'blur' }],
+      ArticleCategory:  [EnumArticleCategory.Unspecified],
+      ArticleHashtags:  [[]]
     });
 
   }
 
   toForm(article: any): FormGroup {
 
-    const fb = new FormBuilder();
-
-    return fb.group({
-      ID: [article.ID],
-      Title: [article.Title],
-      Author: [article.Author],
-      Content: [article.Content],
-      PublishedDate: [article.PublishedDate],
-      Category: [article.Category],
-      Tags: [article.Tags || []]
+    return this.fb.group({
+      ArticleID:        [article.ArticleID],
+      AuthorID:         [article.AuthorID],
+      ArticleTitle:     [article.ArticleTitle],
+      ArticleBody:      [article.ArticleBody],
+      ArticleImage:     [article.ArticleImage],
+      ArticleDate:      [article.ArticleDate],
+      ArticleCategory:  [article.ArticleCategory],
+      ArticleHashtags:  [article.ArticleHashtags || []]
     });
 
   }
 
   toFormArray(articles: any[]): FormArray {
 
-    const fb = new FormBuilder();
-
     const formGroups = articles.map(article => this.toForm(article));
 
-    return fb.array(formGroups);
+    return this.fb.array(formGroups);
 
   }
 
@@ -96,11 +108,9 @@ export class ArticleService {
 
   clearArticles() {
 
-    const fb = new FormBuilder();
-
     localStorage.removeItem('articles');
 
-    this.articlesSubject.next(fb.array([]));
+    this.articlesSubject.next(this.fb.array([]));
 
   }
 
@@ -110,44 +120,140 @@ export class ArticleService {
 
   }
 
-  getArticles(options: {
-    category?: string;
-    username?: string;
-    hashtags?: string[];
+  postArticle(articleData: Article): Observable<any> {
+    
+    return this.http.post(`${SERVER_URI}/api/articles`, articleData);
+
+  }
+
+  fetchArticleChunk(options: {
+    limit: number;
+    lastId?: string;
+    direction?: 'up' | 'down';
+    AuthorID?: string | string[];
+    ArticleCategory?: EnumArticleCategory;
+    ArticleHashtags?: string[];
     fromDate?: string;
     toDate?: string;
-  }): Observable<Article[]> {
-    
-    const params: any = {};
+  }): Observable<boolean> {
 
-    if (options.category !== undefined && options.category !== null) {
-      params.category = options.category;
+    let params = new HttpParams().set('limit', options.limit.toString());
+
+    if (options.lastId) {
+
+      params = params.set('lastId', options.lastId);
+
     }
 
-    if (options.username) {
-      params.username = options.username;
+    if (options.direction) {
+
+      params = params.set('direction', options.direction);
+
     }
 
-    if (options.hashtags && options.hashtags.length > 0) {
-      params.hashtags = options.hashtags.join(',');
+    if (Array.isArray(options.AuthorID)) {
+
+      for (const id of options.AuthorID) {
+
+        if (id.trim()) {
+
+          params = params.append('AuthorID', id.trim());
+
+        }
+
+      }
+
+    } else if (typeof options.AuthorID === 'string' && options.AuthorID.trim()) {
+
+      params = params.set('AuthorID', options.AuthorID.trim());
+
     }
 
-    if (options.fromDate) {
-      params.from = options.fromDate;
+    if (options.ArticleCategory && options.ArticleCategory !== EnumArticleCategory.Unspecified) {
+
+      params = params.set('ArticleCategory', options.ArticleCategory.replace(/[\s_]/g, ''));
+
     }
 
-    if (options.toDate) {
-      params.to = options.toDate;
+    if (options.ArticleHashtags?.length) {
+
+      for (const tag of options.ArticleHashtags) {
+
+        if (tag.trim()) {
+
+          params = params.append('ArticleHashtags', tag.trim());
+
+        }
+
+      }
+
     }
 
-    return this.http.get<Article[]>(`${SERVER_URI}/articles`, { params });
+    if (options.fromDate && !isNaN(Date.parse(options.fromDate))) {
+
+      params = params.set('from', new Date(options.fromDate).toISOString());
+
+    }
+
+    if (options.toDate && !isNaN(Date.parse(options.toDate))) {
+
+      params = params.set('to', new Date(options.toDate).toISOString());
+
+    }
+
+    console.log(params.keys().map(key => `${key}=${params.getAll(key)?.join(',')}`).join('&'));
+
+    return this.http.get<Article[]>(`${SERVER_URI}/api/articles/chunk`, { params }).pipe(      
+      switchMap((response: any) => {
+
+        console.log('Response from /chunk:', response);
+      
+        const articles = Array.isArray(response) ? response : response.Articles;
+      
+        if (!Array.isArray(articles)) {
+
+          throw new Error('Expected articles to be an array');
+
+        }
+      
+        const currentFormArray = (this.getCurrentArticles() as FormArray<FormGroup>) ?? this.fb.array([]);
+
+        const newForms = this.toFormArray(articles) as FormArray<FormGroup>;
+      
+        newForms.controls.forEach((control: FormGroup) => {
+
+          currentFormArray.push(control);
+
+        });
+      
+        this.setArticles(currentFormArray);
+      
+        return [articles.length > 0];
+        
+      })
+
+    );
+
+  }
+
+  getArticleByID(articleID: string): FormGroup | null {
+
+    const articlesFormArray = this.articlesSubject.value;
+
+    if (!articlesFormArray) return null;
+
+    const found = articlesFormArray.controls.find(ctrl => 
+      (ctrl as FormGroup).get('ArticleID')?.value === articleID
+    );
+
+    return found ? (found as FormGroup) : null;
 
   }
 
 }
 
-export enum EnumArticleCatagory {
-  Any = 'Any',
+export enum EnumArticleCategory {
+  Unspecified = 'Unspecified',
   RedDragonSociety = 'Red Dragon Society',
   PoliticalSci = 'Political Science',
   SocialSci = 'Social Science',

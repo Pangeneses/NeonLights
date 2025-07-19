@@ -1,8 +1,8 @@
 <div class="aindex-container">
-    
+
     <app-component-header class="aindex-header"></app-component-header>
-  
-    <article-component-anav/>
+
+    <article-component-anav class="aindex-nav" (filtersChanged)="onFiltersChanged($event)" />
 
     <div class="aindex-list-card">
 
@@ -11,11 +11,30 @@
         </div>
 
         <div class="aindex-listed-container">
-
+            @for (article of allArticles(); track articleTrackFn($index, article)) {
+            <div class="aindex-article-card" (click)="readArticle(article.ArticleID)">
+                <div class="article-content">
+                    <div class="article-title" [innerHTML]="article.ArticleTitle"></div>
+                    <div class="article-body" [innerHTML]="article.ArticleBody"></div>
+                    <div class="article-footer">
+                        <div class="article-author">{{ article.AuthorName }}</div>
+                        <div class="article-date">{{ article.ArticleDate.slice(0, 10) }}</div>
+                        <div class="article-category">{{ article.ArticleCategory }}</div>
+                    </div>
+                    <div class="article-hashtags">{{ article.ArticleHashtags.join(' ') }}</div>
+                </div>
+                <img class="article-image" [src]="SERVER_URI + '/images/' + article.ArticleImage" alt="Article Image" />
+            </div>
+            }
+            @empty {
+            <div class="article-card">
+                <div class="article-title">No articles found.</div>
+            </div>
+            }
         </div>
-        
+
     </div>
 
-  <app-component-footer class="aindex-footer"></app-component-footer>
+    <app-component-footer class="aindex-footer"></app-component-footer>
 
 </div>

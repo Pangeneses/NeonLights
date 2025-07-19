@@ -7,10 +7,10 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { ListedUserService, ListedUser } from '../../services/usersService/users.service';
-import { EnumArticleCategory } from '../../services/articleService/article.service';
+import { EnumForumCategory } from '../../services/threadService/thread.service';
 
 @Component({
-  selector: 'article-component-anav',
+  selector: 'thread-component-fnav',
   standalone: true,
   imports: [
     MatDatepickerModule,
@@ -21,28 +21,28 @@ import { EnumArticleCategory } from '../../services/articleService/article.servi
     ReactiveFormsModule,
     FormsModule
   ],
-  templateUrl: './anav.component.html',
-  styleUrls: ['./anav.component.scss'],
+  templateUrl: './fnav.component.html',
+  styleUrls: ['./fnav.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class ANavComponent implements OnInit {
+export class FNavComponent implements OnInit {
 
   @Output() filtersChanged = new EventEmitter<{
     AuthorID?: string;
-    ArticleCategory?: EnumArticleCategory;
-    ArticleHashtags?: string[];
+    ThreadCategory?: EnumForumCategory;
+    ThreadHashtags?: string[];
     fromDate?: string;
     toDate?: string;
   }>();
 
-  categoryTrackFn(index: number, category: { label: string, value: EnumArticleCategory }): string { return category.value; }
+  categoryTrackFn(index: number, category: { label: string, value: EnumForumCategory }): string { return category.value; }
 
-  EnumArticleCategory = EnumArticleCategory;
-  categoryOptions = Object.values(EnumArticleCategory).map(value => ({
+  EnumForumCategory = EnumForumCategory;
+  categoryOptions = Object.values(EnumForumCategory).map(value => ({
     label: value,
     value: value
   }));
-  selectedCategory: EnumArticleCategory = EnumArticleCategory.Unspecified;
+  selectedCategory: EnumForumCategory = EnumForumCategory.Unspecified;
   
   hashtags = '';
   selectedUser = '';
@@ -68,17 +68,17 @@ export class ANavComponent implements OnInit {
 
       this.filteredUsers = [...this.allUsers];
 
-      this.fetchArticles();
+      this.fetchThreads();
     
     });
 
   }
 
-  onCategoryChange(category: EnumArticleCategory) {
+  onCategoryChange(category: EnumForumCategory) {
 
     this.selectedCategory = category;
 
-    this.fetchArticles();
+    this.fetchThreads();
 
   }
 
@@ -90,7 +90,7 @@ export class ANavComponent implements OnInit {
       .map(tag => tag.replace(/[^#a-zA-Z0-9]/g, ''))
       .join(' ');
 
-    this.fetchArticles();
+    this.fetchThreads();
 
   }
 
@@ -136,7 +136,7 @@ export class ANavComponent implements OnInit {
 
     this.selectedUser = username;
 
-    this.fetchArticles();
+    this.fetchThreads();
 
   }
 
@@ -176,7 +176,7 @@ export class ANavComponent implements OnInit {
             
       setTimeout(() => this.calendarVisible = true);
 
-      this.fetchArticles();
+      this.fetchThreads();
 
     } else {
 
@@ -214,7 +214,7 @@ export class ANavComponent implements OnInit {
 
   private fetchTimer: any;
 
-  fetchArticles() {
+  fetchThreads() {
 
     clearTimeout(this.fetchTimer);
 
@@ -234,8 +234,8 @@ export class ANavComponent implements OnInit {
 
       this.filtersChanged.emit({
         AuthorID: authorId || undefined,
-        ArticleCategory: this.selectedCategory !== EnumArticleCategory.Unspecified ? this.selectedCategory : undefined,
-        ArticleHashtags: tagList.length > 0 ? tagList : undefined,
+        ThreadCategory: this.selectedCategory !== EnumForumCategory.Unspecified ? this.selectedCategory : undefined,
+        ThreadHashtags: tagList.length > 0 ? tagList : undefined,
         fromDate,
         toDate
       });

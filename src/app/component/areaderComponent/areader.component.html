@@ -2,39 +2,44 @@
 
     <app-component-header class="areader-header"></app-component-header>
 
-    <div class="areader">
+    <div class="areader-card">
 
-        <div class="areader-card">
+        <div class="areader-confirm">
 
-            <div class="areader-confirm">
+            <button class="areader-confirm-close" mat-icon-button [routerLink]="['/aindex']" routerLinkActive="active">
+                <mat-icon>close</mat-icon>
+            </button>
 
-                <button class="areader-confirm-close" mat-icon-button [routerLink]="['/aindex']" routerLinkActive="active">
-                    <mat-icon>close</mat-icon>
-                </button>
+        </div>
 
+        <div class="areader-journal-info">
+
+            <img class="areader-image" [src]="SERVER_URI + '/images/' + article?.ArticleImage" alt="Article Image" />
+            
+            <div class="areader-details">
+                <p>Author: {{ article?.AuthorUser?.FirstName }} {{ article?.AuthorUser?.LastName }}</p>
+                <p>Date: {{ article?.ArticleDate.slice(0, 10) }}</p>
+                <p>Details: {{ article?.AuthorUser?.JournalDesc }}</p>
             </div>
 
-            <div class="areader-journal-info">
-
-                <div class="areader-image"></div>
-
-                <div class="areader-details">
-                    <p>Author: Entangled-Logic Alpha</p>
-                    <p>Date: April 6th, 2025</p>
-                    <p>Details: A journal about Political Science, Economics, and Philosophy with occasional entries
-                        about culture and crafting.</p>
-                </div>
-
+            <div class="areader-category">
+                <p>Category: {{ article?.ArticleCategory }}</p>
             </div>
 
-            <div class="areader-content">
-
-                <textarea class="areader-title" placeholder="WELCOME TO THE RED DRAGON SOCIETY"></textarea>
-
-                <textarea class="areader-text"></textarea>
-
+            <div class="areader-hashtags">
+              @if (article?.ArticleHashtags?.length > 0) {
+                <p>{{ article.ArticleHashtags.join(', ') }}</p>
+              }
             </div>
 
+        </div>
+
+        <div class="areader-content">
+
+            <div class="areader-title" [innerHTML]="article?.ArticleTitle"></div>
+            
+            <div class="areader-text-container" [innerHTML]="article?.ArticleBody"></div>
+        
         </div>
 
     </div>

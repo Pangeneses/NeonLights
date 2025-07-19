@@ -44,9 +44,6 @@ export class NewUserComponent implements OnInit {
 
   }
 
-  avatarFile: File | null = null;
-  avatarURL = './camera.webp';
-
   @Output() notify = new EventEmitter<void>();
 
   onSave() {
@@ -75,6 +72,9 @@ export class NewUserComponent implements OnInit {
     this.notify.emit();
 
   }
+
+  avatarFile: File | null = null;
+  avatarURL = './camera.webp';
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 

@@ -6,6 +6,12 @@
   width: 100%;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .fnew-header {
   position: absolute;
   top: 0%;
@@ -14,94 +20,203 @@
   width: 100%;
 }
 
-.fnew {
-  position: absolute;
-  top: 30%;
-  height: 65%;
-  left: 0%;
-  width: 100%;
-}
-
 .fnew-card {
   position: absolute;
-  top: 0%;
-  height: 92%;
+  top: 30%;
+  height: 62%;
   left: 10%;
   width: 80%;
   padding: .4em;
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
-  gap: 0.35em;
-  background-color: #544380;
+  gap: 0.3em;
   border-radius: 10px 10px 0px 10px;
+  background-color: #544380;
 }
 
 .fnew-confirm {
-  flex: 0 0 auto;
-  height: 100%;
-  width: 3%;
+  flex: 0 0 3%;
   display: flex;
   flex-direction: column;
   gap: 0.3em;
+  border-radius: 10px 10px 0px 0px;
 }
 
 .fnew-confirm-accept {
-  flex: 0 0 auto;
-  height: 100%;
-  width: 100%;
+  flex: 1;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   background-color: whitesmoke;
   border-radius: 10px 0px 0px 0px;
 }
 
 .fnew-confirm-reject {
-  flex: 0 0 auto;
-  height: 100%;
-  width: 100%;
+  flex: 1;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   background-color: whitesmoke;
   border-radius: 0px 0px 0px 10px;
 }
 
-.fnew-content {
-  flex: 0 0 auto;
-  height: 100%;
-  width: 97%;
+.fnew-journal-info {
+  flex: 0 0 25%;
   display: flex;
   flex-direction: column;
+  gap: 0.3em;
+  border-radius: 0px 0px 0px 0px;
+}
+
+.fnew-image {
+  flex: 0 0 18.23%;
+  max-width: 100%;
+}
+
+.fnew-details {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+}
+
+.fnew-details p {
+  flex: 0 0 15%;
+  font-size: 1em;
+  padding: .4em;
+  text-wrap: wrap;
+}
+
+.fnew-category {
+  flex: 0 0 8.4%;
+  font-size: 1em;
+  padding-top: 0.4em;
+  padding: 0.25em;
+  background-color: whitesmoke;
+}
+
+.fnew-hashtags {
+  flex: 0 0 8.4%;
+  font-size: 1em;
+  padding-top: 0.4em;
+  padding: 0.25em;
+  background-color: whitesmoke;
+  border: whitesmoke;
+}
+
+.fnew-content {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   gap: 0.3em;
 }
 
 .fnew-title {
-  flex: 0 0 auto;
-  height: 10%;
-  width: 100%;
+  flex: 0 0 8%;
+  font-size: 1.2em;
+  padding: 0.3em;
+  padding-left: 0.45em;
+  resize: none;
   background-color: whitesmoke;
   border-radius: 0px 10px 0px 0px;
 }
 
-.fnew-title p {
-  font-size: 1.5em;
+.fnew-title::placeholder {
+  font-size: 1.2em;
   display: flex;
   align-items: center;
-  padding-left: 0.5em;
-  box-sizing: border-box;
+}
+
+.fnew-text-container {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+  overflow: visible;
 }
 
 .fnew-text {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: visible;
+}
+
+.fnew-text ::ng-deep .ql-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 0.25em;
+  border: none;
+  height: auto;
+  max-height: 100%;
+  overflow: visible;
+  position: relative;
+}
+
+.fnew-text ::ng-deep .ql-toolbar .ql-formats {
+  margin: 0.125em;
+}
+
+.fnew-text ::ng-deep .ql-toolbar span {
+  line-height: 1.2em;
+  height: auto;
+}
+
+.fnew-text ::ng-deep .ql-toolbar .ql-picker {
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.fnew-text ::ng-deep .ql-toolbar .ql-picker-label {
+  padding: 0.2em 0.5em;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  white-space: nowrap;
+}
+
+.fnew-text ::ng-deep .ql-toolbar .ql-picker-options {
+  display: none;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  white-space: normal;
+  padding: 0.25em 0;
+}
+
+.fnew-text ::ng-deep .ql-toolbar .ql-picker.ql-expanded .ql-picker-options {
+  display: block; /* shown when label clicked */
+}
+
+.fnew-text ::ng-deep .ql-container {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  min-height: 0;
+}
+
+.fnew-text ::ng-deep .ql-editor {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 0.5em;
+  min-height: 0;
+}
+
+.fnew-text ::ng-deep .ql-editor div {
+  display: block;
   flex: 0 0 auto;
-  height: 90%;
-  width: 99.5%;
-  resize: none;
-  overflow-y: scroll;
-  text-wrap: wrap;
-  background-color: whitesmoke;
-  scrollbar-color: #544380 whitesmoke;
+  min-height: auto;
+  height: auto;
+  margin: 0.4em 0;
+  padding: 0;
+  line-height: 1.4;
 }
 
 .fnew-footer {

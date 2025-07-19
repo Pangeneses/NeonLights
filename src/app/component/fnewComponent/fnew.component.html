@@ -1,37 +1,74 @@
 <div class="fnew-container">
 
-  <app-component-header class="fnew-header"></app-component-header>
-     
-  <div class="fnew">
+    <app-component-header class="fnew-header"></app-component-header>
 
     <div class="fnew-card">
 
         <div class="fnew-confirm">
 
-            <div class="fnew-confirm-accept">
+            <div class="fnew-confirm-accept" (click)="submitThread()">
                 <mat-icon>save</mat-icon>
             </div>
 
-            <div class="fnew-confirm-reject" [routerLink]="['/findex']" routerLinkActive="active">
+            <div class="fnew-confirm-reject" [routerLink]="['/aindex']" routerLinkActive="active">
                 <mat-icon>delete</mat-icon>
             </div>
 
         </div>
 
-        <div class="fnew-content">
+        <div class="fnew-journal-info">
+                 
+            <img class="fnew-image" [src]="this.pictureURL"  (click)="this.onFileSelectTriggered()">
+            <input 
+                type="file" 
+                #fileInput 
+                (change)="this.onFileSelected($event)" 
+                accept=".jpg,.webp" 
+                style="display: none"/>
 
-            <div class="fnew-title">
-                <p>WELCOME TO THE RED DRAGON SOCIETY</p>
+            <div class="fnew-details">
+                <p>Author: {{ form.get('FirstName')?.value }} {{ form.get('LastName')?.value }}</p>
+                <p>Date: {{ today | date:'longDate' }}</p>
+                <p>Details: {{ form.get('JournalDesc')?.value }}</p>
             </div>
+            
+            <!-- Category Dropdown -->
+            <select class="fnew-category" [(ngModel)]="selectedCategory">
+              <option *ngFor="let cat of categoryOptions" [value]="cat.value">
+                {{ cat.label }}
+              </option>
+            </select>
 
-            <textarea class="fnew-text"></textarea>
+            <input 
+                type="text" 
+                class="fnew-hashtags" 
+                [(ngModel)]="hashtagInput" 
+                placeholder="up to 5 #hashtags"
+                (input)="onHashtagInput($event)"
+                (keydown)="onHashtagKeyDown($event)"/>
 
         </div>
-    
+
+        <div class="fnew-content">
+
+            <textarea class="fnew-title" placeholder="ARTICLE TITLE" [(ngModel)]="threadTitle"></textarea>
+            
+            <div class="fnew-text-container">
+                
+                <quill-editor
+                    class="fnew-text"
+                    [(ngModel)]="richTextContent"
+                    [styles]="{ height: '100%' }"
+                    [modules]="quillModules"
+                    theme="snow">
+                </quill-editor> 
+
+            </div>           
+
+        </div>
+
     </div>
 
-  </div>
-
-  <app-component-footer class="fnew-footer"></app-component-footer>
+    <app-component-footer class="fnew-footer"></app-component-footer>
 
 </div>
