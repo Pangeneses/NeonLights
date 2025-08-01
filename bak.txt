@@ -1,0 +1,120 @@
+
+.anav-datepicker-card {
+  position: absolute;
+  height: 94%;
+  right: 2%;
+  width: 20%;
+  padding: 0.4em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+  background-color: #544380;
+  border-radius: 10px;
+}
+
+.anav-datepicker-title {
+  flex: 1 1 10%;
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: whitesmoke;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.anav-date-range-input {
+  width: 100% !important;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.anav-datepicker .mdc-form-field-outline,
+.anav-datepicker .mdc-notched-outline {
+  display: none !important;
+}
+
+.anav-datepicker .mdc-text-field-wrapper {
+  padding: 0 !important;
+  border: none !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.anav-datepicker {
+  width: 100%;
+  height: 87%;
+  background-color: whitesmoke;
+  border-radius: 0px 0px 10px 10px;
+}
+
+.anav-datepicker .mat-form-field {
+  width: 100%;
+}
+
+.anav-datepicker input {
+  flex: 0 0 auto;
+  font-size: 14px;
+  padding: 0.35em;
+  border: none;
+  outline: none;
+  color: black;
+  background: transparent;
+}
+
+.anav-datepicker button {
+  color: black;
+}
+
+.anav-mat-calendar {
+  padding: 0.4em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4em;
+}
+
+.anav-mat-calendar .mat-calendar-table-header th {
+  color: black !important;
+}
+
+.anav-mat-calendar .mat-calendar-period-button {
+  color: black !important;
+}
+
+.anav-mat-calendar .mat-calendar-period-button .mdc-button__label {
+  color: black !important;
+}
+
+.anav-mat-calendar .mat-calendar-period-button .mat-calendar-arrow {
+  color: black !important;
+  fill: black !important;
+}
+
+.anav-mat-calendar .mat-calendar-body-cell.mat-calendar-body-active .mat-calendar-body-cell-content {
+  background-color: transparent !important;
+  color: inherit !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.anav-mat-calendar .mat-calendar-body-cell.date-start .mat-calendar-body-cell-content {
+  background-color: #ff4081 !important;
+  color: white !important;
+  border-radius: 50%;
+}
+
+.anav-mat-calendar .mat-calendar-body-cell.date-end .mat-calendar-body-cell-content {
+  background-color: #ff4081 !important;
+  color: white !important;
+  border-radius: 50%;
+}
+
+.anav-mat-calendar .mat-calendar-body-cell.date-range-middle .mat-calendar-body-cell-content {
+  background-color: #ffb0c8 !important;
+  color: black !important;
+  border-radius: 0;
+}
+
+.anav-mat-calendar .mat-calendar-period-button {
+  color: black !important;
+}

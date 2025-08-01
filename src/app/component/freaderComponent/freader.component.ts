@@ -6,17 +6,8 @@ import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'forum-component-freader',
-  imports: [
-    HeaderComponent,
-    FooterComponent,
-    RouterLink,
-    RouterLinkActive,
-    MatIcon],
+  imports: [HeaderComponent, FooterComponent, RouterLink, RouterLinkActive, MatIcon],
   templateUrl: './freader.component.html',
-  styleUrl: './freader.component.scss'
+  styleUrl: './freader.component.scss',
 })
-export class FReaderComponent {
-
-
-
-}
+export class FReaderComponent {}

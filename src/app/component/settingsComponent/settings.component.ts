@@ -5,22 +5,16 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-component-settings',
   imports: [MatIconModule],
   templateUrl: './settings.component.html',
-  styleUrl: './settings.component.scss'
+  styleUrl: './settings.component.scss',
 })
 export class SettingsComponent implements OnInit {
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    
-  }
-    
   constructor() {}
 
   @Output() notify = new EventEmitter<void>();
 
   onClose() {
-
     this.notify.emit();
-
   }
-
 }

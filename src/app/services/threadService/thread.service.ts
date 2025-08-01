@@ -1,25 +1,22 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
-
-import { ListedUserService, ListedUser } from '../usersService/users.service';
 
 import { SERVER_URI } from '../../../../environment';
 
 export interface Thread {
-  ThreadID:       string;
-  AuthorID: string | { _id: string, UserName: string }               
-  ThreadTitle:    string;         
-  ThreadBody:     string;
-  ThreadImage:    string;
-  ThreadDate:     string;     
-  ThreadCategory: EnumForumCategory;          
-  ThreadHashtags: string[];            
+  ThreadID: string;
+  ThreadUserID: string;
+  ThreadTitle: string;
+  ThreadBody: string;
+  ThreadImage: string;
+  ThreadDate: string;
+  ThreadCategory: EnumForumCategory;
+  ThreadHashtags: string[];
 }
 
-export interface ThreadWithUserName extends Thread {
-  AuthorName?: string;
+export interface ThreadExtended extends Thread {
+  ThreadUserName: string;
 }
 
 export interface ThreadsResponse {
@@ -31,78 +28,58 @@ export interface ThreadsResponse {
 })
 export class ThreadService {
 
-  private threadsSubject = new BehaviorSubject<FormArray | null>(null);
+  private threadsSubject = new BehaviorSubject<ThreadExtended[]>([]);
+  public threads$ = this.threadsSubject.asObservable();
 
-  public threads$: Observable<FormArray | null> = this.threadsSubject.asObservable();
-
-  constructor(
-    private http: HttpClient,
-    private userService: ListedUserService,
-    private fb: FormBuilder) {
+  constructor(private http: HttpClient) {
 
     const savedThreads = localStorage.getItem('threads');
 
     if (savedThreads) {
 
-      const data = JSON.parse(savedThreads);
+      try {
 
-      const threadsFormArray = this.toFormArray(data);
+        const data = JSON.parse(savedThreads);
 
-      this.threadsSubject.next(threadsFormArray);
+        const threadsArray: ThreadExtended[] = Array.isArray(data)
+          ? data.map((item: any) => this.normalizeThread(item))
+          : [];
+
+        this.threadsSubject.next(threadsArray);
+
+      } catch (err) {
+
+        console.error('Failed to parse saved threads:', err);
+
+        this.threadsSubject.next([]);
+
+      }
 
     }
 
   }
 
-  getListedUsers(): ListedUser[] {
-    
-    return this.userService.getUsers();
+  private normalizeThread(data: any): ThreadExtended {
+
+    return {
+      ThreadID: data.ThreadID ?? '',
+      ThreadUserID: data.ThreadUserID ?? '',
+      ThreadUserName: data.ThreadUserName ?? '',
+      ThreadTitle: data.ThreadTitle ?? '',
+      ThreadBody: data.ThreadBody ?? '',
+      ThreadImage: data.ThreadImage ?? '',
+      ThreadDate: data.ThreadDate ?? new Date().toISOString(),
+      ThreadCategory: data.ThreadCategory ?? EnumForumCategory.Unspecified,
+      ThreadHashtags: Array.isArray(data.ThreadHashtags) ? data.ThreadHashtags : [],
+    };
 
   }
 
-  createThreadForm(): FormGroup {
+  setThreads(threadsArray: ThreadExtended[]) {
 
-    return this.fb.group({
-      ThreadID:        [''],
-      AuthorID:        [''],
-      ThreadTitle:     ['', { validators: [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9.\\- ]+$')], updateOn: 'blur' }],
-      ThreadBody:      ['', { validators: [Validators.required, Validators.minLength(500)], updateOn: 'blur' }],
-      ThreadImage:     [''],
-      ThreadDate:      ['', { validators: [Validators.pattern(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/)], updateOn: 'blur' }],
-      ThreadCategory:  [EnumForumCategory.Unspecified],
-      ThreadHashtags:  [[]]
-    });
+    localStorage.setItem('articles', JSON.stringify(threadsArray));
 
-  }
-
-  toForm(thread: any): FormGroup {
-
-    return this.fb.group({
-      ThreadID:        [thread.ThreadID],
-      AuthorID:        [thread.AuthorID],
-      ThreadTitle:     [thread.ThreadTitle],
-      ThreadBody:      [thread.ThreadBody],
-      ThreadImage:     [thread.ThreadImage],
-      ThreadDate:      [thread.ThreadDate],
-      ThreadCategory:  [thread.ThreadCategory],
-      ThreadHashtags:  [thread.ThreadHashtags || []]
-    });
-
-  }
-
-  toFormArray(threads: any[]): FormArray {
-
-    const formGroups = threads.map(thread => this.toForm(thread));
-
-    return this.fb.array(formGroups);
-
-  }
-
-  setThreads(formArray: FormArray) {
-
-    localStorage.setItem('threads', JSON.stringify(formArray.getRawValue()));
-
-    this.threadsSubject.next(formArray);
+    this.threadsSubject.next(threadsArray);
 
   }
 
@@ -110,143 +87,106 @@ export class ThreadService {
 
     localStorage.removeItem('threads');
 
-    this.threadsSubject.next(this.fb.array([]));
+    this.threadsSubject.next([]);
 
   }
 
-  getCurrentThreads(): FormArray | null {
+  getCurrentThreads(): ThreadExtended[] | null {
 
     return this.threadsSubject.value;
 
   }
 
-  postThread(threadData: Thread): Observable<any> {
-    
-    return this.http.post(`${SERVER_URI}/api/threads`, threadData);
+  getThreadByID(threadID: string): ThreadExtended | null {
+
+    const articles = this.getCurrentThreads();
+
+    return articles?.find((article) => article.ThreadID === threadID) ?? null;
 
   }
 
   fetchThreadChunk(options: {
     limit: number;
-    lastId?: string;
+    lastID?: string;
     direction?: 'up' | 'down';
-    AuthorID?: string | string[];
+    ThreadUserID?: string;
     ThreadCategory?: EnumForumCategory;
     ThreadHashtags?: string[];
-    fromDate?: string;
-    toDate?: string;
+    ThreadFrom?: string;
+    ThreadTo?: string;
   }): Observable<boolean> {
 
     let params = new HttpParams().set('limit', options.limit.toString());
 
-    if (options.lastId) {
+    if (options.lastID) params = params.set('lastID', options.lastID);
 
-      params = params.set('lastId', options.lastId);
+    if (options.direction) params = params.set('direction', options.direction);
 
-    }
-
-    if (options.direction) {
-
-      params = params.set('direction', options.direction);
-
-    }
-
-    if (Array.isArray(options.AuthorID)) {
-
-      for (const id of options.AuthorID) {
-
-        if (id.trim()) {
-
-          params = params.append('AuthorID', id.trim());
-
-        }
-
-      }
-
-    } else if (typeof options.AuthorID === 'string' && options.AuthorID.trim()) {
-
-      params = params.set('AuthorID', options.AuthorID.trim());
-
-    }
+    if (options.ThreadUserID) params = params.set('ThreadUserID', options.ThreadUserID);
 
     if (options.ThreadCategory && options.ThreadCategory !== EnumForumCategory.Unspecified) {
 
-      params = params.set('ThreadCategory', options.ThreadCategory.replace(/[\s_]/g, ''));
+      params = params.set('ThreadCategory', options.ThreadCategory.replace(/\s|_/g, ''));
 
     }
 
     if (options.ThreadHashtags?.length) {
 
-      for (const tag of options.ThreadHashtags) {
-
-        if (tag.trim()) {
-
-          params = params.append('ThreadHashtags', tag.trim());
-
-        }
-
-      }
+      options.ThreadHashtags.forEach((tag) => tag.trim() && (params = params.append('ThreadHashtags', tag.trim())));
 
     }
 
-    if (options.fromDate && !isNaN(Date.parse(options.fromDate))) {
+    if (options.ThreadFrom && !isNaN(Date.parse(options.ThreadFrom))) {
 
-      params = params.set('from', new Date(options.fromDate).toISOString());
-
-    }
-
-    if (options.toDate && !isNaN(Date.parse(options.toDate))) {
-
-      params = params.set('to', new Date(options.toDate).toISOString());
+      params = params.set('ThreadFrom', new Date(options.ThreadFrom).toISOString());
 
     }
 
-    console.log(params.keys().map(key => `${key}=${params.getAll(key)?.join(',')}`).join('&'));
+    if (options.ThreadTo && !isNaN(Date.parse(options.ThreadTo))) {
 
-    return this.http.get<Thread[]>(`${SERVER_URI}/api/threads/chunk`, { params }).pipe(      
+      params = params.set('ThreadTo', new Date(options.ThreadTo).toISOString());
+
+    }
+
+    return this.http.get<ThreadExtended[]>(`${SERVER_URI}/api/threads/chunk`, { params }).pipe(
       switchMap((response: any) => {
 
-        console.log('Response from /chunk:', response);
-      
         const threads = Array.isArray(response) ? response : response.Threads;
-      
+
         if (!Array.isArray(threads)) {
 
           throw new Error('Expected threads to be an array');
 
         }
-      
-        const currentFormArray = (this.getCurrentThreads() as FormArray<FormGroup>) ?? this.fb.array([]);
 
-        const newForms = this.toFormArray(threads) as FormArray<FormGroup>;
-      
-        newForms.controls.forEach((control: FormGroup) => {
+        const newArticles = Array.isArray(threads) ? threads.map(this.normalizeThread) : [];
 
-          currentFormArray.push(control);
+        console.log(newArticles);
 
-        });
-      
-        this.setThreads(currentFormArray);
-      
+        if (newArticles.length > 0) {
+
+          this.clearThreads();
+
+          this.setThreads(newArticles);
+
+        }
+        else {
+
+          //end of threads
+
+        }
+
         return [threads.length > 0];
-        
-      })
+
+      }),
 
     );
 
   }
 
-  getThreadByID(threadID: string): FormGroup | null {
+  postThread(threadData: Thread): Observable<any> {
 
-    const threadsFormArray = this.threadsSubject.value;
-
-    if (!threadsFormArray) return null;
-
-    const found = threadsFormArray.controls.find(ctrl => 
-      (ctrl as FormGroup).get('ThreadID')?.value === threadID
-    );
-
-    return found ? (found as FormGroup) : null;
+    return this.http.post(`${SERVER_URI}/api/threads`, threadData);
 
   }
 
@@ -288,5 +228,5 @@ export enum EnumForumCategory {
   Film = 'Film',
   TV = 'TV',
   Gaming = 'Gaming',
-  Sports = 'Sports'
+  Sports = 'Sports',
 }

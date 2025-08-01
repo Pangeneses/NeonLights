@@ -9,32 +9,23 @@ import { UserComponent } from '../userComponent/user.component';
 
 @Component({
   selector: 'app-component-header',
-  imports: [
-    NgIf,
-    MatIcon,
-    UserComponent,
-    MatIconModule],
+  imports: [NgIf, MatIcon, UserComponent, MatIconModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
 export class HeaderComponent implements OnInit {
-
   userForm: FormGroup | null = null;
-  
+
   usersName = '';
 
   constructor(
     private router: Router,
-    public userService: UserService) {
-
-  }
+    public userService: UserService,
+  ) {}
 
   ngOnInit(): void {
-
-    this.userService.currentUser$.subscribe(userForm => {
-
+    this.userService.currentUser$.subscribe((userForm) => {
       this.userForm = userForm;
-
     });
 
     const first = this.userForm?.get('FirstName')?.value || '';
@@ -44,45 +35,35 @@ export class HeaderComponent implements OnInit {
 
     if (this.router.url === '/headlines' || this.router.url === '') {
       this.isHome = true;
-    }
-    else {
+    } else {
       this.isHome = false;
     }
-
   }
 
   isHome = true;
 
   onNavigate001(): void {
-
     this.router.navigate(['/findex']);
 
     this.isHome = false;
-
   }
 
   onNavigate002(): void {
-
     this.router.navigate(['/aindex']);
 
     this.isHome = false;
-
   }
 
   onNavigate003(): void {
-
     this.router.navigate(['/featured']);
 
     this.isHome = false;
-
   }
 
   onNavigate004(): void {
-
     this.router.navigate(['/headlines']);
 
     this.isHome = true;
-
   }
 
   isHoverUser = false;
@@ -92,13 +73,10 @@ export class HeaderComponent implements OnInit {
   isUserForm = false;
 
   onUserForm(): void {
-
     this.isHoverUser = false;
 
     this.isHoverUserDropDown = false;
 
     this.isUserForm = !this.isUserForm;
-
   }
-
 }

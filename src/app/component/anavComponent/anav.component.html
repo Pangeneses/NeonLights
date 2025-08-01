@@ -1,88 +1,33 @@
 <div class="anav-container">
+
+  <!-- Left Panel: Filters & Results -->
+  <div class="anav-card">
+
+    <!-- Category Dropdown -->
+    <select class="anav-category" [(ngModel)]="selectedCategory" (change)="fetchArticles()">
+      @for (category of categoryOptions; track categoryTrackFn($index, category)) {
+        <option [value]="category.value">
+          {{ category.label }}
+        </option>
+      } @empty {
+        <option disabled>Unspecified</option>
+      }
+    </select>
+
+    <!-- Hashtag Input -->
+    <input
+      class="anav-hashtags"
+      type="text"
+      [(ngModel)]="hashtags"
+      (input)="formatHashtags()"
+      placeholder="#hashtags"
+    />
     
-    <!-- Left Panel: Filters & Results -->
-    <div class="anav-card">
+    <!-- User Regex -->
+    <app-component-users class="anav-user-selection" (userSelected)="onSelectedUserChange($event)" />
 
-        <!-- Category Dropdown -->
-        <select class="anav-category" [(ngModel)]="selectedCategory" (change)="fetchArticles()">
-          @for (category of categoryOptions; track categoryTrackFn($index, category)) {
-            <option [value]="category.value">
-              {{ category.label }}
-            </option>
-          }
-          @empty {
-            <option disabled>Unspecified</option>
-          }
-        </select>
+  </div>
 
-        <!-- Hashtag Input -->
-        <input
-            class="anav-hashtags"
-            type="text"
-            [(ngModel)]="hashtags"
-            (input)="formatHashtags()"
-            placeholder="#hashtags" />
-
-        <input
-            class="anav-user-regex"
-            type="text"
-            [(ngModel)]="userRegex"
-            (input)="searchByRegex()"
-            placeholder="Search Users by Regex." />
-
-        <div class="anav-user-list">
-            
-            @for (user of filteredUsers; track userTrackFn($index, user)) {
-
-                <div
-                    class="anav-user-item"
-                    (click)="selectUser(user.UserName)"
-                    [class.selected]="user.UserName === selectedUser">
-                        {{ user.UserName }}
-                </div>
-            }
-            @empty {
-
-                <div>No users found.</div>
-            }
-
-        </div>
-
-    </div>
-
-    <div class="anav-datepicker-card">
-
-        <div class="anav-datepicker-title">Article's From Date Range</div>
-
-        <mat-form-field appearance="outline" floatLabel="always" class="anav-datepicker">
-            
-            <mat-date-range-input name="dateRange" class="anav-date-range-input">
-              <input 
-                name="startDate"
-                class="anav-date-input" 
-                matStartDate 
-                placeholder="Start Date" 
-                [(ngModel)]="dateRange.start"/>
-              <input 
-                name="endDate"
-                class="anav-date-input" 
-                matEndDate 
-                placeholder="End Date" 
-                [(ngModel)]="dateRange.end"/>
-            </mat-date-range-input>
-
-            @if (calendarVisible) {
-              <mat-calendar
-                class="anav-mat-calendar"
-                [startAt]="dateSelected"
-                [selected]="dateRange.start"
-                (selectedChange)="onCalendarDateSelect($event)"
-                [dateClass]="dateClass">
-              </mat-calendar>
-            }
-
-        </mat-form-field>
-
-    </div>
+  <app-component-calendar class="anav-calendar"/>
 
 </div>

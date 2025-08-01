@@ -1,53 +1,53 @@
 .footer-container {
-    position: relative;
-    bottom: 0%;
-    height: 100%;
-    left: 0%;
-    width: 100%;
-    background-color: #544380;
+  position: relative;
+  bottom: 0%;
+  height: 100%;
+  left: 0%;
+  width: 100%;
+  background-color: #544380;
 }
 
 .footer-table {
-    position: absolute;
-    top: 0%;
-    height: 100%;
-    left: 5%;
-    width: 90%;
-    display: flex;
+  position: absolute;
+  top: 0%;
+  height: 100%;
+  left: 5%;
+  width: 90%;
+  display: flex;
 }
 
 .footer-table-cell {
-    flex: 1;
-    background-color: transparent;
-    border-color: transparent;
+  flex: 1;
+  background-color: transparent;
+  border-color: transparent;
 }
 
 .footer-table-text {
-    margin: 0;
-    font-size: 1.25em;
-    align-content: center;
-    justify-self: start;
-    cursor: pointer;
-    text-decoration: none;
+  margin: 0;
+  font-size: 1.25em;
+  align-content: center;
+  justify-self: start;
+  cursor: pointer;
+  text-decoration: none;
 }
 
 .footer-table-text:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .footer-table-text-copyright {
-    margin: 0;
-    font-size: 1.25em;
-    align-content: center;
-    justify-self: end;
+  margin: 0;
+  font-size: 1.25em;
+  align-content: center;
+  justify-self: end;
 }
 
 .site-popup {
-    position: fixed;
-    top: 0;
-    height: 100%;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    background-color: transparent;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: transparent;
 }

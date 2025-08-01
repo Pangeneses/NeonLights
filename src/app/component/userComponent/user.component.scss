@@ -1,8 +1,8 @@
 .user-container {
   position: fixed;
   top: 6%;
-  height: 45%;
-  right: 10%;
+  height: 40%;
+  right: 7.25%;
   width: 15%;
   padding: 0.5em;
   box-sizing: border-box;
@@ -11,12 +11,19 @@
   background-color: #9683c5;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .user-card {
   position: relative;
-  top: 2%;
-  height: 96%;
-  left: 1.5%;
-  width: 97%;
+  height: 100%;
+  width: 100%;
+  padding-top: 1em;
+  padding-left: 0.6em;
+  padding-bottom: 1em;
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -25,43 +32,36 @@
 }
 
 .user-option {
-  flex: 0 0 auto;
-  height: 17%;
-  width: 100%;
+  flex: 0 0 1;
   display: flex;
   flex-direction: row;
 }
 
-.user-spacer {
-  flex: 0 0 auto;
-  height: 3px;
-  width: 100%;
-}
-
 .user-option-ico {
-  flex: 0 0 auto;
-  top: 0;
-  height: 90%;
-  left: 0;
-  width: 15%;
-  border-right: 3px solid black;
+  flex: 0 0 15%;
+  min-height: 100%;
+  display: flex;
   text-align: center;
-  align-content: center;
+  align-items: center;
+  justify-content: center;
+  border-right: 3px solid black;
 }
 
 .user-option-text {
   flex: 0 0 auto;
-  top: 0;
-  height: 100%;
-  right: 0;
-  width: 80%;
-  padding-left: 7px;
+  padding-left: 0.35em;
+  margin: 0 0;
+  display: flex;
+  text-align: center;
+  align-content: center;
 }
 
 .user-option-text p {
   cursor: pointer;
   text-decoration: none;
   align-content: center;
+  padding: 0;
+  margin: 0 0;
 }
 
 .user-option-text p:hover {

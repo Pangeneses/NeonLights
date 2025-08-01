@@ -1,49 +1,41 @@
 <div class="areader-container">
+  <app-component-header class="areader-header"></app-component-header>
 
-    <app-component-header class="areader-header"></app-component-header>
-
-    <div class="areader-card">
-
-        <div class="areader-confirm">
-
-            <button class="areader-confirm-close" mat-icon-button [routerLink]="['/aindex']" routerLinkActive="active">
-                <mat-icon>close</mat-icon>
-            </button>
-
-        </div>
-
-        <div class="areader-journal-info">
-
-            <img class="areader-image" [src]="SERVER_URI + '/images/' + article?.ArticleImage" alt="Article Image" />
-            
-            <div class="areader-details">
-                <p>Author: {{ article?.AuthorUser?.FirstName }} {{ article?.AuthorUser?.LastName }}</p>
-                <p>Date: {{ article?.ArticleDate.slice(0, 10) }}</p>
-                <p>Details: {{ article?.AuthorUser?.JournalDesc }}</p>
-            </div>
-
-            <div class="areader-category">
-                <p>Category: {{ article?.ArticleCategory }}</p>
-            </div>
-
-            <div class="areader-hashtags">
-              @if (article?.ArticleHashtags?.length > 0) {
-                <p>{{ article.ArticleHashtags.join(', ') }}</p>
-              }
-            </div>
-
-        </div>
-
-        <div class="areader-content">
-
-            <div class="areader-title" [innerHTML]="article?.ArticleTitle"></div>
-            
-            <div class="areader-text-container" [innerHTML]="article?.ArticleBody"></div>
-        
-        </div>
-
+  <div class="areader-card">
+    <div class="areader-confirm">
+      <button class="areader-confirm-close" mat-icon-button [routerLink]="['/aindex']" routerLinkActive="active">
+        <mat-icon>close</mat-icon>
+      </button>
     </div>
 
-    <app-component-footer class="areader-footer"></app-component-footer>
+    <div class="areader-journal-info">
+      <img class="areader-image" [src]="SERVER_URI + '/images/' + CurrentArticle?.ArticleImage" alt="Article Image" />
 
+      <div class="areader-details">
+        <p>
+          Author: {{ CurrentArticle?.ArticleUserFirst }} {{ CurrentArticle?.ArticleUserLast }}
+        </p>
+        <p>Date: {{ CurrentArticle?.ArticleDate.slice(0, 10) }}</p>
+        <p>Details: {{ CurrentArticle?.ArticleJournal }}</p>
+      </div>
+
+      <div class="areader-category">
+        <p>Category: {{ CurrentArticle?.ArticleCategory }}</p>
+      </div>
+
+      <div class="areader-hashtags">
+        @if (CurrentArticle?.ArticleHashtags?.length > 0) {
+          <p>{{ CurrentArticle.ArticleHashtags.join(', ') }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="areader-content">
+      <div class="areader-title" [innerHTML]="CurrentArticle?.ArticleTitle"></div>
+
+      <div class="areader-text-container" [innerHTML]="CurrentArticle?.ArticleBody"></div>
+    </div>
+  </div>
+
+  <app-component-footer class="areader-footer"></app-component-footer>
 </div>

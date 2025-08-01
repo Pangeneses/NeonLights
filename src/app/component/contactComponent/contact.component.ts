@@ -3,69 +3,54 @@ import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-component-contact',
-  imports:  [
-    MatIconModule],
+  imports: [MatIconModule],
   templateUrl: './contact.component.html',
-  styleUrl: './contact.component.scss'
+  styleUrl: './contact.component.scss',
 })
 export class ContactComponent implements OnInit {
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    
-  }
-    
   constructor() {}
 
   @Output() notify = new EventEmitter<void>();
 
   onSend() {
-
     this.notify.emit();
-
   }
 
   onDelete() {
-
     this.notify.emit();
-
   }
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
-  onAppendImageOne(): void{
+  onAppendImageOne(): void {
     this.fileInput.nativeElement.click();
   }
 
-  onAppendImageTwo(): void{
+  onAppendImageTwo(): void {
     this.fileInput.nativeElement.click();
   }
 
-  onAppendImageThree(): void{
+  onAppendImageThree(): void {
     this.fileInput.nativeElement.click();
   }
 
-  onAppendImageFour(): void{
+  onAppendImageFour(): void {
     this.fileInput.nativeElement.click();
   }
 
   onFileSelected(event: Event): void {
-    
     const file = (event.target as HTMLInputElement).files?.[0];
-  
+
     if (file) {
-      
       const reader = new FileReader();
-    
+
       reader.onload = () => {
-        
         //this.avatarUrl = reader.result;
-    
       };
-      
+
       reader.readAsDataURL(file);
-  
     }
-
   }
-
 }

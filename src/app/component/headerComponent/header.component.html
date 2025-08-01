@@ -1,53 +1,49 @@
 <div class="header-container">
-    
-    <div class="header-banner">
-        <img class="header-banner-img" src="RedDragonSocietyBanner.webp"/>
+  <div class="header-banner">
+    <img class="header-banner-img" src="RedDragonSocietyBanner.webp" />
+  </div>
+
+  <div class="header-title"></div>
+
+  <div class="header-user">
+    <div class="header-user-ico" aria-label="User">
+      <mat-icon>person</mat-icon>
     </div>
 
-    <div class="header-title"></div>
-    
-    <div class="header-user">
+    <div class="header-user-name" (mouseenter)="this.isHoverUser = true" (mouseleave)="this.isHoverUser = false">
+      <p>{{ this.usersName }}</p>
+      <p></p>
+    </div>
+  </div>
 
-        <div class="header-user-ico" aria-label="User">
-            <mat-icon>person</mat-icon>
-        </div>
+  <app-component-user
+    class="header-user-options"
+    (mouseenter)="this.isHoverUserDropDown = true"
+    (mouseleave)="this.isHoverUserDropDown = false"
+    *ngIf="this.isHoverUser || this.isHoverUserDropDown || this.isUserForm"
+    (notify)="this.onUserForm()"
+  >
+  </app-component-user>
 
-        <div class="header-user-name" (mouseenter)="this.isHoverUser = true" (mouseleave)="this.isHoverUser = false">
-            <p>{{this.usersName}}<p>
-        </div>
-    
+  <div class="header-navigation-container">
+    <div class="header-navigation" *ngIf="this.isHome" (click)="onNavigate003()">
+      <mat-icon class="header-navigation-ico">shopping_cart</mat-icon>
+      <p class="header-navigation-text">Shop</p>
     </div>
 
-    <app-component-user 
-        class="header-user-options" 
-        (mouseenter)="this.isHoverUserDropDown = true" 
-        (mouseleave)="this.isHoverUserDropDown = false" 
-        *ngIf="this.isHoverUser || this.isHoverUserDropDown || this.isUserForm"
-        (notify)="this.onUserForm()">
-    </app-component-user>
-    
-    <div class="header-navigation-container">
-
-        <div class="header-navigation" *ngIf="this.isHome" (click)="onNavigate003()">
-            <mat-icon class="header-navigation-ico">shopping_cart</mat-icon>
-            <p class="header-navigation-text">Shop</p>
-        </div>
-
-        <div class="header-navigation" *ngIf="this.isHome" (click)="onNavigate002()">
-            <mat-icon class="header-navigation-ico">article</mat-icon>
-            <p class="header-navigation-text">Publish</p>
-        </div>
-
-        <div class="header-navigation" *ngIf="this.isHome" (click)="onNavigate001()">
-            <mat-icon class="header-navigation-ico">forum</mat-icon>
-            <p class="header-navigation-text">Forum</p>
-        </div>
-
-        <div class="header-navigation" *ngIf="!this.isHome" (click)="onNavigate004()">
-            <mat-icon class="header-navigation-ico">home</mat-icon>
-            <p class="header-navigation-text">../Home</p>
-        </div>
-
+    <div class="header-navigation" *ngIf="this.isHome" (click)="onNavigate002()">
+      <mat-icon class="header-navigation-ico">article</mat-icon>
+      <p class="header-navigation-text">Publish</p>
     </div>
 
+    <div class="header-navigation" *ngIf="this.isHome" (click)="onNavigate001()">
+      <mat-icon class="header-navigation-ico">forum</mat-icon>
+      <p class="header-navigation-text">Forum</p>
+    </div>
+
+    <div class="header-navigation" *ngIf="!this.isHome" (click)="onNavigate004()">
+      <mat-icon class="header-navigation-ico">home</mat-icon>
+      <p class="header-navigation-text">../Home</p>
+    </div>
+  </div>
 </div>

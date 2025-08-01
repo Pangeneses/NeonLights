@@ -8,9 +8,8 @@ describe('FReaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FReaderComponent]
-    })
-      .compileComponents();
+      imports: [FReaderComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FReaderComponent);
     component = fixture.componentInstance;

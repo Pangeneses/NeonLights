@@ -5,22 +5,16 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-component-wallet',
   imports: [MatIconModule],
   templateUrl: './wallet.component.html',
-  styleUrl: './wallet.component.scss'
+  styleUrl: './wallet.component.scss',
 })
 export class WalletComponent implements OnInit {
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    
-  }
-    
   constructor() {}
 
   @Output() notify = new EventEmitter<void>();
 
   onClose() {
-
     this.notify.emit();
-
   }
-
 }

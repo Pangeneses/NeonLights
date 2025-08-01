@@ -1,4 +1,4 @@
-.login-container{
+.login-container {
   position: static;
   top: 0%;
   height: 100%;
@@ -6,7 +6,7 @@
   width: 100%;
 }
 
-.login-card{
+.login-card {
   position: relative;
   top: 25%;
   height: 50%;
@@ -18,7 +18,7 @@
   background-position: center;
 }
 
-.login-username{
+.login-username {
   position: absolute;
   top: 17%;
   height: 7%;
@@ -27,7 +27,7 @@
   background-color: whitesmoke;
 }
 
-.login-username::placeholder{
+.login-username::placeholder {
   font-size: 14px;
   padding-left: 0.5em;
   box-sizing: border-box;
@@ -36,7 +36,7 @@
   justify-content: end;
 }
 
-.login-password{
+.login-password {
   position: absolute;
   top: 32%;
   height: 7%;
@@ -45,7 +45,7 @@
   background-color: whitesmoke;
 }
 
-.login-password::placeholder{
+.login-password::placeholder {
   font-size: 14px;
   padding-left: 0.5em;
   box-sizing: border-box;
@@ -54,7 +54,7 @@
   justify-content: end;
 }
 
-.login-invalid{
+.login-invalid {
   position: absolute;
   top: 44%;
   height: 7%;
@@ -63,12 +63,12 @@
   text-align: center;
 }
 
-.login-invalid p{
+.login-invalid p {
   font-size: 20px;
   color: black;
 }
 
-.login{
+.login {
   position: absolute;
   top: 54%;
   height: 7%;
@@ -77,7 +77,7 @@
   background-color: whitesmoke;
 }
 
-.login-forgot-password{
+.login-forgot-password {
   position: absolute;
   top: 64%;
   height: 7%;
@@ -86,7 +86,7 @@
   border-right: 3px solid black;
 }
 
-.login-forgot-password p{
+.login-forgot-password p {
   font-size: 18px;
   padding-right: 0.5em;
   display: flex;
@@ -97,11 +97,11 @@
   color: black;
 }
 
-.login-forgot-password p:hover{
+.login-forgot-password p:hover {
   text-decoration: underline;
 }
 
-.login-create-user{
+.login-create-user {
   position: absolute;
   top: 64%;
   height: 7%;
@@ -109,9 +109,9 @@
   width: 35%;
 }
 
-.login-create-user p{
+.login-create-user p {
   font-size: 18px;
-  padding-left: 0.5em;;
+  padding-left: 0.5em;
   display: flex;
   align-items: center;
   justify-content: start;
@@ -120,11 +120,11 @@
   color: black;
 }
 
-.login-create-user p:hover{
+.login-create-user p:hover {
   text-decoration: underline;
 }
 
-.login-copyright{
+.login-copyright {
   position: absolute;
   top: 74%;
   height: 7%;
@@ -134,7 +134,7 @@
   transform: translateX(-50%);
 }
 
-.login-copyright p{
+.login-copyright p {
   font-size: 18px;
   color: black;
 }

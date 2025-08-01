@@ -1,8 +1,14 @@
 @use '@angular/material' as mat;
 @use '../neonlights-palette.scss' as themeColors;
 
-$my-theme: mat.define-theme((color: (primary: themeColors.$primary-palette,
-        tertiary: themeColors.$tertiary-palette )));
+$my-theme: mat.define-theme(
+  (
+    color: (
+      primary: themeColors.$primary-palette,
+      tertiary: themeColors.$tertiary-palette,
+    ),
+  )
+);
 
 html,
 body,
@@ -71,5 +77,5 @@ caption {
 }
 
 body {
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-family: Roboto, 'Helvetica Neue', sans-serif;
 }

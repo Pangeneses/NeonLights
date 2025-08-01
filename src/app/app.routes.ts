@@ -15,7 +15,7 @@ import { FReaderComponent } from './component/freaderComponent/freader.component
 import { FNewComponent } from './component/fnewComponent/fnew.component';
 
 /************ Journal **************/
-import { AIndexComponent } from './component/aindexComponent/aindex.component'
+import { AIndexComponent } from './component/aindexComponent/aindex.component';
 import { AReaderComponent } from './component/areaderComponent/areader.component';
 import { ANewComponent } from './component/anewComponent/anew.component';
 
@@ -24,18 +24,18 @@ import { FeaturedComponent } from './component/featuredComponent/featured.compon
 import { AppComponent } from './app.component';
 
 export const routes: Routes = [
-    {
-        path: '',
-        component: AppComponent,
-        children: [
-            { path: 'headlines', component: HeadlinesComponent },
-            { path: 'findex', component: FIndexComponent },
-            { path: 'freader', component: FReaderComponent },
-            { path: 'fnew', component: FNewComponent },
-            { path: 'aindex', component: AIndexComponent },
-            { path: 'areader', component: AReaderComponent },
-            { path: 'anew', component: ANewComponent },
-            { path: 'featured', component: FeaturedComponent }
-        ]
-    }
+  {
+    path: '',
+    component: AppComponent,
+    children: [
+      { path: 'headlines', component: HeadlinesComponent },
+      { path: 'findex', component: FIndexComponent },
+      { path: 'freader', component: FReaderComponent },
+      { path: 'fnew', component: FNewComponent },
+      { path: 'aindex', component: AIndexComponent },
+      { path: 'areader', component: AReaderComponent },
+      { path: 'anew', component: ANewComponent },
+      { path: 'featured', component: FeaturedComponent },
+    ],
+  },
 ];

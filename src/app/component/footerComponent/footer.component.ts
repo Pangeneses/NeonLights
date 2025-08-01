@@ -7,20 +7,12 @@ import { ToSComponent } from '../tosComponent/tos.component';
 
 @Component({
   selector: 'app-component-footer',
-  imports: [
-    NgIf,
-    AboutComponent,
-    ToSComponent,
-    PrivacyComponent,
-    LegalComponent],
+  imports: [NgIf, AboutComponent, ToSComponent, PrivacyComponent, LegalComponent],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrl: './footer.component.scss',
 })
 export class FooterComponent implements OnInit {
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   isAboutPopUp = false;
 
@@ -52,5 +44,4 @@ export class FooterComponent implements OnInit {
     this.isLegalPopUp = false;
     this.isToSPopUp = false;
   }
-
 }

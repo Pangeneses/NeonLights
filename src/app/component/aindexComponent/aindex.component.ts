@@ -1,6 +1,5 @@
-import { Component, effect, signal, computed } from '@angular/core';
+import { Component, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -8,9 +7,9 @@ import { HeaderComponent } from '../headerComponent/header.component';
 import { ANavComponent } from '../anavComponent/anav.component';
 import { FooterComponent } from '../footerComponent/footer.component';
 
-import { ArticleService, Article, ArticleWithUserName, EnumArticleCategory } from '../../services/articleService/article.service';
+import { ArticleService, ArticleExtended, EnumArticleCategory } from '../../services/articleService/article.service';
 
-import { SERVER_URI } from '../../../../environment'
+import { SERVER_URI } from '../../../../environment';
 
 @Component({
   selector: 'article-component-aindex',
@@ -22,117 +21,205 @@ import { SERVER_URI } from '../../../../environment'
     FooterComponent,
     RouterLink,
     RouterLinkActive,
-    MatIconModule
-  ],
+    MatIconModule],
   templateUrl: './aindex.component.html',
-  styleUrl: './aindex.component.scss'
+  styleUrl: './aindex.component.scss',
 })
-export class AIndexComponent {
+export class AIndexComponent implements OnInit {
 
   SERVER_URI = SERVER_URI;
 
-  readonly allArticles = signal<ArticleWithUserName[]>([]);
-  
-  readonly isLoading = signal(false);
-  readonly hasMore = signal(true);
+  articleChunk: ArticleExtended[] = [];
 
-  readonly limit = 10;
+  isLoading = false;
+
+  hasMore = true;
+
+  limit = 10;
+
   readonly lastCursor = computed(() => {
 
-    const articles = this.allArticles();
+    const articles = this.articleChunk;
 
-    return articles.length > 0 ? (articles.at(-1) as any)?._id ?? '' : '';
+    return articles.length > 0 ? ((articles.at(-1) as any)?._id ?? '') : '';
 
   });
 
-  articleTrackFn(index: number, article: Article): string {
+  readonly firstCursor = computed(() => {
 
+    const articles = this.articleChunk;
+
+    return articles.length > 0 ? ((articles.at(0) as any)?._id ?? '') : '';
+
+  });
+
+  articleTrackFn(index: number, article: ArticleExtended): string {
     return (article as any)?._id ?? article.ArticleTitle;
-
   }
 
   constructor(
     private router: Router,
-    private articleService: ArticleService) {
-    
-    this.articleService.articles$.subscribe(formArray => {
-    
-      if (formArray instanceof FormArray) {
-      
-        const rawArticles = formArray.getRawValue();
-      
-        const populated = rawArticles.map((a: Article) => ({
-          ...a,
-          AuthorName: typeof a.AuthorID === 'object' ? a.AuthorID.UserName : 'Unknown Author'
-        }));
-      
-        this.allArticles.set(populated);
-      
-      } else {
-        this.allArticles.set([]);
+    private articleService: ArticleService,
+  ) { }
+
+  ngOnInit(): void {
+
+    this.articleService
+      .fetchArticleChunk({    
+        limit: this.limit,
+        lastID: '',
+        direction: 'down',
+      })
+      .subscribe(() => {
+        
+        const articles = this.articleService.getCurrentArticles();
+
+        if (articles) {
+
+          this.articleChunk = articles || [];
+
+        }
+
       }
     
-    });
+    );
   
   }
 
-  onFiltersChanged(filters: {    
-    AuthorID?: string;
+  onFiltersChanged(filters: {
+    ArticleUserID?: string;
     ArticleCategory?: EnumArticleCategory;
     ArticleHashtags?: string[];
-    fromDate?: string;
-    toDate?: string;
+    ArticleFrom?: string;
+    ArticleTo?: string;
   }): void {
 
-    this.hasMore.set(true);
+    this.hasMore = true;
 
     this.articleService.clearArticles();
 
     this.articleService.fetchArticleChunk({
       limit: this.limit,
-      lastId: undefined,
-      ...filters
-    }).subscribe(hasMore => {
+      lastID: undefined,
+      ...filters,
+    })
+      .subscribe((hasMore) => {
+        
+        const articles = this.articleService.getCurrentArticles();
 
-      this.hasMore.set(hasMore);
+        if (articles) {
 
-    });
+          this.articleChunk = articles || [];
+
+        }
+
+      }
+    
+    );
+
+  }
+
+  loadOlder(): void {
+
+    if (this.isLoading || !this.hasMore) return;
+
+    this.isLoading = true;
+
+    this.articleService.fetchArticleChunk({
+      limit: this.limit,
+      lastID: this.lastCursor(),
+      direction: 'down',
+    })
+      .subscribe({
+        next: (hasMore) => {
+
+          this.hasMore = hasMore;
+
+          this.isLoading = false;
+
+        },
+        error: (err) => {
+
+          console.error('Error fetching older articles:', err);
+
+          this.isLoading = false;
+
+        },
+
+      }
+    
+    );
+
+  }
+
+  loadNewer(): void {
+
+    if (this.isLoading) return;
+
+    this.isLoading = true;
+
+    this.articleService
+      .fetchArticleChunk({
+        limit: this.limit,
+        lastID: this.firstCursor(),
+        direction: 'up',
+      })
+      .subscribe({
+        next: (hasMore) => {
+
+          this.isLoading = hasMore;
+
+          this.isLoading = false;
+
+        },
+        error: (err) => {
+
+          console.error('Error fetching newer articles:', err);
+
+          this.isLoading = false;
+
+        },
+
+      }
+    
+    );
 
   }
 
   loadMore(): void {
+    if (this.isLoading || !this.hasMore) return;
 
-    if (this.isLoading() || !this.hasMore()) return;
+    this.isLoading = true;
 
-    this.isLoading.set(true);
+    this.articleService
+      .fetchArticleChunk({
+        limit: this.limit,
+        lastID: this.lastCursor(),
+      })
+      .subscribe({
+        next: (hasMore) => {
 
-    this.articleService.fetchArticleChunk({
-      limit: this.limit,
-      lastId: this.lastCursor()
-    }).subscribe({
-      next: hasMore => {
+          this.hasMore = hasMore;
 
-        this.hasMore.set(hasMore);
+          this.isLoading = false;
 
-        this.isLoading.set(false);        
+        },
+        error: (err) => {
 
-      },
-      error: err => {
+          console.error('Failed to fetch more articles:', err);
 
-        console.error('Failed to fetch more articles:', err);
+          this.isLoading = false;
 
-        this.isLoading.set(false);
+        },
 
       }
-
-    });
+    
+    );
 
   }
 
-  readArticle(articleID: string){
-
+  readArticle(articleID: string) {
     this.router.navigate(['/areader'], { queryParams: { id: articleID } });
-
   }
 
 }

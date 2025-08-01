@@ -7,9 +7,8 @@ describe('FIndexComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FIndexComponent]
-    })
-      .compileComponents();
+      imports: [FIndexComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FIndexComponent);
     component = fixture.componentInstance;

@@ -1,38 +1,38 @@
 .purchases-container {
-    position: fixed;
-    top: 0;
-    height: 100%;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    backdrop-filter: blur(2px);
-    background-color: transparent;
+  position: fixed;
+  top: 0;
+  height: 100%;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+  background-color: transparent;
 }
 
 .purchases-card {
-    position: relative;
-    top: 10%;
-    height: 80%;
-    left: 32%;
-    width: 36%;
-    padding: 0.35em;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: row;
-    gap: 0.35em;
-    background-color: #544380;
-    border-radius: 10px 0px 0px 10px;
+  position: relative;
+  top: 10%;
+  height: 80%;
+  left: 32%;
+  width: 36%;
+  padding: 0.35em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  gap: 0.35em;
+  background-color: #544380;
+  border-radius: 10px 0px 0px 10px;
 }
 
 .purchases-close {
-    flex: 0 0 7%;
-    background-color: whitesmoke;
-    border-radius: 10px 0px 0px 10px;
+  flex: 0 0 7%;
+  background-color: whitesmoke;
+  border-radius: 10px 0px 0px 10px;
 }
 
 .purchases-content {
-    flex: 1;
-    overflow-y: scroll;
-    scrollbar-color: #544380 whitesmoke;
-    background-color: whitesmoke;
+  flex: 1;
+  overflow-y: scroll;
+  scrollbar-color: #544380 whitesmoke;
+  background-color: whitesmoke;
 }

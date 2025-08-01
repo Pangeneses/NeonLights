@@ -2,7 +2,8 @@
 @use '@angular/material' as mat;
 
 $neonlights-palette: (
-  primary: (0: #000000,
+  primary: (
+    0: #000000,
     10: #210d4b,
     20: #362561,
     25: #42316d,
@@ -19,7 +20,8 @@ $neonlights-palette: (
     99: #fffbff,
     100: #ffffff,
   ),
-  secondary: (0: #000000,
+  secondary: (
+    0: #000000,
     10: #210d4b,
     20: #362561,
     25: #42316d,
@@ -36,7 +38,8 @@ $neonlights-palette: (
     99: #fffbff,
     100: #ffffff,
   ),
-  tertiary: (0: #000000,
+  tertiary: (
+    0: #000000,
     10: #210d4b,
     20: #362561,
     25: #42316d,
@@ -53,7 +56,8 @@ $neonlights-palette: (
     99: #fffbff,
     100: #ffffff,
   ),
-  neutral: (0: #000000,
+  neutral: (
+    0: #000000,
     10: #210d4b,
     20: #362561,
     25: #42316d,
@@ -80,7 +84,8 @@ $neonlights-palette: (
     94: #f3eaff,
     96: #f8f1ff,
   ),
-  neutral-variant: (0: #000000,
+  neutral-variant: (
+    0: #000000,
     10: #210d4b,
     20: #362561,
     25: #42316d,
@@ -97,7 +102,8 @@ $neonlights-palette: (
     99: #fffbff,
     100: #ffffff,
   ),
-  error: (0: #000000,
+  error: (
+    0: #000000,
     10: #210d4b,
     20: #362561,
     25: #42316d,
@@ -143,7 +149,9 @@ $tertiary-palette: map.merge(map.get($neonlights-palette, tertiary), $_rest);
 }
 
 @mixin high-contrast-overrides($theme-type) {
-  @include mat.theme-overrides((primary: _high-contrast-value(#32215c, #f5edff, $theme-type),
+  @include mat.theme-overrides(
+    (
+      primary: _high-contrast-value(#32215c, #f5edff, $theme-type),
       on-primary: _high-contrast-value(#ffffff, #000000, $theme-type),
       primary-container: _high-contrast-value(#503f7b, #ccb8fe, $theme-type),
       on-primary-container: _high-contrast-value(#ffffff, #0f0033, $theme-type),
@@ -192,5 +200,6 @@ $tertiary-palette: map.merge(map.get($neonlights-palette, tertiary), $_rest);
       on-error-container: _high-contrast-value(#ffffff, #0f0033, $theme-type),
       surface-variant: _high-contrast-value(#e9ddff, #4d3c79, $theme-type),
       on-surface-variant: _high-contrast-value(#000000, #ffffff, $theme-type),
-    ))
+    )
+  );
 }

@@ -1,0 +1,17 @@
+<div class="users-container">
+
+  <div class="users-search-box">
+    <input class="users-regex" type="text" [(ngModel)]="userRegex" placeholder="Regex..." />
+    <button class="users-search" (click)="onRegexInput()"><mat-icon>search</mat-icon></button> 
+  </div>
+
+  <div class="users-results-box" (scroll)="onScroll($event)">
+    @for (user of filteredUsers; track this.trackUserFn($index, user)) {
+      <div 
+        (click)="selectUser(user.UserID)"
+        [class.selected]="user.UserID === selectedUserID">
+          {{ user.UserName }}
+      </div>
+    }
+  </div>
+</div>

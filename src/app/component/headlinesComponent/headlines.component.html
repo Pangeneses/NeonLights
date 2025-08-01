@@ -1,23 +1,18 @@
 <div class="headlines-container">
-  
   <app-component-header class="headlines-header"></app-component-header>
-     
-  <div class="headlines">
 
-    <div class="headlines-scroll-button" (click)="scrollLeft()" style="left:2%;">
-      <img src="LeftArrow.webp"/>
+  <div class="headlines">
+    <div class="headlines-scroll-button" (click)="scrollLeft()" style="left: 2%">
+      <img src="LeftArrow.webp" />
     </div>
 
-    <div class="headlines-scroll-button" (click)="scrollRight()" style="right:2%;">
-      <img src="RightArrow.webp"/>
+    <div class="headlines-scroll-button" (click)="scrollRight()" style="right: 2%">
+      <img src="RightArrow.webp" />
     </div>
 
     <div #carousel class="headlines-carousel-track">
-
       <div *ngFor="let item of items" class="headlines-articles">
-
         <div class="card">
-
           <div class="card-header">
             <p>{{ item.title }}</p>
           </div>
@@ -27,15 +22,10 @@
           <div class="card-content">
             <p>{{ item.description }}</p>
           </div>
-
         </div>
-
       </div>
-    
     </div>
-
   </div>
-    
-  <app-component-footer class="headlines-footer"></app-component-footer>
 
+  <app-component-footer class="headlines-footer"></app-component-footer>
 </div>

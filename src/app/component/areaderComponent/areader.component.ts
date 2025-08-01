@@ -4,47 +4,46 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
 import { ArticleService } from '../../services/articleService/article.service';
-import { UserService } from '../../services/userService/user.service';
 import { HeaderComponent } from '../../component/headerComponent/header.component';
 import { FooterComponent } from '../../component/footerComponent/footer.component';
 
-import { SERVER_URI } from '../../../../environment'
+import { SERVER_URI } from '../../../../environment';
 
 @Component({
   selector: 'areader-component-reader',
   imports: [
-    HeaderComponent,
-    FooterComponent,
-    RouterLink,
-    RouterLinkActive,
-    MatIconModule
-  ],
+    HeaderComponent, 
+    FooterComponent, 
+    RouterLink, 
+    RouterLinkActive, 
+    MatIconModule],
   templateUrl: './areader.component.html',
-  styleUrls: ['./areader.component.scss']
+  styleUrls: ['./areader.component.scss'],
 })
 export class AReaderComponent implements OnInit {
 
   SERVER_URI = SERVER_URI;
 
-  article: any | null = null;
+  CurrentArticle: any | null = null;
+
   loading = true;
+
   error: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService,
-    private articleService: ArticleService
+    private articleService: ArticleService,
   ) {}
 
   ngOnInit(): void {
 
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
 
-      const articleId = params['id'];
+      const articleID = params['id'];
 
-      if (articleId) {
+      if (articleID) {
 
-        this.loadArticle(articleId);
+        this.loadArticle(articleID);
 
       } else {
 
@@ -58,51 +57,17 @@ export class AReaderComponent implements OnInit {
 
   }
 
-  loadArticle(articleId: string) {
+  loadArticle(articleID: string) {
 
     this.loading = true;
 
-    const articleFormGroup = this.articleService.getArticleByID(articleId);
+    const articleData = this.articleService.getArticleByID(articleID);
 
-    if (articleFormGroup) {
-
-      const articleData = articleFormGroup.getRawValue();
-
-      const authorId = typeof articleData.AuthorID === 'string'
-        ? articleData.AuthorID
-        : articleData.AuthorID?._id;
-
-      if (authorId) {
-
-        this.userService.getUserById(authorId).subscribe({
-          next: user => {
-        
-            articleData.AuthorUser = user ?? null;
-        
-            this.article = articleData;
-        
-            this.loading = false;
-
-          },
-          error: err => {
-            
-            console.error('Failed to fetch author:', err);
-            
-            this.article = articleData;
-            
-            this.loading = false;
-
-          }
-
-        });
-
-      } else {
-
-        this.article = articleData;
-
-        this.loading = false;
-
-      }
+    if (articleData) {
+      
+      this.CurrentArticle = articleData;
+      
+      this.loading = false;
 
     } else {
       
@@ -111,7 +76,7 @@ export class AReaderComponent implements OnInit {
       this.loading = false;
 
     }
-    
+
   }
 
 }

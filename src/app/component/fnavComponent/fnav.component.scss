@@ -6,8 +6,10 @@
   width: 100%;
 }
 
-*, *::before, *::after {
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 .fnav-card {
@@ -15,59 +17,42 @@
   height: 94%;
   left: 2%;
   width: 20%;
-  padding: .4em;
+  padding: 0.4em;
   display: flex;
   flex-direction: column;
-  gap: .4em;
+  gap: 0.4em;
   background-color: #544380;
   border-radius: 10px;
 }
 
 .fnav-category {
-  flex: 0 1 auto;
-  height: 2.4em;
+  flex: 0 1 2.4em;
   font-size: 1em;
-  padding: .2em;
+  padding: 0.2em;
   background-color: whitesmoke;
   border-color: whitesmoke;
   border-radius: 10px 10px 0px 0px;
 }
 
 .fnav-hashtags {
-  flex: 0 1 auto;
-  height: 2.4em;
+  flex: 0 1 2.4em;
   font-size: 1em;
-  padding: .2em;
+  padding: 0.2em;
   background-color: whitesmoke;
   border-color: whitesmoke;
 }
 
-.fnav-user-regex{
+.fnav-user-regex {
   flex: 0 1 auto;
   height: 2.4em;
   font-size: 1em;
-  padding: .2em;
+  padding: 0.2em;
   background-color: whitesmoke;
   border-color: whitesmoke;
 }
 
-.fnav-user-list{
+.fnav-user-selection {
   flex: 1 1 auto;
-  background-color: whitesmoke;
-  border-color: whitesmoke;
-  border-radius: 0px 0px 10px 10px;
-}
-
-.fnav-user-item {
-  flex: 0 1 auto;
-  height: 2em;
-  font-size: 1em;
-  padding: .4em;
-}
-
-.fnav-user-item.selected {
-  font-size: 1em;
-  background-color: #d3cce3;
 }
 
 .fnav-datepicker-card {
@@ -75,10 +60,10 @@
   height: 94%;
   right: 2%;
   width: 20%;
-  padding: .4em;
+  padding: 0.4em;
   display: flex;
   flex-direction: column;
-  gap: .4em;
+  gap: 0.4em;
   background-color: #544380;
   border-radius: 10px;
 }
@@ -95,7 +80,7 @@
 
 .fnav-date-range-input {
   width: 100% !important;
-  display: flex; 
+  display: flex;
   flex-wrap: nowrap;
 }
 
@@ -189,4 +174,3 @@
 .fnav-mat-calendar .mat-calendar-period-button {
   color: black !important;
 }
-

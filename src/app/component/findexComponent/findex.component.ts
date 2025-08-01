@@ -1,6 +1,5 @@
-import { Component, effect, signal, computed } from '@angular/core';
+import { Component, OnInit, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormArray } from '@angular/forms';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -8,9 +7,9 @@ import { HeaderComponent } from '../headerComponent/header.component';
 import { FNavComponent } from '../fnavComponent/fnav.component';
 import { FooterComponent } from '../footerComponent/footer.component';
 
-import { ThreadService, Thread, ThreadWithUserName, EnumForumCategory } from '../../services/threadService/thread.service'; 
+import { ThreadService, ThreadExtended, EnumForumCategory } from '../../services/threadService/thread.service';
 
-import { SERVER_URI } from '../../../../environment'
+import { SERVER_URI } from '../../../../environment';
 
 @Component({
   selector: 'thread-component-findex',
@@ -22,117 +21,225 @@ import { SERVER_URI } from '../../../../environment'
     FooterComponent,
     RouterLink,
     RouterLinkActive,
-    MatIconModule
-  ],
+    MatIconModule],
   templateUrl: './findex.component.html',
-  styleUrl: './findex.component.scss'
+  styleUrl: './findex.component.scss',
 })
-export class FIndexComponent {
+export class FIndexComponent implements OnInit {
 
   SERVER_URI = SERVER_URI;
 
-  readonly allThreads = signal<ThreadWithUserName[]>([]);
-  
-  readonly isLoading = signal(false);
-  readonly hasMore = signal(true);
+  threadChunk: ThreadExtended[] = [];
 
-  readonly limit = 10;
+  isLoading = false;
+
+  hasMore = true;
+
+  limit = 10;
+
   readonly lastCursor = computed(() => {
 
-    const threads = this.allThreads();
+    const threads = this.threadChunk;
 
-    return threads.length > 0 ? (threads.at(-1) as any)?._id ?? '' : '';
+    return threads.length > 0 ? ((threads.at(-1) as any)?._id ?? '') : '';
 
   });
 
-  threadTrackFn(index: number, thread: Thread): string {
+  readonly firstCursor = computed(() => {
 
+    const threads = this.threadChunk;
+
+    return threads.length > 0 ? ((threads.at(0) as any)?._id ?? '') : '';
+
+  });
+
+  threadTrackFn(index: number, thread: ThreadExtended): string {
     return (thread as any)?._id ?? thread.ThreadTitle;
+  }
+
+  CleanNBSP(text: string): string {
+  
+    return text?.replace(/\u00A0/g, ' ') ?? '';
 
   }
 
   constructor(
     private router: Router,
-    private threadService: ThreadService) {
-    
-    this.threadService.threads$.subscribe(formArray => {
-    
-      if (formArray instanceof FormArray) {
-      
-        const rawThreads = formArray.getRawValue();
-      
-        const populated = rawThreads.map((a: Thread) => ({
-          ...a,
-          AuthorName: typeof a.AuthorID === 'object' ? a.AuthorID.UserName : 'Unknown Author'
-        }));
-      
-        this.allThreads.set(populated);
-      
-      } else {
-        this.allThreads.set([]);
+    private threadService: ThreadService,
+  ) { }
+
+  ngOnInit(): void {
+
+    this.threadService
+      .fetchThreadChunk({    
+        limit: this.limit,
+        lastID: '',
+        direction: 'down',
+      })
+      .subscribe(() => {
+        
+        const threads = this.threadService.getCurrentThreads();
+
+        if (threads) {
+
+          this.threadChunk = threads || [];
+
+        }
+
       }
     
-    });
+    );
   
   }
 
-  onFiltersChanged(filters: {    
-    AuthorID?: string;
+  onFiltersChanged(filters: {
+    ThreadUserID?: string;
     ThreadCategory?: EnumForumCategory;
     ThreadHashtags?: string[];
-    fromDate?: string;
-    toDate?: string;
+    ThreadFrom?: string;
+    ThreadTo?: string;
   }): void {
 
-    this.hasMore.set(true);
+    this.hasMore = true;
 
     this.threadService.clearThreads();
 
-    this.threadService.fetchThreadChunk({
-      limit: this.limit,
-      lastId: undefined,
-      ...filters
-    }).subscribe(hasMore => {
+    this.threadService
+      .fetchThreadChunk({
+        limit: this.limit,
+        lastID: undefined,
+        ...filters,
+      })
+      .subscribe({
+        next: (hasMore) => {
 
-      this.hasMore.set(hasMore);
+          this.hasMore = hasMore;
 
-    });
+          const threads = this.threadService.getCurrentThreads();
+
+          console.log(threads);
+
+          this.threadChunk = threads || [];
+
+        },
+        error: (err) => {
+
+          console.error('Failed to fetch threads with filters:', err);
+
+          this.threadChunk = [];
+
+          this.hasMore = false;
+
+        },
+
+      }
+    
+    );
+  
+  }
+
+  loadOlder(): void {
+
+    if (this.isLoading || !this.hasMore) return;
+
+    this.isLoading = true;
+
+    this.threadService
+      .fetchThreadChunk({
+        limit: this.limit,
+        lastID: this.lastCursor(),
+        direction: 'down',
+      })
+      .subscribe({
+        next: (hasMore) => {
+
+          this.hasMore = hasMore;
+
+          this.isLoading = false;
+
+        },
+        error: (err) => {
+
+          console.error('Error fetching older threads:', err);
+
+          this.isLoading = false;
+
+        },
+
+      }
+
+      );
+
+  }
+
+  loadNewer(): void {
+
+    if (this.isLoading) return;
+
+    this.isLoading = true;
+
+    this.threadService
+      .fetchThreadChunk({
+        limit: this.limit,
+        lastID: this.firstCursor(),
+        direction: 'up',
+      })
+      .subscribe({
+        next: (hasMore) => {
+
+          this.isLoading = hasMore;
+
+          this.isLoading = false;
+
+        },
+        error: (err) => {
+
+          console.error('Error fetching newer threads:', err);
+
+          this.isLoading = false;
+
+        },
+
+      }
+
+      );
 
   }
 
   loadMore(): void {
+    if (this.isLoading || !this.hasMore) return;
 
-    if (this.isLoading() || !this.hasMore()) return;
+    this.isLoading = true;
 
-    this.isLoading.set(true);
+    this.threadService
+      .fetchThreadChunk({
+        limit: this.limit,
+        lastID: this.lastCursor(),
+      })
+      .subscribe({
+        next: (hasMore) => {
 
-    this.threadService.fetchThreadChunk({
-      limit: this.limit,
-      lastId: this.lastCursor()
-    }).subscribe({
-      next: hasMore => {
+          this.hasMore = hasMore;
 
-        this.hasMore.set(hasMore);
+          this.isLoading = false;
 
-        this.isLoading.set(false);        
+        },
+        error: (err) => {
 
-      },
-      error: err => {
+          console.error('Failed to fetch more threads:', err);
 
-        console.error('Failed to fetch more threads:', err);
+          this.isLoading = false;
 
-        this.isLoading.set(false);
+        },
 
       }
 
-    });
+      );
 
   }
 
-  readThread(threadID: string){
-
-    this.router.navigate(['/areader'], { queryParams: { id: threadID } });
-
+  readThread(threadID: string) {
+    this.router.navigate(['/freader'], { queryParams: { id: threadID } });
   }
 
-}
+}  

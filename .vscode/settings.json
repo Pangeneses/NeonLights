@@ -1,8 +1,5 @@
 {
-    "appService.defaultWebAppToDeploy": "undefined/subscriptions/1fede89f-1731-4c39-9b04-31167729dbab/resourceGroups/appsvc_linux_westus2/providers/Microsoft.Web/sites/neonlights",
-    "appService.deploySubpath": ".",
-    "appService.zipIgnorePattern": [
-        "node_modules{,/**}",
-        ".vscode{,/**}"
-    ]
+  "appService.defaultWebAppToDeploy": "undefined/subscriptions/1fede89f-1731-4c39-9b04-31167729dbab/resourceGroups/appsvc_linux_westus2/providers/Microsoft.Web/sites/neonlights",
+  "appService.deploySubpath": ".",
+  "appService.zipIgnorePattern": ["node_modules{,/**}", ".vscode{,/**}"]
 }

@@ -1,77 +1,58 @@
 import { Component, EventEmitter, Output, OnInit, ViewEncapsulation } from '@angular/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-import { ListedUserService, ListedUser } from '../../services/usersService/users.service';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+
 import { EnumArticleCategory } from '../../services/articleService/article.service';
+
+import { UsersComponent } from '../usersComponent/users.component';
+import { CalendarComponent } from '../calendarComponent/calendar.component';
 
 @Component({
   selector: 'article-component-anav',
   standalone: true,
   imports: [
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatNativeDateModule,
-    MatAutocompleteModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    UsersComponent,
+    CalendarComponent,
+    MatNativeDateModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatAutocompleteModule,
   ],
   templateUrl: './anav.component.html',
   styleUrls: ['./anav.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
 })
 export class ANavComponent implements OnInit {
 
   @Output() filtersChanged = new EventEmitter<{
-    AuthorID?: string;
     ArticleCategory?: EnumArticleCategory;
     ArticleHashtags?: string[];
-    fromDate?: string;
-    toDate?: string;
+    ArticleUserID?: string;
+    ArticleFrom?: string;
+    ArticleTo?: string;
   }>();
 
-  categoryTrackFn(index: number, category: { label: string, value: EnumArticleCategory }): string { return category.value; }
+  constructor() {}
+
+  ngOnInit() {}
 
   EnumArticleCategory = EnumArticleCategory;
-  categoryOptions = Object.values(EnumArticleCategory).map(value => ({
+  categoryOptions = Object.values(EnumArticleCategory).map((value) => ({
     label: value,
-    value: value
+    value: value,
   }));
   selectedCategory: EnumArticleCategory = EnumArticleCategory.Unspecified;
-  
-  hashtags = '';
-  selectedUser = '';
 
-  dateSelected: Date | null = new Date();
-  dateRange = {
-    start: null,
-    end: null
-  } as { start: Date | null; end: Date | null };
-
-  userTrackFn(index: number, user: ListedUser): string { return user.UserName; }
-
-  allUsers: ListedUser[] = [];
-  filteredUsers: ListedUser[] = [];
-
-  constructor(private listedUserService: ListedUserService) { }
-
-  ngOnInit() {
-
-    this.listedUserService.users$.subscribe(users => {
-      
-      this.allUsers = users;
-
-      this.filteredUsers = [...this.allUsers];
-
-      this.fetchArticles();
-    
-    });
-
+  categoryTrackFn(index: number, category: { label: string; value: EnumArticleCategory }): string {
+    return category.value;
   }
 
   onCategoryChange(category: EnumArticleCategory) {
@@ -82,65 +63,35 @@ export class ANavComponent implements OnInit {
 
   }
 
-  formatHashtags() {
+  hashtags = '';
 
+  formatHashtags() {
     this.hashtags = this.hashtags
       .split(/\s+/)
-      .map(tag => tag.startsWith('#') ? tag : '#' + tag)
-      .map(tag => tag.replace(/[^#a-zA-Z0-9]/g, ''))
+      .map((tag) => (tag.startsWith('#') ? tag : '#' + tag))
+      .map((tag) => tag.replace(/[^#a-zA-Z0-9]/g, ''))
       .join(' ');
 
     this.fetchArticles();
-
   }
 
-  userRegex = '';
+  selectedUser = '';
 
-  searchByRegex(): void {
+  onSelectedUserChange(user: string): void {
 
-    if (!this.userRegex.trim()) {
-
-      this.filteredUsers = [...this.allUsers];
-
-      return;
-
-    }
-
-    try {
-
-      const pattern = new RegExp(this.userRegex.trim(), 'i');
-
-      this.filteredUsers = this.allUsers.filter(user => pattern.test(user.UserName));
-
-    } catch (err) {
-
-      console.error('Invalid regex:', err);
-
-      this.filteredUsers = [...this.allUsers];
-
-    }
-
-  }
-
-  onUserInputChange(query: string) {
-
-    const lowerQuery = query.toLowerCase();
-
-    this.filteredUsers = query
-      ? this.allUsers.filter(user => user.UserName.toLowerCase().includes(lowerQuery))
-      : [...this.allUsers];
-
-  }
-
-  selectUser(username: string) {
-
-    this.selectedUser = username;
+    this.selectedUser = user;
 
     this.fetchArticles();
 
   }
 
   calendarVisible = true;
+
+  dateSelected: Date | null = new Date();
+  dateRange = {
+    start: null,
+    end: null,
+  } as { start: Date | null; end: Date | null };
 
   onCalendarDateSelect(date: Date | null) {
 
@@ -156,7 +107,7 @@ export class ANavComponent implements OnInit {
 
       this.calendarVisible = false;
 
-      setTimeout(() => this.calendarVisible = true);
+      setTimeout(() => (this.calendarVisible = true));
 
     } else if (this.dateRange.start && !this.dateRange.end) {
 
@@ -171,10 +122,10 @@ export class ANavComponent implements OnInit {
         this.dateRange.start = date;
 
       }
-      
+
       this.calendarVisible = false;
-            
-      setTimeout(() => this.calendarVisible = true);
+
+      setTimeout(() => (this.calendarVisible = true));
 
       this.fetchArticles();
 
@@ -194,8 +145,10 @@ export class ANavComponent implements OnInit {
 
     if (!start) return '';
 
-    const day = date.setHours(0, 0, 0, 0);
+    const day = new Date(date).setHours(0, 0, 0, 0);
+
     let startTime = start.setHours(0, 0, 0, 0);
+
     let endTime = end?.setHours(0, 0, 0, 0);
 
     if (startTime && endTime && startTime > endTime) {
@@ -205,39 +158,39 @@ export class ANavComponent implements OnInit {
     }
 
     if (day === startTime) return 'date-start';
+
     if (day === endTime) return 'date-end';
+
     if (endTime && day > startTime && day < endTime) return 'date-range-middle';
 
     return '';
 
-  };
+  }
 
-  private fetchTimer: any;
+  private fetchTimer: ReturnType<typeof setTimeout> | null = null;
 
   fetchArticles() {
 
-    clearTimeout(this.fetchTimer);
+    if (this.fetchTimer !== null) {
+
+      clearTimeout(this.fetchTimer);
+
+    }
 
     this.fetchTimer = setTimeout(() => {
+      
+      const tagList = this.hashtags.split(/\s+/).filter((tag) => tag.startsWith('#'));
 
-      const selected = this.allUsers.find(user => user.UserName === this.selectedUser.trim());
+      const ArticleFrom = this.dateRange.start?.toISOString();
 
-      const authorId = selected?.ID ?? '';
-
-      const normalizedCategory = this.selectedCategory.replace(/[\s_]/g, '');
-
-      const tagList = this.hashtags.split(/\s+/).filter(tag => tag.startsWith('#'));
-
-      const fromDate = this.dateRange.start?.toISOString();
-
-      const toDate = this.dateRange.end?.toISOString();
+      const ArticleTo = this.dateRange.end?.toISOString();
 
       this.filtersChanged.emit({
-        AuthorID: authorId || undefined,
         ArticleCategory: this.selectedCategory !== EnumArticleCategory.Unspecified ? this.selectedCategory : undefined,
         ArticleHashtags: tagList.length > 0 ? tagList : undefined,
-        fromDate,
-        toDate
+        ArticleUserID: this.selectedUser || undefined,
+        ArticleFrom,
+        ArticleTo
       });
 
     }, 250);

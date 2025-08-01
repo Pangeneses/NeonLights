@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common'
+import { CommonModule } from '@angular/common';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { QuillModule } from 'ngx-quill';
 
@@ -10,7 +10,9 @@ import { FooterComponent } from '../footerComponent/footer.component';
 
 import { UserService } from '../../services/userService/user.service';
 import { ImageService } from '../../services/imageService/image.service';
-import { ThreadService, Thread, EnumForumCategory } from '../../services/threadService/thread.service';
+import { ThreadService, EnumForumCategory } from '../../services/threadService/thread.service';
+
+import { SERVER_URI } from '../../../../environment';
 
 import Quill from 'quill';
 
@@ -27,78 +29,66 @@ Quill.register(Block, true);
     RouterLink,
     RouterLinkActive,
     MatIconModule,
-    ReactiveFormsModule,
     FormsModule,
-    QuillModule],
+    QuillModule,
+  ],
   templateUrl: './fnew.component.html',
-  styleUrl: './fnew.component.scss'
+  styleUrl: './fnew.component.scss',
 })
 export class FNewComponent implements OnInit {
 
-  form: FormGroup;
+  SERVER_URI = SERVER_URI;
 
-  currentUser: any = null;
-
-  EnumForumCategory = EnumForumCategory;
-  categoryOptions = Object.entries(EnumForumCategory).map(([key, value]) => ({
-    label: value, 
-    value: key    
-  }));
-  selectedCategory: keyof typeof EnumForumCategory = 'Unspecified';
+  CurrentUser: any = null;
 
   richTextContent: string = '';
+
   quillModules = {
-    toolbar: [      
-    [{ 'font': [] }],
-    ['bold', 'italic', 'underline', 'strike'],        
-    ['blockquote', 'code-block'],
-    [{ 'header': 1 }, { 'header': 2 }],               
-    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-    [{ 'script': 'sub'}, { 'script': 'super' }],      
-    [{ 'indent': '-1'}, { 'indent': '+1' }],     
-    [{ 'align': [] }],                      
-    [{ 'size': ['small', false, 'large', 'huge'] }],  
-    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],         
-    ['link', 'image', 'video']                                
-    ]
+    toolbar: [
+      [{ font: [] }],
+      ['bold', 'italic', 'underline', 'strike'],
+      ['blockquote', 'code-block'],
+      [{ header: 1 }, { header: 2 }],
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }],
+      [{ indent: '-1' }, { indent: '+1' }],
+      [{ align: [] }],
+      [{ size: ['small', false, 'large', 'huge'] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+      ['link', 'image', 'video'],
+    ],
   };
 
   constructor(
     private router: Router,
     private userService: UserService,
     private imageService: ImageService,
-    private threadService: ThreadService
+    private threadService: ThreadService,
   ) {
     
-    this.form = userService.formBuilder();
-  
   }
 
   ngOnInit(): void {
 
-    this.userService.currentUser$.subscribe(userForm => {
+    this.userService.currentUser$.subscribe((userForm) => {
 
       if (userForm) {
 
-        this.form = userForm;
-
-        this.currentUser = userForm.getRawValue();
+        this.CurrentUser = userForm.getRawValue();
 
       }
 
     });
 
-  }    
+  }
 
   pictureFile: File | null = null;
-  pictureURL = './RedDragonThread.webp';
+  pictureURL = './d741b779-9c57-472a-a983-5c1dcaef7426.webp';
 
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
   onFileSelectTriggered(): void {
-
     this.fileInput.nativeElement.click();
-
   }
 
   onFileSelected(event: Event): void {
@@ -123,18 +113,27 @@ export class FNewComponent implements OnInit {
 
   }
 
+  EnumForumCategory = EnumForumCategory;
+  categoryOptions = Object.entries(EnumForumCategory).map(([key, value]) => ({
+    label: value,
+    value: key,
+  }));
+  selectedCategory: keyof typeof EnumForumCategory = 'Unspecified';
+
+  hashtagInput: string = '';
+
   onHashtagInput(event: Event): void {
-    
+
     const input = (event.target as HTMLInputElement).value;
-    
+
     const clean = input.replace(/[^a-zA-Z0-9 ]/g, '');
 
     let formatted = clean.startsWith('#') ? clean : '#' + clean;
 
     formatted = formatted
       .split(' ')
-      .filter(seg => seg.length > 0)
-      .map(seg => seg.startsWith('#') ? seg : '#' + seg)
+      .filter((seg) => seg.length > 0)
+      .map((seg) => (seg.startsWith('#') ? seg : '#' + seg))
       .join(' ');
 
     this.hashtagInput = formatted;
@@ -167,17 +166,32 @@ export class FNewComponent implements OnInit {
 
     return raw
       .split(/[\s,]+/)
-      .map(tag => tag.trim())
-      .filter(tag => tag.length > 1 && tag.startsWith('#') && tag.length <= 30)
+      .map((tag) => tag.trim())
+      .filter((tag) => tag.length > 1 && tag.startsWith('#') && tag.length <= 30)
       .slice(0, 5);
+      
+  }
 
+  access = 0;
+
+  onAccessChange() {
+
+    if(this.access > 60) {
+      
+      this.access = 60;
+
+    }
+    else if(this.access < 0){
+
+        this.access = 0;
+
+    }
+      
   }
 
   threadTitle: string = '';
 
   today = new Date();
-
-  hashtagInput: string = '';
 
   submitThread(): void {
 
@@ -189,24 +203,23 @@ export class FNewComponent implements OnInit {
 
     }
 
-    if (!this.currentUser?.ID) {
-      
+    if (!this.CurrentUser?.ID) {
+
       alert('Cannot submit thread: missing user ID.');
-  
+
       return;
 
     }
-
+    
     const threadData: any = {
-      AuthorID: this.currentUser.ID,
+      ThreadUserID: this.CurrentUser.ID,
       ThreadTitle: this.threadTitle,
       ThreadBody: this.richTextContent,
       ThreadCategory: this.selectedCategory as EnumForumCategory,
-      ThreadDate: this.today.toISOString().split('T')[0],
-      ThreadHashtags: this.parseHashtags(this.hashtagInput)
+      ThreadHashtags: this.parseHashtags(this.hashtagInput),
+      ThreadAccess: this.access,
+      ThreadDate: this.today.toISOString().split('T')[0]
     };
-
-    console.log('Posting threadData:', threadData);
 
     const finalizeAndPost = (imageFilename: string | null) => {
 
@@ -221,26 +234,26 @@ export class FNewComponent implements OnInit {
 
           alert('Thread uploaded!');
 
-          this.router.navigate(['/aindex']);
+          this.router.navigate(['/findex']);
 
         },
-        error: err => {
+        error: (err) => {
 
           console.error('Upload error', err);
-        
+
           if (err.error) {
 
             console.error('Backend error:', err.error);
-          
+
             if (err.error.details) {
 
               console.error('Validation details:', err.error.details);
-            
+
               alert(
                 'Validation failed:\n' +
-                Object.entries(err.error.details)
-                  .map(([field, info]: any) => `${field}: ${info.message || JSON.stringify(info)}`)
-                  .join('\n')
+                  Object.entries(err.error.details)
+                    .map(([field, info]: any) => `${field}: ${info.message || JSON.stringify(info)}`)
+                    .join('\n'),
               );
 
             } else {
@@ -248,7 +261,6 @@ export class FNewComponent implements OnInit {
               alert('Upload failed: ' + (err.error.error || 'Unknown server error.'));
 
             }
-          
           } else if (err.message) {
 
             alert('Upload failed: ' + err.message);
@@ -258,17 +270,16 @@ export class FNewComponent implements OnInit {
             alert('Upload failed: Unknown error');
 
           }
-          
-        }
-        
+
+        },
+
       });
-      
+
     };
 
     if (this.pictureFile) {
 
       this.imageService.sendImageFileToServer(this.pictureFile).subscribe({
-
         next: (res: any) => {
 
           const imageFilename = res?.file?.filename;
@@ -276,16 +287,14 @@ export class FNewComponent implements OnInit {
           finalizeAndPost(imageFilename);
 
         },
-        error: err => {
-
+        error: (err) => {
+          
           console.error('Image upload error:', err);
 
           alert('Image upload failed.');
 
-        }
-
+        },
       });
-
     } else {
 
       finalizeAndPost(null);
@@ -294,4 +303,38 @@ export class FNewComponent implements OnInit {
 
   }
 
+  @ViewChild('quillEditor') quillEditorComponent: any;
+
+  get quillEditor(): Quill {
+    return this.quillEditorComponent?.quillEditor;
+  }
+
+  onQuillPaste(event: ClipboardEvent) {
+    event.preventDefault();
+
+    const clipboardData = event.clipboardData;
+
+    if (!clipboardData) return;
+
+    const text = clipboardData.getData('text/plain');
+
+    const withSpaces = text.replace(/ {2,}/g, (match) => {
+      return ' ' + '&nbsp;'.repeat(match.length - 1);
+    });
+
+    const html = withSpaces
+      .split(/\r?\n/)
+      .map((line) => `<div>${line || '<br>'}</div>`)
+      .join('');
+
+    const quill = this.quillEditor;
+
+    const range = quill.getSelection(true);
+
+    quill.clipboard.dangerouslyPasteHTML(range?.index ?? 0, html);
+
+    const newPos = (range?.index ?? 0) + html.length;
+
+    quill.setSelection(newPos, 0);
+  }
 }

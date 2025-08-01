@@ -5,62 +5,61 @@ import { FooterComponent } from '../../component/footerComponent/footer.componen
 
 @Component({
   selector: 'shop-component-featured',
-  imports: [
-    NgFor,
-    HeaderComponent,
-    FooterComponent],
+  imports: [NgFor, HeaderComponent, FooterComponent],
   templateUrl: './featured.component.html',
-  styleUrl: './featured.component.scss'
+  styleUrl: './featured.component.scss',
 })
 export class FeaturedComponent implements OnInit {
-
   @ViewChild('carousel') carousel!: ElementRef;
 
   items = [
     {
       title: 'Welcome to the Red Dragons Society website.',
       image: '../../../../public/RedDragon.webp',
-      description: 'A beautiful sunset over the hills.'
+      description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
       image: '../../../../public/RedDragon.webp',
-      description: 'A beautiful sunset over the hills.'
+      description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
       image: '../../../../public/RedDragon.webp',
-      description: 'A beautiful sunset over the hills.'
+      description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
       image: '../../../../public/RedDragon.webp',
-      description: 'A beautiful sunset over the hills.'
+      description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
       image: '../../../../public/RedDragon.webp',
-      description: 'A beautiful sunset over the hills.'
+      description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
       image: '../../../../public/RedDragon.webp',
-      description: 'A beautiful sunset over the hills.'
+      description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
       image: '../../../../public/RedDragon.webp',
-      description: 'A beautiful sunset over the hills.'
+      description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
       image: '../../../../public/RedDragon.webp',
-      description: 'A beautiful sunset over the hills.'
-    }
+      description: 'A beautiful sunset over the hills.',
+    },
   ];
 
   scrollLeft() {
-    this.carousel.nativeElement.scrollBy({ left: -300, behavior: 'smooth' });
+    this.carousel.nativeElement.scrollBy({
+      left: -300,
+      behavior: 'smooth',
+    });
   }
 
   scrollRight() {

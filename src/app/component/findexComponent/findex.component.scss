@@ -6,8 +6,10 @@
   width: 100%;
 }
 
-*, *::before, *::after {
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 .findex-header {
@@ -18,7 +20,7 @@
   width: 100%;
 }
 
-.findex-nav{
+.findex-nav {
   position: absolute;
   top: 30%;
   height: 65%;
@@ -32,7 +34,7 @@
   height: 61%;
   left: 25%;
   width: 50%;
-  padding: .5em;
+  padding: 0.5em;
   display: flex;
   flex-direction: row;
   gap: 0.35em;
@@ -68,6 +70,8 @@
 
 .thread-content {
   flex: 0 1 67%;
+  max-height: 11em;
+  max-width: 67%;
   display: flex;
   flex-direction: column;
   padding: 0.4em;
@@ -76,25 +80,27 @@
 }
 
 .thread-title {
-  flex: 0 0 1.6em;
-  font-size: 1.2em;
-  max-height: 3.4em;
-  overflow-wrap: normal;
-  word-break: normal;
+  flex: 1 0 1.4em;  
+  font-size: 1.2em;      
+  max-height: 3em;     
+  white-space: normal;
+  word-break: break-word;       
+  overflow-wrap: break-word;
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  text-overflow: ellipsis;      
+  display: inline-block;               
   border-bottom: 1px solid black;
 }
 
 .thread-body {
-  flex: 0 1 5.6em;
-  font-size: 0.8em;
-  line-height: 1.4em;
-  overflow-y: hidden;
+  flex: 0 1 6em;
+  width: 100%;
+  max-width: 100%;
+  min-height: 4.6em;
   white-space: normal;
   overflow-wrap: normal;
   word-break: normal;
+  overflow-y: auto;
   text-overflow: ellipsis;
 }
 
@@ -106,29 +112,29 @@
   border-top: 1px solid black;
 }
 
-.thread-author{
+.thread-user-name {
   flex: 1;
   font-size: 0.6em;
 }
 
-.thread-date{
+.thread-date {
   flex: 1;
   font-size: 0.6em;
 }
 
-.thread-category{
+.thread-category {
   flex: 1;
   font-size: 0.6em;
 }
 
-.thread-hashtags{
+.thread-hashtags {
   flex: 0 0 0.7em;
   padding-top: 0.5em;
   font-size: 0.6em;
   border-top: 1px solid black;
 }
 
-.thread-image{
+.thread-image {
   flex: 0 1 auto;
   width: 32.6%;
 }

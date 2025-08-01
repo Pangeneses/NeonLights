@@ -1,38 +1,37 @@
-
-.app-container{
-    position: static;
-    top: 0%;
-    height: 100%;
-    left: 0%;
-    width: 100%;
-    background-color: black;
+.app-container {
+  position: static;
+  top: 0%;
+  height: 100%;
+  left: 0%;
+  width: 100%;
+  background-color: black;
 }
 
-.app-landing{
-    position: absolute;
-    top: 0px;
-    height: 100%;
-    left: 0px;
-    width: 100%;
-    object-fit: cover;     
-    object-position: center;
-    display: block;  
+.app-landing {
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  left: 0px;
+  width: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 .app-login-button {
-    position: absolute;
-    top: 85%;
-    height: 5%;
-    width: 15%;
-    left: 42.5%;
-    background-color: #840c2b;
-    border-radius: 10px;
-  }
+  position: absolute;
+  top: 85%;
+  height: 5%;
+  width: 15%;
+  left: 42.5%;
+  background-color: #840c2b;
+  border-radius: 10px;
+}
 
-.app-login-button p{
-    font-size: 30px;
-    font-weight: 400;
-    display: flex;
-    align-items: center;
-    color: black;
+.app-login-button p {
+  font-size: 30px;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  color: black;
 }

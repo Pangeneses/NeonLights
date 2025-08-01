@@ -1,0 +1,85 @@
+<div class="calendar-container">
+
+    <div class="calendar-card">
+
+        <div class="calendar-header">
+            <p>Choose Date or Range</p>
+        </div>
+
+        <div class="calendar-from-to">
+
+            <div class="calendar-from">
+                From: {{ selectedFromDate ? (selectedFromDate | date: 'fullDate') : '—' }}
+            </div>
+
+            <div class="calendar-to">
+                To: {{ selectedToDate ? (selectedToDate | date: 'fullDate') : '—' }}
+            </div>
+
+        </div>
+
+        <div class="calendar-year-month">
+
+            <select class="calendar-month" [(ngModel)]="selectedMonth" (ngModelChange)="generateCalendar()">
+
+                @for (month of monthOptions; track trackMonthFN($index, month)) {
+
+                <option [value]="month.value">{{ month.label }}</option>
+
+                }
+            </select>
+
+            <select class="calendar-year" [(ngModel)]="selectedYear" (ngModelChange)="generateCalendar()">
+
+                @for (year of yearOptions; track trackYearFN($index, year)) {
+
+                <option [value]="year">{{ year }}</option>
+
+                }
+            </select>
+
+        </div>
+
+        <div class="calendar-grid">
+
+            @for (day of weekDays; track trackDayFN($index, day)) {
+
+            <div class="calendar-day">
+                {{ day }}
+            </div>
+
+            }
+
+            @for (date of calendarDays; track trackDateFN($index, date)) {
+
+                <div class="calendar-cell">
+
+                    @if (date.getMonth() !== +selectedMonth) {
+
+                        <div class="calendar-off-month"></div>
+
+                    }
+
+                    @if (date.getMonth() !== +selectedMonth) {
+
+                        <div class="calendar-off-month"></div>
+
+                    }
+
+                    @if (date.getMonth() !== +selectedMonth) {
+
+                        <div class="calendar-off-month"></div>
+
+                    }
+                
+                    <p>{{ date.getDate() }}</p>
+
+                </div>
+
+            }
+
+        </div>
+
+    </div>
+
+</div>

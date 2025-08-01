@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
-
-import { ListedUserService, ListedUser } from '../usersService/users.service';
 
 import { SERVER_URI } from '../../../../environment';
 
 export interface Article {
-  ArticleID:       string;
-  AuthorID: string | { _id: string, UserName: string }               
-  ArticleTitle:    string;         
-  ArticleBody:     string;
-  ArticleImage:    string;
-  ArticleDate:     string;     
-  ArticleCategory: EnumArticleCategory;          
-  ArticleHashtags: string[];            
+  ArticleID: string;
+  ArticleUserID: string;
+  ArticleTitle: string;
+  ArticleBody: string;
+  ArticleImage: string;
+  ArticleDate: string;
+  ArticleCategory: EnumArticleCategory;
+  ArticleHashtags: string[];
 }
 
-export interface ArticleWithUserName extends Article {
-  AuthorName?: string;
+export interface ArticleExtended extends Article {
+  ArticleUserName: string;
+  ArticleFirst: string;
+  ArticleLast: string;
+  ArticleJournal: string;
 }
 
 export interface ArticlesResponse {
@@ -31,78 +31,61 @@ export interface ArticlesResponse {
 })
 export class ArticleService {
 
-  private articlesSubject = new BehaviorSubject<FormArray | null>(null);
+  private articlesSubject = new BehaviorSubject<ArticleExtended[]>([]);
+  public articles$: Observable<ArticleExtended[]> = this.articlesSubject.asObservable();
 
-  public articles$: Observable<FormArray | null> = this.articlesSubject.asObservable();
-
-  constructor(
-    private http: HttpClient,
-    private userService: ListedUserService,
-    private fb: FormBuilder) {
+  constructor(private http: HttpClient) {
 
     const savedArticles = localStorage.getItem('articles');
 
     if (savedArticles) {
 
-      const data = JSON.parse(savedArticles);
+      try {
 
-      const articlesFormArray = this.toFormArray(data);
+        const data = JSON.parse(savedArticles);
 
-      this.articlesSubject.next(articlesFormArray);
+        const articlesArray: ArticleExtended[] = Array.isArray(data)
+          ? data.map((item: any) => this.normalizeArticle(item))
+          : [];
+
+        this.articlesSubject.next(articlesArray);
+
+      } catch (err) {
+
+        console.error('Failed to parse saved articles:', err);
+
+        this.articlesSubject.next([]);
+
+      }
 
     }
 
   }
 
-  getListedUsers(): ListedUser[] {
-    
-    return this.userService.getUsers();
+  private normalizeArticle(data: any): ArticleExtended {
+
+    return {
+      ArticleID: data.ArticleID ?? '',
+      ArticleUserID: data.ArticleUserID ?? '',
+      ArticleUserName: data.ArticleUserName ?? '',
+      ArticleFirst: data.ArticleUserFirst ?? '',
+      ArticleLast: data.ArticleUserLast ?? '',
+      ArticleJournal: data.ArticleJournal ?? '',
+      ArticleTitle: data.ArticleTitle ?? '',
+      ArticleBody: data.ArticleBody ?? '',
+      ArticleImage: data.ArticleImage ?? '',
+      ArticleDate: data.ArticleDate ?? new Date().toISOString(),
+      ArticleCategory: data.ArticleCategory ?? EnumArticleCategory.Unspecified,
+      ArticleHashtags: Array.isArray(data.ArticleHashtags) ? data.ArticleHashtags : [],
+    };
 
   }
 
-  createArticleForm(): FormGroup {
+  setArticles(articlesArray: ArticleExtended[]) {
 
-    return this.fb.group({
-      ArticleID:        [''],
-      AuthorID:         [''],
-      ArticleTitle:     ['', { validators: [Validators.required, Validators.minLength(3), Validators.pattern('^[a-zA-Z0-9.\\- ]+$')], updateOn: 'blur' }],
-      ArticleBody:      ['', { validators: [Validators.required, Validators.minLength(500)], updateOn: 'blur' }],
-      ArticleImage:     [''],
-      ArticleDate:      ['', { validators: [Validators.pattern(/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/)], updateOn: 'blur' }],
-      ArticleCategory:  [EnumArticleCategory.Unspecified],
-      ArticleHashtags:  [[]]
-    });
+    localStorage.setItem('articles', JSON.stringify(articlesArray));
 
-  }
-
-  toForm(article: any): FormGroup {
-
-    return this.fb.group({
-      ArticleID:        [article.ArticleID],
-      AuthorID:         [article.AuthorID],
-      ArticleTitle:     [article.ArticleTitle],
-      ArticleBody:      [article.ArticleBody],
-      ArticleImage:     [article.ArticleImage],
-      ArticleDate:      [article.ArticleDate],
-      ArticleCategory:  [article.ArticleCategory],
-      ArticleHashtags:  [article.ArticleHashtags || []]
-    });
-
-  }
-
-  toFormArray(articles: any[]): FormArray {
-
-    const formGroups = articles.map(article => this.toForm(article));
-
-    return this.fb.array(formGroups);
-
-  }
-
-  setArticles(formArray: FormArray) {
-
-    localStorage.setItem('articles', JSON.stringify(formArray.getRawValue()));
-
-    this.articlesSubject.next(formArray);
+    this.articlesSubject.next(articlesArray);
 
   }
 
@@ -110,64 +93,42 @@ export class ArticleService {
 
     localStorage.removeItem('articles');
 
-    this.articlesSubject.next(this.fb.array([]));
+    this.articlesSubject.next([]);
 
   }
 
-  getCurrentArticles(): FormArray | null {
+  getCurrentArticles(): ArticleExtended[] | null {
 
     return this.articlesSubject.value;
 
   }
 
-  postArticle(articleData: Article): Observable<any> {
-    
-    return this.http.post(`${SERVER_URI}/api/articles`, articleData);
+  getArticleByID(articleID: string): ArticleExtended | null {
+
+    const articles = this.getCurrentArticles();
+
+    return articles?.find((article) => article.ArticleID === articleID) ?? null;
 
   }
 
   fetchArticleChunk(options: {
     limit: number;
-    lastId?: string;
+    lastID?: string;
     direction?: 'up' | 'down';
-    AuthorID?: string | string[];
+    ArticleUserID?: string;
     ArticleCategory?: EnumArticleCategory;
     ArticleHashtags?: string[];
-    fromDate?: string;
-    toDate?: string;
+    ArticleFrom?: string;
+    ArticleTo?: string;
   }): Observable<boolean> {
 
     let params = new HttpParams().set('limit', options.limit.toString());
 
-    if (options.lastId) {
+    if (options.lastID) params = params.set('lastID', options.lastID);
 
-      params = params.set('lastId', options.lastId);
+    if (options.direction) params = params.set('direction', options.direction);
 
-    }
-
-    if (options.direction) {
-
-      params = params.set('direction', options.direction);
-
-    }
-
-    if (Array.isArray(options.AuthorID)) {
-
-      for (const id of options.AuthorID) {
-
-        if (id.trim()) {
-
-          params = params.append('AuthorID', id.trim());
-
-        }
-
-      }
-
-    } else if (typeof options.AuthorID === 'string' && options.AuthorID.trim()) {
-
-      params = params.set('AuthorID', options.AuthorID.trim());
-
-    }
+    if (options.ArticleUserID) params = params.set('ArticleUserID', options.ArticleUserID);
 
     if (options.ArticleCategory && options.ArticleCategory !== EnumArticleCategory.Unspecified) {
 
@@ -189,64 +150,55 @@ export class ArticleService {
 
     }
 
-    if (options.fromDate && !isNaN(Date.parse(options.fromDate))) {
+    if (options.ArticleFrom && !isNaN(Date.parse(options.ArticleFrom))) {
 
-      params = params.set('from', new Date(options.fromDate).toISOString());
-
-    }
-
-    if (options.toDate && !isNaN(Date.parse(options.toDate))) {
-
-      params = params.set('to', new Date(options.toDate).toISOString());
+      params = params.set('ArticleFrom', new Date(options.ArticleFrom).toISOString());
 
     }
 
-    console.log(params.keys().map(key => `${key}=${params.getAll(key)?.join(',')}`).join('&'));
+    if (options.ArticleTo && !isNaN(Date.parse(options.ArticleTo))) {
 
-    return this.http.get<Article[]>(`${SERVER_URI}/api/articles/chunk`, { params }).pipe(      
+      params = params.set('ArticleTo', new Date(options.ArticleTo).toISOString());
+
+    }
+
+    return this.http.get<ArticleExtended[]>(`${SERVER_URI}/api/articles/chunk`, { params }).pipe(
       switchMap((response: any) => {
 
-        console.log('Response from /chunk:', response);
-      
         const articles = Array.isArray(response) ? response : response.Articles;
-      
+
         if (!Array.isArray(articles)) {
 
           throw new Error('Expected articles to be an array');
 
         }
-      
-        const currentFormArray = (this.getCurrentArticles() as FormArray<FormGroup>) ?? this.fb.array([]);
 
-        const newForms = this.toFormArray(articles) as FormArray<FormGroup>;
-      
-        newForms.controls.forEach((control: FormGroup) => {
+        const newArticles = Array.isArray(articles) ? articles.map(this.normalizeArticle) : [];
 
-          currentFormArray.push(control);
+        if (newArticles.length > 0) {
 
-        });
-      
-        this.setArticles(currentFormArray);
-      
+          this.clearArticles();
+
+          this.setArticles(newArticles);
+
+        }
+        else {
+
+          //end of articles
+
+        }
+
         return [articles.length > 0];
-        
-      })
+
+      }),
 
     );
 
   }
 
-  getArticleByID(articleID: string): FormGroup | null {
+  postArticle(articleData: Article): Observable<any> {
 
-    const articlesFormArray = this.articlesSubject.value;
-
-    if (!articlesFormArray) return null;
-
-    const found = articlesFormArray.controls.find(ctrl => 
-      (ctrl as FormGroup).get('ArticleID')?.value === articleID
-    );
-
-    return found ? (found as FormGroup) : null;
+    return this.http.post(`${SERVER_URI}/api/articles`, articleData);
 
   }
 
@@ -288,5 +240,5 @@ export enum EnumArticleCategory {
   Film = 'Film',
   TV = 'TV',
   Gaming = 'Gaming',
-  Sports = 'Sports'
+  Sports = 'Sports',
 }

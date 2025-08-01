@@ -1,23 +1,18 @@
 <div class="featured-container">
-  
   <app-component-header class="featured-header"></app-component-header>
-     
-  <div class="featured">
 
-    <div class="featured-scroll-button" (click)="scrollLeft()" style="left:2%;">
-      <img src="LeftArrow.webp"/>
+  <div class="featured">
+    <div class="featured-scroll-button" (click)="scrollLeft()" style="left: 2%">
+      <img src="LeftArrow.webp" />
     </div>
 
-    <div class="featured-scroll-button" (click)="scrollRight()" style="right:2%;">
-      <img src="RightArrow.webp"/>
+    <div class="featured-scroll-button" (click)="scrollRight()" style="right: 2%">
+      <img src="RightArrow.webp" />
     </div>
 
     <div #carousel class="featured-carousel-track">
-
       <div *ngFor="let item of items" class="featured-articles">
-
         <div class="card">
-
           <div class="card-header">
             <p>{{ item.title }}</p>
           </div>
@@ -27,15 +22,10 @@
           <div class="card-content">
             <p>{{ item.description }}</p>
           </div>
-
         </div>
-
       </div>
-    
     </div>
-
   </div>
-    
-  <app-component-footer class="featured-footer"></app-component-footer>
 
+  <app-component-footer class="featured-footer"></app-component-footer>
 </div>

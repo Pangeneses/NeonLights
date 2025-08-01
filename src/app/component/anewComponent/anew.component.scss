@@ -26,7 +26,7 @@
   height: 62%;
   left: 10%;
   width: 80%;
-  padding: .4em;
+  padding: 0.4em;
   display: flex;
   flex-direction: row;
   gap: 0.3em;
@@ -83,7 +83,7 @@
 .anew-details p {
   flex: 0 0 15%;
   font-size: 1em;
-  padding: .4em;
+  padding: 0.4em;
   text-wrap: wrap;
 }
 
@@ -185,7 +185,7 @@
   display: none;
   background-color: white;
   border: 1px solid #ccc;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   white-space: normal;
   padding: 0.25em 0;
 }

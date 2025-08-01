@@ -1,74 +1,77 @@
 <div class="anew-container">
 
-    <app-component-header class="anew-header"></app-component-header>
+  <app-component-header class="anew-header"></app-component-header>
 
-    <div class="anew-card">
+  <div class="anew-card">
 
-        <div class="anew-confirm">
+    <div class="anew-confirm">
 
-            <div class="anew-confirm-accept" (click)="submitArticle()">
-                <mat-icon>save</mat-icon>
-            </div>
+      <div class="anew-confirm-accept" (click)="submitArticle()">
+        <mat-icon>save</mat-icon>
+      </div>
 
-            <div class="anew-confirm-reject" [routerLink]="['/aindex']" routerLinkActive="active">
-                <mat-icon>delete</mat-icon>
-            </div>
-
-        </div>
-
-        <div class="anew-journal-info">
-                 
-            <img class="anew-image" [src]="this.pictureURL"  (click)="this.onFileSelectTriggered()">
-            <input 
-                type="file" 
-                #fileInput 
-                (change)="this.onFileSelected($event)" 
-                accept=".jpg,.webp" 
-                style="display: none"/>
-
-            <div class="anew-details">
-                <p>Author: {{ form.get('FirstName')?.value }} {{ form.get('LastName')?.value }}</p>
-                <p>Date: {{ today | date:'longDate' }}</p>
-                <p>Details: {{ form.get('JournalDesc')?.value }}</p>
-            </div>
-            
-            <!-- Category Dropdown -->
-            <select class="anew-category" [(ngModel)]="selectedCategory">
-              <option *ngFor="let cat of categoryOptions" [value]="cat.value">
-                {{ cat.label }}
-              </option>
-            </select>
-
-            <input 
-                type="text" 
-                class="anew-hashtags" 
-                [(ngModel)]="hashtagInput" 
-                placeholder="up to 5 #hashtags"
-                (input)="onHashtagInput($event)"
-                (keydown)="onHashtagKeyDown($event)"/>
-
-        </div>
-
-        <div class="anew-content">
-
-            <textarea class="anew-title" placeholder="ARTICLE TITLE" [(ngModel)]="articleTitle"></textarea>
-            
-            <div class="anew-text-container">
-                
-                <quill-editor
-                    class="anew-text"
-                    [(ngModel)]="richTextContent"
-                    [styles]="{ height: '100%' }"
-                    [modules]="quillModules"
-                    theme="snow">
-                </quill-editor> 
-
-            </div>           
-
-        </div>
+      <div class="anew-confirm-reject" [routerLink]="['/aindex']" routerLinkActive="active">
+        <mat-icon>delete</mat-icon>
+      </div>
 
     </div>
 
-    <app-component-footer class="anew-footer"></app-component-footer>
+    <div class="anew-journal-info">
+      
+      <img
+        class="anew-image"
+        [src]="SERVER_URI + '/images/' + this.pictureURL"
+        alt="Article Image"
+        (click)="this.onFileSelectTriggered()"
+      />
+      <input type="file" #fileInput (change)="this.onFileSelected($event)" accept=".jpg,.webp" style="display: none" />
+
+      <div class="anew-details">
+        <p>
+          Author: {{ CurrentUser.FirstName }} {{ CurrentUser.LastName }}
+        </p>
+        <p>Date: {{ today | date: 'longDate' }}</p>
+        <p>Details: {{ CurrentUser.JournalDesc }}</p>
+      </div>
+
+      <!-- Category Dropdown -->
+      <select class="anew-category" [(ngModel)]="selectedCategory">
+        <option *ngFor="let cat of categoryOptions" [value]="cat.value">
+          {{ cat.label }}
+        </option>
+      </select>
+
+      <input
+        type="text"
+        class="anew-hashtags"
+        [(ngModel)]="hashtagInput"
+        placeholder="up to 5 #hashtags"
+        (input)="onHashtagInput($event)"
+        (keydown)="onHashtagKeyDown($event)"
+      />
+    </div>
+
+    <div class="anew-content">
+
+      <textarea class="anew-title" placeholder="ARTICLE TITLE" [(ngModel)]="articleTitle"></textarea>
+
+      <div class="anew-text-container">
+        <quill-editor
+          class="anew-text"
+          #quillEditor
+          (paste)="onQuillPaste($event)"
+          [(ngModel)]="richTextContent"
+          [styles]="{ height: '100%' }"
+          [modules]="quillModules"
+          theme="snow"
+        >
+        </quill-editor>        
+      </div>
+
+    </div>
+
+  </div>
+
+  <app-component-footer class="anew-footer"></app-component-footer>
 
 </div>

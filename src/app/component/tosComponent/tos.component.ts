@@ -5,22 +5,16 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-component-tos',
   imports: [MatIconModule],
   templateUrl: './tos.component.html',
-  styleUrl: './tos.component.scss'
+  styleUrl: './tos.component.scss',
 })
 export class ToSComponent implements OnInit {
+  ngOnInit(): void {}
 
-  ngOnInit(): void {
-    
-  }
-    
   constructor() {}
 
   @Output() notify = new EventEmitter<boolean>();
 
   onClose() {
-
     this.notify.emit(true);
-
   }
-  
 }
