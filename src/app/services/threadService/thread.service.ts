@@ -7,16 +7,15 @@ import { SERVER_URI } from '../../../../environment';
 export interface Thread {
   ThreadID: string;
   ThreadUserID: string;
+  ThreadUserName: string;
+  ThreadUserAvatar: string;
   ThreadTitle: string;
   ThreadBody: string;
-  ThreadImage: string;
+  ThreadPosts: string[];
   ThreadDate: string;
+  ThreadAccess: string;
   ThreadCategory: EnumForumCategory;
   ThreadHashtags: string[];
-}
-
-export interface ThreadExtended extends Thread {
-  ThreadUserName: string;
 }
 
 export interface ThreadsResponse {
@@ -28,7 +27,7 @@ export interface ThreadsResponse {
 })
 export class ThreadService {
 
-  private threadsSubject = new BehaviorSubject<ThreadExtended[]>([]);
+  private threadsSubject = new BehaviorSubject<Thread[]>([]);
   public threads$ = this.threadsSubject.asObservable();
 
   constructor(private http: HttpClient) {
@@ -41,7 +40,7 @@ export class ThreadService {
 
         const data = JSON.parse(savedThreads);
 
-        const threadsArray: ThreadExtended[] = Array.isArray(data)
+        const threadsArray: Thread[] = Array.isArray(data)
           ? data.map((item: any) => this.normalizeThread(item))
           : [];
 
@@ -59,25 +58,27 @@ export class ThreadService {
 
   }
 
-  private normalizeThread(data: any): ThreadExtended {
+  private normalizeThread(data: any): Thread {
 
     return {
       ThreadID: data.ThreadID ?? '',
       ThreadUserID: data.ThreadUserID ?? '',
       ThreadUserName: data.ThreadUserName ?? '',
+      ThreadUserAvatar: data.ThreadUserAvatar ?? '',
       ThreadTitle: data.ThreadTitle ?? '',
       ThreadBody: data.ThreadBody ?? '',
-      ThreadImage: data.ThreadImage ?? '',
+      ThreadPosts: data.ThreadPosts ?? '',
       ThreadDate: data.ThreadDate ?? new Date().toISOString(),
+      ThreadAccess: data.ThreadAccess ?? 0,
       ThreadCategory: data.ThreadCategory ?? EnumForumCategory.Unspecified,
       ThreadHashtags: Array.isArray(data.ThreadHashtags) ? data.ThreadHashtags : [],
     };
 
   }
 
-  setThreads(threadsArray: ThreadExtended[]) {
+  setThreads(threadsArray: Thread[]) {
 
-    localStorage.setItem('articles', JSON.stringify(threadsArray));
+    localStorage.setItem('threads', JSON.stringify(threadsArray));
 
     this.threadsSubject.next(threadsArray);
 
@@ -91,17 +92,15 @@ export class ThreadService {
 
   }
 
-  getCurrentThreads(): ThreadExtended[] | null {
+  getCurrentThreads(): Thread[] | null {
 
     return this.threadsSubject.value;
 
   }
 
-  getThreadByID(threadID: string): ThreadExtended | null {
+  getThreadByID(threadID: string): Observable<any> {
 
-    const articles = this.getCurrentThreads();
-
-    return articles?.find((article) => article.ThreadID === threadID) ?? null;
+    return this.http.get(`${SERVER_URI}/api/threads/${threadID}`);
 
   }
 
@@ -148,7 +147,7 @@ export class ThreadService {
 
     }
 
-    return this.http.get<ThreadExtended[]>(`${SERVER_URI}/api/threads/chunk`, { params }).pipe(
+    return this.http.get<Thread[]>(`${SERVER_URI}/api/threads/chunk`, { params }).pipe(
       switchMap((response: any) => {
 
         const threads = Array.isArray(response) ? response : response.Threads;
@@ -159,15 +158,13 @@ export class ThreadService {
 
         }
 
-        const newArticles = Array.isArray(threads) ? threads.map(this.normalizeThread) : [];
+        const newThreads = Array.isArray(threads) ? threads.map(this.normalizeThread) : [];
 
-        console.log(newArticles);
-
-        if (newArticles.length > 0) {
+        if (newThreads.length > 0) {
 
           this.clearThreads();
 
-          this.setThreads(newArticles);
+          this.setThreads(newThreads);
 
         }
         else {
@@ -184,7 +181,7 @@ export class ThreadService {
 
   }
 
-  postThread(threadData: Thread): Observable<any> {
+  newThread(threadData: Thread): Observable<any> {
 
     return this.http.post(`${SERVER_URI}/api/threads`, threadData);
 

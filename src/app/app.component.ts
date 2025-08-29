@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { NgIf } from '@angular/common';
 import { Router, RouterOutlet } from '@angular/router';
 import { LoginComponent } from './component/loginComponent/login.component';
 import { NewUserComponent } from './component/newUserComponent/new.user.component';
@@ -8,11 +7,18 @@ import { MatButton } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
-  imports: [NgIf, RouterOutlet, LoginComponent, NewUserComponent, MatIconModule, MatButton],
+  imports: [
+    RouterOutlet, 
+    LoginComponent, 
+    NewUserComponent, 
+    MatIconModule, 
+    MatButton
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
+  
   title = 'Red Dragon Society';
 
   isLanding = true;
@@ -29,6 +35,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     if (this.router.url === '/') {
       this.isLanding = true;
       this.isEnter = false;
@@ -47,7 +54,9 @@ export class AppComponent implements OnInit {
   }
 
   async animateLoading() {
+
     for (let i = 1; i <= 53; i++) {
+
       const paddedNumber = i.toString().padStart(3, '0');
 
       this.LandingURL = `Landing/Landing${paddedNumber}.png`;
@@ -55,6 +64,7 @@ export class AppComponent implements OnInit {
       this.cdr.detectChanges();
 
       await new Promise((resolve) => setTimeout(resolve, 100));
+
     }
 
     this.isEnter = true;

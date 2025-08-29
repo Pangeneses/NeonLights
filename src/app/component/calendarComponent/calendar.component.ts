@@ -1,11 +1,12 @@
 // calendar.component.ts
-import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-component-calendar',
   imports: [
+    CommonModule,
     DatePipe,
     FormsModule
   ],
@@ -14,17 +15,29 @@ import { FormsModule } from '@angular/forms';
 })
 export class CalendarComponent implements OnInit {
 
+  @Output() blurDateRange = new EventEmitter<{
+    FromDate: Date;
+    ToDate: Date;
+  }>();
+
+  constructor(){
+
+    this.selectedMonth = new Date().getMonth();
+
+    this.selectedYear = new Date().getFullYear();
+
+  }
+
   ngOnInit() {
 
     this.generateYearOptions();
 
-    const today = new Date();
-
-    this.selectedYear = today.getFullYear();
-
-    this.selectedMonth = today.getMonth();
-
     this.generateCalendar();
+
+    this.blurDateRange.emit({
+      FromDate: this.selectedFromDate, 
+      ToDate: this.selectedToDate
+    });
 
   }
 
@@ -55,7 +68,7 @@ export class CalendarComponent implements OnInit {
     { label: 'December', value: 11 },
   ];
 
-  selectedMonth = new Date().getMonth();
+  selectedMonth: number;
 
   trackYearFN(index: number, item: number) {
     return item;
@@ -63,7 +76,7 @@ export class CalendarComponent implements OnInit {
 
   yearOptions: number[] = [];
 
-  selectedYear = new Date().getFullYear();
+  selectedYear: number;
 
   generateYearOptions() {
 
@@ -88,9 +101,6 @@ export class CalendarComponent implements OnInit {
     const startDay = firstDay.getDay();
 
     const daysInMonth = new Date(this.selectedYear, +this.selectedMonth + 1, 0).getDate();
-
-    
-    console.log(this.calendarDays.length + ' ' + (+this.selectedMonth + 1) + ' ' + startDay + ' ' + daysInMonth);
 
     const prevMonth = this.selectedMonth === 0 ? 11 : +this.selectedMonth - 1;
 
@@ -124,8 +134,45 @@ export class CalendarComponent implements OnInit {
 
   }
 
+  selectedEdge: 'from' | 'to' = 'from';
+
   selectedFromDate = new Date();
 
   selectedToDate = new Date();
+
+  stripTime(date: Date): number {
+
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+
+  }
+
+  onCalendarCellClick(date: Date): void {
+
+    if (this.selectedEdge === 'from') {
+
+      this.selectedFromDate = new Date(date);
+
+      this.selectedToDate = new Date(date);
+
+    } else if (this.selectedEdge === 'to') {
+
+      this.selectedToDate = new Date(date);
+
+      if (this.selectedFromDate && this.stripTime(this.selectedToDate) < this.stripTime(this.selectedFromDate)) {
+
+        this.selectedToDate = this.selectedFromDate;
+
+        this.selectedFromDate = new Date(date);
+
+      }
+
+    }
+
+    this.blurDateRange.emit({
+      FromDate: this.selectedFromDate, 
+      ToDate: this.selectedToDate
+    });
+
+  }
 
 }

@@ -4,6 +4,7 @@
   height: 100%;
   left: 0%;
   width: 100%;
+  display: flex;
 }
 
 *,
@@ -14,9 +15,9 @@
 
 .calendar-card {
   position: absolute;
-  height: 94%;
-  right: 2%;
-  width: 20%;
+  height: 100%;
+  right: 0%;
+  width: 100%;
   padding: 0.4em;
   display: flex;
   flex-direction: column;
@@ -66,6 +67,16 @@
   border: 1px solid black;
 }
 
+.calendar-from.selected-edge,
+.calendar-to.selected-edge {
+  border-bottom: 0.2em solid #ba1f11e2;
+}
+
+.calendar-from.unselected-edge,
+.calendar-to.unselected-edge {
+  border-bottom: 0.1em solid #bf6159e2;
+}
+
 .calendar-grid {
   flex: 0 1 auto;
   width: 100%;
@@ -107,4 +118,25 @@
   width: 100%;
   background-color: #544380;
   opacity: 20%;
+}
+
+.calendar-range{
+  position: absolute;
+  top: 30%;
+  height: 40%;
+  left: 30%;
+  width: 40%;
+  background-color: #c05796;
+  opacity: 100%;
+}
+
+.calendar-range-ends{
+  position: absolute;
+  top: 30%;
+  height: 40%;
+  left: 30%;
+  width: 40%;
+  background-color: #c05796;
+  opacity: 100%;
+  border-radius: 50%;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -7,14 +7,17 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './about.component.html',
   styleUrl: './about.component.scss',
 })
-export class AboutComponent implements OnInit {
-  ngOnInit(): void {}
+export class AboutComponent {
 
   constructor() {}
 
   @Output() notify = new EventEmitter<boolean>();
 
   onClose() {
+
     this.notify.emit(true);
+
   }
+
 }
+

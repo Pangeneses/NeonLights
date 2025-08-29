@@ -1,0 +1,40 @@
+<div class="reply-container">
+
+    <div class="reply-card">
+
+        <div class="reply-content">
+
+            <div class="reply-text-container">
+
+                <quill-editor 
+                    class="reply-text" 
+                    #quillEditor 
+                    [(ngModel)]="richTextContent" 
+                    [styles]="{ height: '100%' }" 
+                    [modules]="quillModules" 
+                    theme="snow">
+                </quill-editor>
+
+            </div>
+
+            <div class="user-image">
+                <img [src]="SERVER_URI + '/images/' + CurrentUser.Avatar" alt="User Image" />
+            </div>
+
+        </div>
+
+        <div class="reply-confirm">
+
+            <div class="reply-confirm-accept" (click)="onSubmitReply()">
+                <mat-icon>save</mat-icon>
+            </div>
+
+            <div class="reply-confirm-reject" (click)="onDeleteReply()">
+                <mat-icon>delete</mat-icon>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

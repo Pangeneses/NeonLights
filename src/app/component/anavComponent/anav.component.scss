@@ -12,6 +12,13 @@
   box-sizing: border-box;
 }
 
+.anav-calendar {
+  position: absolute;
+  height: 94%;
+  right: 2%;
+  width: 20%;
+}
+
 .anav-card {
   position: absolute;
   height: 94%;
@@ -44,8 +51,4 @@
 
 .anav-user-selection {
   flex: 1 1 auto;
-}
-
-.anav-calendar {
-  flex: 1;
 }

@@ -11,21 +11,29 @@
     </div>
 
     <div #carousel class="headlines-carousel-track">
-      <div *ngFor="let item of items" class="headlines-articles">
+
+      @for(article of featuredArticles; track trackHeadlineFN($index, article)){
+
+      <div class="headlines-articles">
         <div class="card">
           <div class="card-header">
-            <p>{{ item.title }}</p>
+            <p>{{ article.ArticleTitle }}</p>
           </div>
 
           <div class="card-img"></div>
 
           <div class="card-content">
-            <p>{{ item.description }}</p>
+            <p>{{ article.ArticleBody }}</p>
           </div>
         </div>
       </div>
+
+      }
+
     </div>
+
   </div>
 
   <app-component-footer class="headlines-footer"></app-component-footer>
+
 </div>

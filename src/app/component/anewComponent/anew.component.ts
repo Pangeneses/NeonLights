@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,6 +15,7 @@ import { ArticleService, EnumArticleCategory } from '../../services/articleServi
 import { SERVER_URI } from '../../../../environment';
 
 import Quill from 'quill';
+const Delta = Quill.import('delta');
 
 const Block: any = Quill.import('blots/block');
 Block.tagName = 'div';
@@ -35,7 +36,7 @@ Quill.register(Block, true);
   templateUrl: './anew.component.html',
   styleUrl: './anew.component.scss',
 })
-export class ANewComponent implements OnInit {
+export class ANewComponent implements OnInit, AfterViewInit {
 
   SERVER_URI = SERVER_URI;
 
@@ -77,6 +78,47 @@ export class ANewComponent implements OnInit {
         this.CurrentUser = userForm.getRawValue();
 
       }
+
+    });
+
+  }
+
+  @ViewChild('quillEditor', { static: true }) quillEditorComponent!: { quillEditor: Quill };
+
+  ngAfterViewInit() {
+
+    const quillInstance = this.quillEditorComponent.quillEditor;
+
+    quillInstance.clipboard.addMatcher(Node.ELEMENT_NODE, (node, delta) => {
+
+      return new Delta();
+
+    });
+
+    quillInstance.root.addEventListener('paste', (event: ClipboardEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      const clipboardData = event.clipboardData;
+
+      if (!clipboardData) return;
+
+      const text = clipboardData.getData('text/plain');
+
+      const withSpaces = text.replace(/ {2,}/g, (match) =>
+        ' ' + '&nbsp;'.repeat(match.length - 1)
+      );
+
+      const html = withSpaces
+        .split(/\r?\n/)
+        .map(line => `<div>${line || '<br>'}</div>`)
+        .join('');
+
+      const range = quillInstance.getSelection(true);
+
+      quillInstance.clipboard.dangerouslyPasteHTML(range?.index ?? 0, html);
+
+      quillInstance.setSelection((range?.index ?? 0) + html.length, 0);
 
     });
 
@@ -201,7 +243,7 @@ export class ANewComponent implements OnInit {
       ArticleTitle: this.articleTitle,
       ArticleBody: this.richTextContent,
       ArticleCategory: this.selectedCategory as EnumArticleCategory,
-      ArticleDate: this.today.toISOString().split('T')[0],
+      ArticleDate: this.today.toISOString(),
       ArticleHashtags: this.parseHashtags(this.hashtagInput),
     };
 
@@ -215,116 +257,75 @@ export class ANewComponent implements OnInit {
 
       this.articleService.postArticle(articleData).subscribe({
         next: () => {
-        
+
           alert('Article uploaded!');
 
           this.router.navigate(['/aindex']);
-        
+
         },
         error: (err) => {
-        
+
           console.error('Upload error', err);
 
           if (err.error) {
-        
+
             console.error('Backend error:', err.error);
 
             if (err.error.details) {
-        
+
               console.error('Validation details:', err.error.details);
 
               alert(
                 'Validation failed:\n' +
-                  Object.entries(err.error.details)
-                    .map(([field, info]: any) => `${field}: ${info.message || JSON.stringify(info)}`)
-                    .join('\n'),
+                Object.entries(err.error.details)
+                  .map(([field, info]: any) => `${field}: ${info.message || JSON.stringify(info)}`)
+                  .join('\n'),
               );
             } else {
-        
+
               alert('Upload failed: ' + (err.error.error || 'Unknown server error.'));
-        
+
             }
           } else if (err.message) {
-        
+
             alert('Upload failed: ' + err.message);
-        
+
           } else {
-        
+
             alert('Upload failed: Unknown error');
-        
+
           }
-        
+
         },
-      
+
       });
-    
+
     };
 
     if (this.pictureFile) {
-    
+
       this.imageService.sendImageFileToServer(this.pictureFile).subscribe({
         next: (res: any) => {
-    
+
           const imageFilename = res?.file?.filename;
 
           finalizeAndPost(imageFilename);
-    
+
         },
         error: (err) => {
-    
+
           console.error('Image upload error:', err);
 
           alert('Image upload failed.');
-    
+
         },
       });
     } else {
-    
+
       finalizeAndPost(null);
-    
+
     }
-  
-  }
 
-  @ViewChild('quillEditor') quillEditorComponent: any;
-
-  get quillEditor(): Quill {
-
-    return this.quillEditorComponent?.quillEditor;
-
-  }
-
-  onQuillPaste(event: ClipboardEvent) {
-
-    event.preventDefault();
-
-    const clipboardData = event.clipboardData;
-
-    if (!clipboardData) return;
-
-    const text = clipboardData.getData('text/plain');
-
-    const withSpaces = text.replace(/ {2,}/g, (match) => {
-    
-      return ' ' + '&nbsp;'.repeat(match.length - 1);
-    
-    });
-
-    const html = withSpaces
-      .split(/\r?\n/)
-      .map((line) => `<div>${line || '<br>'}</div>`)
-      .join('');
-
-    const quill = this.quillEditor;
-
-    const range = quill.getSelection(true);
-
-    quill.clipboard.dangerouslyPasteHTML(range?.index ?? 0, html);
-
-    const newPos = (range?.index ?? 0) + html.length;
-
-    quill.setSelection(newPos, 0);
-  
   }
 
 }

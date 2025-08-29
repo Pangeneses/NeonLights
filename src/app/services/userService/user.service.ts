@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { BehaviorSubject, Observable, switchMap, forkJoin } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 import { SERVER_URI } from '../../../../environment';
 import { ImageService } from '../imageService/image.service';
@@ -11,17 +11,13 @@ export interface User {
   UserName: string;
 }
 
-export enum ERole {
-  Admin = 0,
-  User = 1,
-}
-
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
 
   private currentUserSubject = new BehaviorSubject<FormGroup | null>(null);
+
   public currentUser$: Observable<FormGroup | null> = this.currentUserSubject.asObservable();
 
   constructor(
@@ -32,6 +28,7 @@ export class UserService {
     const savedUser = localStorage.getItem('currentUser');
 
     if (savedUser) {
+
       const data = JSON.parse(savedUser);
 
       const userForm = this.formBuilder();
@@ -207,17 +204,6 @@ export class UserService {
       return this.http.put<any>(`${SERVER_URI}/api/users/` + ID, payload);
     
     }
-  
-  }
-
-  getUsersChunk(regex: string, cursor: string | null, direction: 'up' | 'down') {
-  
-    const params = new HttpParams()
-      .set('regex', regex)
-      .set('cursor', cursor || '')
-      .set('dir', direction);
-
-    return this.http.get<User[]>(`${SERVER_URI}/api/users/search`, { params });
   
   }
 

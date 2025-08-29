@@ -6,6 +6,12 @@
   width: 100%;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 .freader-header {
   position: absolute;
   top: 0%;
@@ -29,7 +35,6 @@
   left: 10%;
   width: 80%;
   padding: 0.4em;
-  box-sizing: border-box;
   display: flex;
   flex-direction: row;
   gap: 0.3em;
@@ -38,18 +43,14 @@
 }
 
 .freader-engage {
-  flex: 0 0 auto;
-  height: 100%;
-  width: 3%;
+  flex: 0 0 1.8em;
   display: flex;
   flex-direction: column;
   gap: 0.3em;
 }
 
 .freader-new {
-  flex: 0 0 auto;
-  height: 50%;
-  width: 100%;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -58,9 +59,7 @@
 }
 
 .freader-close {
-  flex: 0 0 auto;
-  height: 50%;
-  width: 100%;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -68,77 +67,86 @@
   border-radius: 0px 0px 0px 10px;
 }
 
-.freader-content {
-  flex: 0 0 auto;
+.freader-posts {
+  flex: 1 1 auto;
   height: 100%;
-  width: 97%;
   display: flex;
   flex-direction: column;
   gap: 0.3em;
 }
 
 .freader-title {
-  flex: 0 0 auto;
-  height: 10%;
+  flex: 0 0 1.8em;
   width: 100%;
-  display: flex;
-  align-items: center;
+  padding: 0.2em;
   background-color: whitesmoke;
   border-radius: 0px 10px 0px 0px;
 }
 
-.freader-conversation {
-  height: 90%;
+.freader-thread {
+  flex: 1 1 auto;
   width: 100%;
   display: flex;
   flex-direction: column;
+  gap: 0.3em;
   overflow-y: scroll;
-  scrollbar-color: #544380 whitesmoke;
 }
 
-.freader-reply-content {
-  flex: 0 0 auto;
-  height: 175px;
-  width: 100%;
-  padding: 0.2em;
-  box-sizing: border-box;
+.freader-post {
+  flex: 0 0 5em;
+  max-height: 11em;
   display: flex;
   flex-direction: row;
-  flex-shrink: 0;
 }
 
-.freader-reply-card {
+.freader-content {
   flex: 1;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
   background-color: whitesmoke;
-  border-radius: 10px 0px 0px 10px;
+  display: flex;
+  flex-direction: column;  
 }
 
-.freader-reply {
-  flex: 0 0 auto;
-  height: 85%;
+.user-reply {
+  flex: 1 1 auto;
   overflow-y: scroll;
+  padding: 0.3em;
   border-bottom: 3px solid black;
   scrollbar-color: #544380 whitesmoke;
 }
 
-.freader-details {
-  flex: 0 0 auto;
-  height: 15%;
+.user-details {
+  flex: 0 0 1.8em;
+  padding: 0.25em;
+  display: flex;
+  flex-direction: row;
 }
 
-.freader-avatar {
-  flex: 0 0 auto;
-  background-image: url('../../../../public/RedDragon.webp');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+.user-username {
+  flex: 1;
+
+}
+
+.user-post-date {
+  flex: 1;
+  display: flex;
+  justify-content: right;
+}
+
+.user-image {
+  flex: 0 0 15.5em;
+  max-height: 11em;
+  min-width: 15.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
-  aspect-ratio: 1 / 1;
-  margin-left: auto;
-  border-radius: 0px 10px 10px 0px;
+  background-color: black;
+}
+
+.user-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
 .freader-footer {

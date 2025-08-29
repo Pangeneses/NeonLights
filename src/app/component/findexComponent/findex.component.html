@@ -1,8 +1,8 @@
 <div class="findex-container">
-  
+
   <app-component-header class="findex-header"></app-component-header>
 
-  <thread-component-fnav class="findex-nav" (filtersChanged)="onFiltersChanged($event)"/>
+  <thread-component-fnav class="findex-nav" (filtersChanged)="onFiltersChanged($event)" />
 
   <div class="findex-list-card">
 
@@ -12,49 +12,53 @@
 
     <div class="findex-listed-container">
 
-      @for (thread of this.threadChunk; track threadTrackFn($index, thread)) {
+      @for (thread of this.threadChunk; track threadTrackFN($index, thread)) {
 
-        <div class="findex-thread-card" (click)="readThread(thread.ThreadID)">
-        
-          <div class="thread-content">
-        
-            <div class="thread-title" [innerHTML]="CleanNBSP(thread.ThreadTitle)"></div>
-        
-            <div class="thread-body" [innerHTML]="CleanNBSP(thread.ThreadBody)"></div>
-        
-            <div class="thread-footer">
-        
-              <div class="thread-user-name">
-                {{ thread.ThreadUserName }}
-              </div>
-        
-              <div class="thread-date">
-                {{ thread.ThreadDate.slice(0, 10) }}
-              </div>
-        
-              <div class="thread-category">
-                {{ thread.ThreadCategory }}
-              </div>
-        
+      <div class="findex-thread-card" (click)="readThread(thread.ThreadID)">
+
+        <div class="thread-content">
+
+          <div class="thread-title" [innerHTML]="CleanNBSP(thread.ThreadTitle)"></div>
+
+          <div class="thread-body" [innerHTML]="CleanNBSP(thread.ThreadBody)"></div>
+
+          <div class="thread-footer">
+
+            <div class="thread-user-name">
+              {{ thread.ThreadUserName }}
             </div>
-        
-            <div class="thread-hashtags">
-              {{ thread.ThreadHashtags.join(' ') }}
+
+            <div class="thread-date">
+              {{ thread.ThreadDate.slice(0, 10) }}
             </div>
-        
+
+            <div class="thread-category">
+              {{ thread.ThreadCategory }}
+            </div>
+
           </div>
-        
-          <img class="thread-image" [src]="SERVER_URI + '/images/' + thread.ThreadImage" alt="Thread Image" />
-       
+
+          <div class="thread-hashtags">
+            {{ thread.ThreadHashtags.join(' ') }}
+          </div>
+
         </div>
+
+        <div class="thread-image">
+          <img [src]="SERVER_URI + '/images/' + thread.ThreadUserAvatar" alt="Thread Image" />
+        </div>
+
+      </div>
       } @empty {
-        <div class="thread-card">
-          <div class="thread-title">No threads found.</div>
-        </div>
+
+      <div class="thread-card">
+        <div class="thread-title">No threads found.</div>
+      </div>
+
       }
 
     </div>
-  
+
   </div>
 
   <app-component-footer class="findex-footer"></app-component-footer>

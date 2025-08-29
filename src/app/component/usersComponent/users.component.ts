@@ -1,9 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { debounceTime, Subject } from 'rxjs';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 
-import { UserService } from '../../services/userService/user.service';
+import { UsersService } from '../../services/usersService/users.service';
 
 @Component({
   selector: 'app-component-users',
@@ -11,10 +10,12 @@ import { UserService } from '../../services/userService/user.service';
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent implements OnInit {
+export class UsersComponent {
+
   @Output() userSelected = new EventEmitter<string>();
 
   userRegex = '';
+  
   filteredUsers: any[] = [];
 
   private scrollCursor: string | null = null; // ID of last fetched user
@@ -25,11 +26,7 @@ export class UsersComponent implements OnInit {
     return user.UserID;
   }
 
-  constructor(private userService: UserService) {}
-
-  ngOnInit(): void {
-
-  }
+  constructor(private usersService: UsersService) {}
 
   onRegexInput(): void {
 
@@ -49,7 +46,7 @@ export class UsersComponent implements OnInit {
 
     this.fetching = true;
 
-    this.userService.getUsersChunk(this.userRegex, this.scrollCursor, this.scrollDirection).subscribe((users) => {
+    this.usersService.getUsersChunk(this.userRegex, this.scrollCursor, this.scrollDirection).subscribe((users) => {
 
       if (this.scrollDirection === 'down') {
 

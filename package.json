@@ -25,6 +25,7 @@
     "ngx-quill": "^28.0.1",
     "quill": "^2.0.3",
     "rxjs": "~7.8.0",
+    "socket.io-client": "^4.8.1",
     "tslib": "^2.3.0",
     "video.js": "^8.22.0",
     "zone.js": "~0.15.0"
@@ -34,6 +35,7 @@
     "@angular/cli": "^20.0.5",
     "@angular/compiler-cli": "^20.0.6",
     "@types/jasmine": "~5.1.0",
+    "@types/socket.io-client": "^1.4.36",
     "@types/video.js": "^7.3.58",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.0",

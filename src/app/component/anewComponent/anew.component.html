@@ -59,7 +59,6 @@
         <quill-editor
           class="anew-text"
           #quillEditor
-          (paste)="onQuillPaste($event)"
           [(ngModel)]="richTextContent"
           [styles]="{ height: '100%' }"
           [modules]="quillModules"

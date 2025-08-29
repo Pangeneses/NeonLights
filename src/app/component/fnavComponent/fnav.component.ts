@@ -10,6 +10,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EnumForumCategory } from '../../services/threadService/thread.service';
 
 import { UsersComponent } from '../usersComponent/users.component';
+import { CalendarComponent } from '../calendarComponent/calendar.component';
 
 @Component({
   selector: 'thread-component-fnav',
@@ -18,6 +19,7 @@ import { UsersComponent } from '../usersComponent/users.component';
     ReactiveFormsModule,
     FormsModule,
     UsersComponent,
+    CalendarComponent,
     MatNativeDateModule,
     MatInputModule,
     MatFormFieldModule,
@@ -38,9 +40,9 @@ export class FNavComponent implements OnInit {
     ThreadTo?: string;
   }>();
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   EnumForumCategory = EnumForumCategory;
   categoryOptions = Object.values(EnumForumCategory).map((value) => ({
@@ -49,7 +51,7 @@ export class FNavComponent implements OnInit {
   }));
   selectedCategory: EnumForumCategory = EnumForumCategory.Unspecified;
 
-  categoryTrackFn(index: number, category: { label: string; value: EnumForumCategory }): string {
+  categoryTrackFN(index: number, category: { label: string; value: EnumForumCategory }): string {
     return category.value;
   }
 
@@ -83,87 +85,23 @@ export class FNavComponent implements OnInit {
 
   }
 
-  calendarVisible = true;
+  dateRange: { FromDate: Date | null; ToDate: Date | null } = {
+    FromDate: null,
+    ToDate: null
+  };
 
-  dateSelected: Date | null = new Date();
-  dateRange = {
-    start: null,
-    end: null,
-  } as { start: Date | null; end: Date | null };
+  onDateRangeUpdate(filters: {
+    FromDate: Date;
+    ToDate: Date;
+  }): void {
 
-  onCalendarDateSelect(date: Date | null) {
+    this.dateRange.FromDate = filters.FromDate;
 
-    if (!date) return;
+    this.dateRange.ToDate = filters.ToDate;
 
-    this.dateSelected = date;
-
-    if (this.dateRange.start && this.dateRange.end) {
-
-      this.dateRange.start = date;
-
-      this.dateRange.end = null;
-
-      this.calendarVisible = false;
-
-      setTimeout(() => (this.calendarVisible = true));
-
-    } else if (this.dateRange.start && !this.dateRange.end) {
-
-      if (date >= this.dateRange.start) {
-
-        this.dateRange.end = date;
-
-      } else {
-
-        this.dateRange.end = this.dateRange.start;
-
-        this.dateRange.start = date;
-
-      }
-
-      this.calendarVisible = false;
-
-      setTimeout(() => (this.calendarVisible = true));
-
-      this.fetchThreads();
-
-    } else {
-
-      this.dateRange.start = date;
-
-    }
+    this.fetchThreads();
 
   }
-
-  dateClass = (date: Date): string => {
-
-    let { start, end } = this.dateRange;
-
-    console.log(this.dateRange);
-
-    if (!start) return '';
-
-    const day = date.setHours(0, 0, 0, 0);
-
-    let startTime = start.setHours(0, 0, 0, 0);
-
-    let endTime = end?.setHours(0, 0, 0, 0);
-
-    if (startTime && endTime && startTime > endTime) {
-
-      [startTime, endTime] = [endTime, startTime];
-
-    }
-
-    if (day === startTime) return 'date-start';
-
-    if (day === endTime) return 'date-end';
-
-    if (endTime && day > startTime && day < endTime) return 'date-range-middle';
-
-    return '';
-
-  };
 
   private fetchTimer: ReturnType<typeof setTimeout> | null = null;
 
@@ -176,12 +114,12 @@ export class FNavComponent implements OnInit {
     }
 
     this.fetchTimer = setTimeout(() => {
-      
+
       const tagList = this.hashtags.split(/\s+/).filter((tag) => tag.startsWith('#'));
 
-      const ThreadFrom = this.dateRange.start?.toISOString();
+      const ThreadFrom = this.dateRange.FromDate?.toISOString();
 
-      const ThreadTo = this.dateRange.end?.toISOString();
+      const ThreadTo = this.dateRange.ToDate?.toISOString();
 
       this.filtersChanged.emit({
         ThreadCategory: this.selectedCategory !== EnumForumCategory.Unspecified ? this.selectedCategory : undefined,

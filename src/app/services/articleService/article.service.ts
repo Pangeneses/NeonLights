@@ -162,6 +162,8 @@ export class ArticleService {
 
     }
 
+    console.log(params);
+
     return this.http.get<ArticleExtended[]>(`${SERVER_URI}/api/articles/chunk`, { params }).pipe(
       switchMap((response: any) => {
 

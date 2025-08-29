@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -7,14 +7,16 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './privacy.component.html',
   styleUrl: './privacy.component.scss',
 })
-export class PrivacyComponent implements OnInit {
-  ngOnInit(): void {}
+export class PrivacyComponent {
 
   constructor() {}
 
   @Output() notify = new EventEmitter<boolean>();
 
   onClose() {
+
     this.notify.emit(true);
+
   }
+  
 }

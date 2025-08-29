@@ -7,7 +7,7 @@ import { HeaderComponent } from '../headerComponent/header.component';
 import { FNavComponent } from '../fnavComponent/fnav.component';
 import { FooterComponent } from '../footerComponent/footer.component';
 
-import { ThreadService, ThreadExtended, EnumForumCategory } from '../../services/threadService/thread.service';
+import { ThreadService, Thread, EnumForumCategory } from '../../services/threadService/thread.service';
 
 import { SERVER_URI } from '../../../../environment';
 
@@ -29,7 +29,7 @@ export class FIndexComponent implements OnInit {
 
   SERVER_URI = SERVER_URI;
 
-  threadChunk: ThreadExtended[] = [];
+  threadChunk: Thread[] = [];
 
   isLoading = false;
 
@@ -53,12 +53,14 @@ export class FIndexComponent implements OnInit {
 
   });
 
-  threadTrackFn(index: number, thread: ThreadExtended): string {
-    return (thread as any)?._id ?? thread.ThreadTitle;
+  threadTrackFN(index: number, thread: Thread): string {
+
+    return thread.ThreadID;
+
   }
 
   CleanNBSP(text: string): string {
-  
+
     return text?.replace(/\u00A0/g, ' ') ?? '';
 
   }
@@ -70,26 +72,6 @@ export class FIndexComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.threadService
-      .fetchThreadChunk({    
-        limit: this.limit,
-        lastID: '',
-        direction: 'down',
-      })
-      .subscribe(() => {
-        
-        const threads = this.threadService.getCurrentThreads();
-
-        if (threads) {
-
-          this.threadChunk = threads || [];
-
-        }
-
-      }
-    
-    );
-  
   }
 
   onFiltersChanged(filters: {
@@ -117,8 +99,6 @@ export class FIndexComponent implements OnInit {
 
           const threads = this.threadService.getCurrentThreads();
 
-          console.log(threads);
-
           this.threadChunk = threads || [];
 
         },
@@ -133,9 +113,9 @@ export class FIndexComponent implements OnInit {
         },
 
       }
-    
-    );
-  
+
+      );
+
   }
 
   loadOlder(): void {
@@ -239,7 +219,19 @@ export class FIndexComponent implements OnInit {
   }
 
   readThread(threadID: string) {
-    this.router.navigate(['/freader'], { queryParams: { id: threadID } });
+
+    const thread = this.threadChunk.find(t => t.ThreadID === threadID);
+
+    if (thread) {
+
+      this.router.navigate(['/freader'], { state: { thread } });
+
+    } else {
+
+      console.warn(`Thread with ID ${threadID} not found.`);
+
+    }
+
   }
 
 }  

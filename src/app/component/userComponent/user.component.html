@@ -38,10 +38,40 @@
     </div>
   </div>
 
-  <app-component-profile *ngIf="this.isProfilePopUp" (notify)="this.onClose()"></app-component-profile>
-  <app-component-purchases *ngIf="this.isPurchasesPopUp" (notify)="this.onClose()"></app-component-purchases>
-  <app-component-wallet *ngIf="this.isWalletPopUp" (notify)="this.onClose()"></app-component-wallet>
-  <app-component-settings *ngIf="this.isSettingsPopUp" (notify)="this.onClose()"></app-component-settings>
-  <app-component-contact *ngIf="this.isContactPopUp" (notify)="this.onClose()"></app-component-contact>
-  <app-component-logout *ngIf="this.isLogoutPopUp" (notify)="this.onClose()"></app-component-logout>
+  @if (isProfilePopUp){
+
+  <app-component-profile (notify)="this.onClose()"></app-component-profile>
+
+  }
+
+  @if (isPurchasesPopUp){
+
+  <app-component-purchases (notify)="this.onClose()"></app-component-purchases>
+  
+  }
+
+  @if (isWalletPopUp){
+
+  <app-component-wallet (notify)="this.onClose()"></app-component-wallet>
+  
+  }
+
+  @if (isSettingsPopUp){
+
+  <app-component-settings (notify)="this.onClose()"></app-component-settings>
+  
+  }
+
+  @if (isContactPopUp){
+
+  <app-component-contact (notify)="this.onClose()"></app-component-contact>
+  
+  }
+
+  @if (isLogoutPopUp){
+
+  <app-component-logout (notify)="this.onClose()"></app-component-logout>
+
+  }
+
 </div>

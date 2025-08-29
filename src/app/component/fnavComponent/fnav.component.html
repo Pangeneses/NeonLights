@@ -1,61 +1,34 @@
 <div class="fnav-container">
 
+  <app-component-calendar class="fnav-calendar" (blurDateRange)="onDateRangeUpdate($event)" />
+
   <!-- Left Panel: Filters & Results -->
   <div class="fnav-card">
 
     <!-- Category Dropdown -->
     <select class="fnav-category" [(ngModel)]="selectedCategory" (change)="fetchThreads()">
-      @for (category of categoryOptions; track categoryTrackFn($index, category)) {
-        <option [value]="category.value">
-          {{ category.label }}
-        </option>
+
+      @for (category of categoryOptions; track categoryTrackFN($index, category)) {
+
+      <option [value]="category.value">
+        {{ category.label }}
+      </option>
+
       } @empty {
-        <option disabled>Unspecified</option>
+
+      <option disabled>Unspecified</option>
+
       }
+
     </select>
 
     <!-- Hashtag Input -->
-    <input
-      class="fnav-hashtags"
-      type="text"
-      [(ngModel)]="hashtags"
-      (input)="formatHashtags()"
-      placeholder="#hashtags"
-    />
-    
+    <input class="fnav-hashtags" type="text" [(ngModel)]="hashtags" (input)="formatHashtags()"
+      placeholder="#hashtags" />
+
     <!-- User Regex -->
     <app-component-users class="fnav-user-selection" (userSelected)="onSelectedUserChange($event)" />
 
   </div>
 
-  <div class="fnav-datepicker-card">
-    
-    <div class="fnav-datepicker-title">Thread's From Date Range</div>
-
-    <mat-form-field appearance="outline" floatLabel="always" class="fnav-datepicker">
-      <mat-date-range-input name="dateRange" class="fnav-date-range-input">
-        <input
-          name="startDate"
-          class="fnav-date-input"
-          matStartDate
-          placeholder="Start Date"
-          [(ngModel)]="dateRange.start"
-        />
-        <input name="endDate" class="fnav-date-input" matEndDate placeholder="End Date" [(ngModel)]="dateRange.end" />
-      </mat-date-range-input>
-
-      @if (calendarVisible) {
-        <mat-calendar
-          class="fnav-mat-calendar"
-          [startAt]="dateSelected"
-          [selected]="dateRange.start"
-          (selectedChange)="onCalendarDateSelect($event)"
-          [dateClass]="dateClass"
-        >
-        </mat-calendar>
-      }
-    </mat-form-field>
-
-  </div>
-  
 </div>

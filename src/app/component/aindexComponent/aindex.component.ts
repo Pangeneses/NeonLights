@@ -53,8 +53,8 @@ export class AIndexComponent implements OnInit {
 
   });
 
-  articleTrackFn(index: number, article: ArticleExtended): string {
-    return (article as any)?._id ?? article.ArticleTitle;
+  articleTrackFN(index: number, article: ArticleExtended): string {
+    return article.ArticleID;
   }
 
   constructor(
@@ -64,26 +64,7 @@ export class AIndexComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.articleService
-      .fetchArticleChunk({    
-        limit: this.limit,
-        lastID: '',
-        direction: 'down',
-      })
-      .subscribe(() => {
-        
-        const articles = this.articleService.getCurrentArticles();
 
-        if (articles) {
-
-          this.articleChunk = articles || [];
-
-        }
-
-      }
-    
-    );
-  
   }
 
   onFiltersChanged(filters: {
@@ -104,7 +85,7 @@ export class AIndexComponent implements OnInit {
       ...filters,
     })
       .subscribe((hasMore) => {
-        
+
         const articles = this.articleService.getCurrentArticles();
 
         if (articles) {
@@ -114,8 +95,8 @@ export class AIndexComponent implements OnInit {
         }
 
       }
-    
-    );
+
+      );
 
   }
 
@@ -147,8 +128,8 @@ export class AIndexComponent implements OnInit {
         },
 
       }
-    
-    );
+
+      );
 
   }
 
@@ -181,8 +162,8 @@ export class AIndexComponent implements OnInit {
         },
 
       }
-    
-    );
+
+      );
 
   }
 
@@ -213,8 +194,8 @@ export class AIndexComponent implements OnInit {
         },
 
       }
-    
-    );
+
+      );
 
   }
 

@@ -1,4 +1,5 @@
 <div class="aindex-container">
+
   <app-component-header class="aindex-header"></app-component-header>
 
   <article-component-anav class="aindex-nav" (filtersChanged)="onFiltersChanged($event)" />
@@ -11,36 +12,46 @@
 
     <div class="aindex-listed-container">
 
-      @for (article of articleChunk; track articleTrackFn($index, article)) {
-        <div class="aindex-article-card" (click)="readArticle(article.ArticleID)">
-          <div class="article-content">
-            <div class="article-title" [innerHTML]="article.ArticleTitle"></div>
-            <div class="article-body" [innerHTML]="article.ArticleBody"></div>
-            <div class="article-footer">
-              <div class="article-author">
-                {{ article.ArticleUserName }}
-              </div>
-              <div class="article-date">
-                {{ article.ArticleDate.slice(0, 10) }}
-              </div>
-              <div class="article-category">
-                {{ article.ArticleCategory }}
-              </div>
+      @for (article of articleChunk; track articleTrackFN($index, article)) {
+
+      <div class="aindex-article-card" (click)="readArticle(article.ArticleID)">
+        <div class="article-content">
+
+          <div class="article-title" [innerHTML]="article.ArticleTitle"></div>
+
+          <div class="article-body" [innerHTML]="article.ArticleBody"></div>
+
+          <div class="article-footer">
+            <div class="article-author">
+              {{ article.ArticleUserName }}
             </div>
-            <div class="article-hashtags">
-              {{ article.ArticleHashtags.join(' ') }}
+            <div class="article-date">
+              {{ article.ArticleDate.slice(0, 10) }}
+            </div>
+            <div class="article-category">
+              {{ article.ArticleCategory }}
             </div>
           </div>
-          <img class="article-image" [src]="SERVER_URI + '/images/' + article.ArticleImage" alt="Article Image" />
+
+          <div class="article-hashtags">
+            {{ article.ArticleHashtags.join(' ') }}
+          </div>
+
         </div>
+
+        <div class="article-image">
+          <img [src]="SERVER_URI + '/images/' + article.ArticleImage" alt="Article Image" />
+        </div>
+
+      </div>
       } @empty {
-        <div class="article-card">
-          <div class="article-title">No articles found.</div>
-        </div>
+      <div class="article-card">
+        <div class="article-title">No articles found.</div>
+      </div>
       }
 
     </div>
-  
+
   </div>
 
   <app-component-footer class="aindex-footer"></app-component-footer>

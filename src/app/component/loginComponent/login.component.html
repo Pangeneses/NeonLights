@@ -5,13 +5,21 @@
       <input class="login-password" formControlName="Password" type="password" placeholder="Password" />
     </form>
 
-    <div class="login-invalid" *ngIf="!this.isLoginFailed">
+    @if (!this.isLoginFailed) {
+
+    <div class="login-invalid">
       <p>SITE IS IN PREVIEW; JUST HIT LOGIN!</p>
     </div>
 
-    <div class="login-invalid" *ngIf="this.isLoginFailed">
+    }
+
+    @if (this.isLoginFailed) {
+
+    <div class="login-invalid">
       <p>Username and/or Password Invalid</p>
     </div>
+
+    }
 
     <button class="login" (click)="this.onLogin()">Login</button>
 
@@ -26,5 +34,7 @@
     <div class="login-copyright">
       <p>©2025 All Rights Reserved</p>
     </div>
+
   </div>
+
 </div>

@@ -1,33 +1,33 @@
 <div class="anav-container">
 
+  <app-component-calendar class="anav-calendar" (blurDateRange)="onDateRangeUpdate($event)" />
+
   <!-- Left Panel: Filters & Results -->
   <div class="anav-card">
 
     <!-- Category Dropdown -->
     <select class="anav-category" [(ngModel)]="selectedCategory" (change)="fetchArticles()">
-      @for (category of categoryOptions; track categoryTrackFn($index, category)) {
-        <option [value]="category.value">
-          {{ category.label }}
-        </option>
+
+      @for (category of categoryOptions; track categoryTrackFN($index, category)) {
+
+      <option [value]="category.value">
+        {{ category.label }}
+      </option>
+
       } @empty {
-        <option disabled>Unspecified</option>
+
+      <option disabled>Unspecified</option>
+
       }
     </select>
 
     <!-- Hashtag Input -->
-    <input
-      class="anav-hashtags"
-      type="text"
-      [(ngModel)]="hashtags"
-      (input)="formatHashtags()"
-      placeholder="#hashtags"
-    />
-    
+    <input class="anav-hashtags" type="text" [(ngModel)]="hashtags" (input)="formatHashtags()"
+      placeholder="#hashtags" />
+
     <!-- User Regex -->
     <app-component-users class="anav-user-selection" (userSelected)="onSelectedUserChange($event)" />
 
   </div>
-
-  <app-component-calendar class="anav-calendar"/>
 
 </div>

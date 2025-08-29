@@ -52,7 +52,7 @@
 }
 
 .findex-listed-container {
-  flex: 1 1 96%;
+  flex: 1 1 auto;
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
@@ -61,17 +61,15 @@
 }
 
 .findex-thread-card {
-  flex: 0 0 auto;
-  height: auto;
+  flex: 1 0 auto;
+  max-height: 11em;
   overflow: hidden;
   display: flex;
   flex-direction: row;
 }
 
 .thread-content {
-  flex: 0 1 67%;
-  max-height: 11em;
-  max-width: 67%;
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
   padding: 0.4em;
@@ -79,16 +77,32 @@
   background-color: whitesmoke;
 }
 
+.thread-image {
+  flex: 0 0 15.5em;
+  max-height: 11em;
+  min-width: 15.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: black;
+}
+
+.thread-image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
 .thread-title {
-  flex: 1 0 1.4em;  
-  font-size: 1.2em;      
-  max-height: 3em;     
-  white-space: normal;
-  word-break: break-word;       
-  overflow-wrap: break-word;
+  flex: 0 0 1.6em;
+  font-size: 1.2em;
+  max-height: 3.4em;
+  overflow-wrap: normal;
+  word-break: normal;
   overflow: hidden;
-  text-overflow: ellipsis;      
-  display: inline-block;               
+  white-space: nowrap;
+  text-overflow: ellipsis;
   border-bottom: 1px solid black;
 }
 
@@ -132,11 +146,6 @@
   padding-top: 0.5em;
   font-size: 0.6em;
   border-top: 1px solid black;
-}
-
-.thread-image {
-  flex: 0 1 auto;
-  width: 32.6%;
 }
 
 .findex-footer {

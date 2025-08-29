@@ -8,12 +8,27 @@
 
         <div class="calendar-from-to">
 
-            <div class="calendar-from">
-                From: {{ selectedFromDate ? (selectedFromDate | date: 'fullDate') : '—' }}
+            <div class="calendar-from"
+                [ngClass]="{ 'selected-edge': selectedEdge === 'from', 'unselected-edge': selectedEdge !== 'from' }"
+                (click)="selectedEdge = 'from'">
+
+                <span *ngIf="selectedFromDate; else noDate">
+                    From: {{ selectedFromDate | date: 'EEE, MMMM d' }}<br>
+                    {{ selectedFromDate | date: 'yyyy' }}
+                </span>
+                <ng-template #noDate>—</ng-template>
+
             </div>
 
-            <div class="calendar-to">
-                To: {{ selectedToDate ? (selectedToDate | date: 'fullDate') : '—' }}
+            <div class="calendar-to"
+                [ngClass]="{ 'selected-edge': selectedEdge === 'to', 'unselected-edge': selectedEdge !== 'to' }"
+                (click)="selectedEdge = 'to'">
+
+                <span *ngIf="selectedToDate; else noDate">
+                    To: {{ selectedToDate | date: 'EEE, MMMM d' }}<br>
+                    {{ selectedToDate | date: 'yyyy' }}
+                </span>
+                <ng-template #noDate>—</ng-template>
             </div>
 
         </div>
@@ -52,33 +67,35 @@
 
             @for (date of calendarDays; track trackDateFN($index, date)) {
 
-                <div class="calendar-cell">
+            <div class="calendar-cell" (click)="onCalendarCellClick(date)">
 
-                    @if (date.getMonth() !== +selectedMonth) {
+                @if (date.getMonth() !== +selectedMonth) {
 
-                        <div class="calendar-off-month"></div>
+                <div class="calendar-off-month"></div>
 
-                    }
+                }
 
-                    @if (date.getMonth() !== +selectedMonth) {
+                <!-- Range ends (same day or edges of a range) -->
+                @if (stripTime(date) === stripTime(selectedFromDate) ||
+                stripTime(date) === stripTime(selectedToDate)) {
 
-                        <div class="calendar-off-month"></div>
+                <div class="calendar-range-ends"></div>
 
-                    }
+                }
 
-                    @if (date.getMonth() !== +selectedMonth) {
-
-                        <div class="calendar-off-month"></div>
-
-                    }
-                
-                    <p>{{ date.getDate() }}</p>
-
-                </div>
+                <!-- Range between -->
+                @if (stripTime(selectedFromDate) !== stripTime(selectedToDate) &&
+                stripTime(date) > stripTime(selectedFromDate) &&
+                stripTime(date) < stripTime(selectedToDate)) { <div class="calendar-range">
+            </div>
 
             }
 
+            <p>{{ date.getDate() }}</p>
+
         </div>
+
+        }
 
     </div>
 

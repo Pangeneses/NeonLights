@@ -1,65 +1,66 @@
 <div class="freader-container">
+
   <app-component-header class="freader-header"></app-component-header>
 
   <div class="freader">
+
     <div class="freader-card">
+
       <div class="freader-engage">
-        <div class="freader-new">
+
+        <div class="freader-new" (click)="takeNewReply()">
           <mat-icon>note_add</mat-icon>
         </div>
 
         <div class="freader-close" [routerLink]="['/findex']" routerLinkActive="active">
           <mat-icon>close</mat-icon>
         </div>
+
       </div>
 
-      <div class="freader-content">
-        <div class="freader-title"></div>
+      <div class="freader-posts">
 
-        <div class="freader-conversation">
-          <div class="freader-reply-content">
-            <div class="freader-reply-card">
-              <div class="freader-reply"></div>
-              <div class="freader-details"></div>
+        <div class="freader-title">{{thread.ThreadTitle}}</div>
+
+        <div class="freader-thread">
+
+          @for (post of this.posts; track postTrackFN($index, post)) {
+
+          <div class="freader-post">
+
+            <div class="freader-content">
+
+              <div class="user-reply" [innerHTML]="CleanNBSP(post.PostBody)"></div>
+
+              <div class="user-details">
+                <div class="user-username">{{post.PostUserName}}</div>
+                <div class="user-post-date">{{ post.PostDate | date:'medium' }}</div>
+              </div>
+
             </div>
-            <div class="freader-avatar"></div>
+
+            <div class="user-image">
+              <img [src]="SERVER_URI + '/images/' + post.PostUserAvatar" alt="Thread Image" />
+            </div>
+
           </div>
 
-          <div class="freader-reply-content">
-            <div class="freader-reply-card">
-              <div class="freader-reply"></div>
-              <div class="freader-details"></div>
-            </div>
-            <div class="freader-avatar"></div>
-          </div>
+          }
 
-          <div class="freader-reply-content">
-            <div class="freader-reply-card">
-              <div class="freader-reply"></div>
-              <div class="freader-details"></div>
-            </div>
-            <div class="freader-avatar"></div>
-          </div>
+          @if(newReply){
 
-          <div class="freader-reply-content">
-            <div class="freader-reply-card">
-              <div class="freader-reply"></div>
-              <div class="freader-details"></div>
-            </div>
-            <div class="freader-avatar"></div>
-          </div>
+          <forum-component-reply class="freader-reply" [CurrentThread]="thread" (closeReply)="onNewReply()" />
 
-          <div class="freader-reply-content">
-            <div class="freader-reply-card">
-              <div class="freader-reply"></div>
-              <div class="freader-details"></div>
-            </div>
-            <div class="freader-avatar"></div>
-          </div>
+          }
+
         </div>
+
       </div>
+
     </div>
+
   </div>
 
   <app-component-footer class="freader-footer"></app-component-footer>
+
 </div>

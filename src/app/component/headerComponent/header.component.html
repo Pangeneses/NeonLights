@@ -16,34 +16,56 @@
     </div>
   </div>
 
-  <app-component-user
-    class="header-user-options"
-    (mouseenter)="this.isHoverUserDropDown = true"
-    (mouseleave)="this.isHoverUserDropDown = false"
-    *ngIf="this.isHoverUser || this.isHoverUserDropDown || this.isUserForm"
-    (notify)="this.onUserForm()"
-  >
+  @if(this.isHoverUser || this.isHoverUserDropDown || this.isUserForm){
+
+  <app-component-user class="header-user-options" (mouseenter)="this.isHoverUserDropDown = true"
+    (mouseleave)="this.isHoverUserDropDown = false" (notify)="this.onUserForm()">
   </app-component-user>
 
+  }
+
   <div class="header-navigation-container">
-    <div class="header-navigation" *ngIf="this.isHome" (click)="onNavigate003()">
+
+    @if(this.isHome){
+
+    <div class="header-navigation" (click)="onNavigate003()">
       <mat-icon class="header-navigation-ico">shopping_cart</mat-icon>
       <p class="header-navigation-text">Shop</p>
     </div>
 
-    <div class="header-navigation" *ngIf="this.isHome" (click)="onNavigate002()">
+    }
+
+    @if(this.isHome){
+
+    <div class="header-navigation" (click)="onNavigate002()">
       <mat-icon class="header-navigation-ico">article</mat-icon>
       <p class="header-navigation-text">Publish</p>
     </div>
 
-    <div class="header-navigation" *ngIf="this.isHome" (click)="onNavigate001()">
+    }
+
+    @if(this.isHome){
+
+    <div class="header-navigation" (click)="onNavigate001()">
       <mat-icon class="header-navigation-ico">forum</mat-icon>
       <p class="header-navigation-text">Forum</p>
     </div>
 
-    <div class="header-navigation" *ngIf="!this.isHome" (click)="onNavigate004()">
+    }
+
+    @if(this.isHome){
+
+    }
+
+    @if(!this.isHome){
+
+    <div class="header-navigation" (click)="onNavigate004()">
       <mat-icon class="header-navigation-ico">home</mat-icon>
       <p class="header-navigation-text">../Home</p>
     </div>
+
+    }
+
   </div>
+
 </div>

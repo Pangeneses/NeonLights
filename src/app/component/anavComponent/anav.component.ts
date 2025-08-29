@@ -40,9 +40,9 @@ export class ANavComponent implements OnInit {
     ArticleTo?: string;
   }>();
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   EnumArticleCategory = EnumArticleCategory;
   categoryOptions = Object.values(EnumArticleCategory).map((value) => ({
@@ -51,7 +51,7 @@ export class ANavComponent implements OnInit {
   }));
   selectedCategory: EnumArticleCategory = EnumArticleCategory.Unspecified;
 
-  categoryTrackFn(index: number, category: { label: string; value: EnumArticleCategory }): string {
+  categoryTrackFN(index: number, category: { label: string; value: EnumArticleCategory }): string {
     return category.value;
   }
 
@@ -85,85 +85,21 @@ export class ANavComponent implements OnInit {
 
   }
 
-  calendarVisible = true;
+  dateRange: { FromDate: Date | null; ToDate: Date | null } = {
+    FromDate: null,
+    ToDate: null
+  };
 
-  dateSelected: Date | null = new Date();
-  dateRange = {
-    start: null,
-    end: null,
-  } as { start: Date | null; end: Date | null };
+  onDateRangeUpdate(filters: {
+    FromDate: Date;
+    ToDate: Date;
+  }): void {
 
-  onCalendarDateSelect(date: Date | null) {
+    this.dateRange.FromDate = filters.FromDate;
 
-    if (!date) return;
+    this.dateRange.ToDate = filters.ToDate;
 
-    this.dateSelected = date;
-
-    if (this.dateRange.start && this.dateRange.end) {
-
-      this.dateRange.start = date;
-
-      this.dateRange.end = null;
-
-      this.calendarVisible = false;
-
-      setTimeout(() => (this.calendarVisible = true));
-
-    } else if (this.dateRange.start && !this.dateRange.end) {
-
-      if (date >= this.dateRange.start) {
-
-        this.dateRange.end = date;
-
-      } else {
-
-        this.dateRange.end = this.dateRange.start;
-
-        this.dateRange.start = date;
-
-      }
-
-      this.calendarVisible = false;
-
-      setTimeout(() => (this.calendarVisible = true));
-
-      this.fetchArticles();
-
-    } else {
-
-      this.dateRange.start = date;
-
-    }
-
-  }
-
-  dateClass = (date: Date): string => {
-
-    let { start, end } = this.dateRange;
-
-    console.log(this.dateRange);
-
-    if (!start) return '';
-
-    const day = new Date(date).setHours(0, 0, 0, 0);
-
-    let startTime = start.setHours(0, 0, 0, 0);
-
-    let endTime = end?.setHours(0, 0, 0, 0);
-
-    if (startTime && endTime && startTime > endTime) {
-
-      [startTime, endTime] = [endTime, startTime];
-
-    }
-
-    if (day === startTime) return 'date-start';
-
-    if (day === endTime) return 'date-end';
-
-    if (endTime && day > startTime && day < endTime) return 'date-range-middle';
-
-    return '';
+    this.fetchArticles();
 
   }
 
@@ -178,12 +114,12 @@ export class ANavComponent implements OnInit {
     }
 
     this.fetchTimer = setTimeout(() => {
-      
+
       const tagList = this.hashtags.split(/\s+/).filter((tag) => tag.startsWith('#'));
 
-      const ArticleFrom = this.dateRange.start?.toISOString();
+      const ArticleFrom = this.dateRange.FromDate?.toISOString();
 
-      const ArticleTo = this.dateRange.end?.toISOString();
+      const ArticleTo = this.dateRange.ToDate?.toISOString();
 
       this.filtersChanged.emit({
         ArticleCategory: this.selectedCategory !== EnumArticleCategory.Unspecified ? this.selectedCategory : undefined,
