@@ -1,36 +1,40 @@
 <div class="app-container">
 
-  @if (this.isLanding){
-
-  <img class="app-landing" [src]="this.LandingURL" />
-
+  @if (this.isLanding) {
+    <video 
+      autoplay 
+      muted 
+      playsinline 
+      (ended)="onSplashEnd()" 
+      class="app-splash">
+      <source src="Landing.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
   }
 
-  @if (this.isEnter){
-
-  <button mat-button class="app-login-button" (click)="this.navLogin()">
-    <p>LOGIN</p>
-  </button>
-
+  @if (this.isEnter) {
+    <button mat-button class="app-login-button" (click)="this.navLogin()">
+      <p>LOGIN</p>
+    </button>
   }
 
-  @if (this.isLogin){
-
-  <app-component-login class="app-login" (login)="onLogin()" (newuser)="onNewUser()">
-  </app-component-login>
-
+  @if (this.isLogin) {
+    <app-component-login 
+      class="app-login" 
+      (login)="onLogin()" 
+      (newuser)="onNewUser()">
+    </app-component-login>
   }
 
-  @if (this.isNew){
-
-  <app-component-new-user class="app-new-user" (notify)="navLogin()"> </app-component-new-user>
-
+  @if (this.isNew) {
+    <app-component-new-user 
+      class="app-new-user" 
+      (notify)="navLogin()"> 
+    </app-component-new-user>
   }
 
-  @if (this.isLoaded){
-
-  <router-outlet />
-
+  @if (this.isLoaded) {
+    <router-outlet />
   }
 
 </div>

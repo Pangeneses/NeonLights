@@ -27,23 +27,18 @@ export class AppComponent implements OnInit {
   isNew = false;
   isLoaded = false;
 
-  LandingURL = '';
-
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
-
     if (this.router.url === '/') {
       this.isLanding = true;
       this.isEnter = false;
       this.isLogin = false;
       this.isNew = false;
       this.isLoaded = false;
-
-      this.animateLoading();
     } else {
       this.isLanding = false;
       this.isEnter = false;
@@ -53,22 +48,8 @@ export class AppComponent implements OnInit {
     }
   }
 
-  async animateLoading() {
-
-    for (let i = 1; i <= 53; i++) {
-
-      const paddedNumber = i.toString().padStart(3, '0');
-
-      this.LandingURL = `Landing/Landing${paddedNumber}.png`;
-
-      this.cdr.detectChanges();
-
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-    }
-
+  onSplashEnd(): void {
     this.isEnter = true;
-
     this.cdr.detectChanges();
   }
 
