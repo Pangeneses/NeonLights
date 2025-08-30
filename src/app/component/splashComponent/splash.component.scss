@@ -1,0 +1,31 @@
+.splash-container {
+    position: relative;
+    top: 0%;
+    height: 100%;
+    left: 0%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.splash-video {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    left: 0;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+input[type="file"] {
+    margin-top: 20px;
+    padding: 5px;
+}

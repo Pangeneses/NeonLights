@@ -43,7 +43,7 @@ export class HeadlinesComponent implements OnInit {
           request.send();
     
           if (request.status != 200) {
-            //this.items[i].image="../../../../../public/RedDragon.webp"
+            //this.items[i].image="../RedDragon.webp"
           }
         }
           */

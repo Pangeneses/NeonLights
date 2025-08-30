@@ -15,42 +15,42 @@ export class FeaturedComponent implements OnInit {
   items = [
     {
       title: 'Welcome to the Red Dragons Society website.',
-      image: '../../../../public/RedDragon.webp',
+      image: 'RedDragon.webp',
       description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
-      image: '../../../../public/RedDragon.webp',
+      image: 'RedDragon.webp',
       description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
-      image: '../../../../public/RedDragon.webp',
+      image: 'RedDragon.webp',
       description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
-      image: '../../../../public/RedDragon.webp',
+      image: 'RedDragon.webp',
       description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
-      image: '../../../../public/RedDragon.webp',
+      image: 'RedDragon.webp',
       description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
-      image: '../../../../public/RedDragon.webp',
+      image: 'RedDragon.webp',
       description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
-      image: '../../../../public/RedDragon.webp',
+      image: 'RedDragon.webp',
       description: 'A beautiful sunset over the hills.',
     },
     {
       title: 'Welcome to the Red Dragons Society website.',
-      image: '../../../../public/RedDragon.webp',
+      image: 'RedDragon.webp',
       description: 'A beautiful sunset over the hills.',
     },
   ];
@@ -77,7 +77,7 @@ export class FeaturedComponent implements OnInit {
           request.send();
     
           if (request.status != 200) {
-            //this.items[i].image="../../../../../public/RedDragon.webp"
+            //this.items[i].image="../RedDragon.webp"
           }
         }
           */

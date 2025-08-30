@@ -1,0 +1,13 @@
+<div class="splash-container">
+
+  @if(videoSource) {
+    <video #splashVideo [src]="videoSource" muted (ended)="onVideoEnd()" disablePictureInPicture="true" class="splash-video">
+      Your browser does not support the video tag.
+    </video>
+  }
+
+  @if(!videoSource) {
+    <p>Please select a video file.</p>
+  }
+
+</div>

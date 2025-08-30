@@ -5,20 +5,22 @@ import { NewUserComponent } from './component/newUserComponent/new.user.componen
 import { MatIconModule } from '@angular/material/icon';
 import { MatButton } from '@angular/material/button';
 
+import { SplashComponent } from './component/splashComponent/splash.component';
+
 @Component({
   selector: 'app-root',
   imports: [
-    RouterOutlet, 
-    LoginComponent, 
-    NewUserComponent, 
-    MatIconModule, 
-    MatButton
+    RouterOutlet,
+    LoginComponent,
+    NewUserComponent,
+    MatIconModule,
+    MatButton,
+    SplashComponent
   ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  
   title = 'Red Dragon Society';
 
   isLanding = true;
@@ -27,28 +29,19 @@ export class AppComponent implements OnInit {
   isNew = false;
   isLoaded = false;
 
-  constructor(
-    private router: Router,
-    private cdr: ChangeDetectorRef,
-  ) {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
 
   ngOnInit(): void {
     if (this.router.url === '/') {
       this.isLanding = true;
-      this.isEnter = false;
-      this.isLogin = false;
-      this.isNew = false;
-      this.isLoaded = false;
     } else {
       this.isLanding = false;
-      this.isEnter = false;
-      this.isLogin = false;
-      this.isNew = false;
       this.isLoaded = true;
     }
   }
 
   onSplashEnd(): void {
+    this.isLanding = true;
     this.isEnter = true;
     this.cdr.detectChanges();
   }
@@ -67,7 +60,6 @@ export class AppComponent implements OnInit {
     this.isLogin = false;
     this.isNew = false;
     this.isLoaded = true;
-
     this.router.navigate(['/headlines']);
   }
 
