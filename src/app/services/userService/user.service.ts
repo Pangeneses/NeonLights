@@ -125,7 +125,7 @@ export class UserService {
 
     delete formData.ID;
 
-    this.http.post('/api/users', formData);
+    this.http.post(`${SERVER_URI}/api/users`, formData);
 
     if (avatarFile) {
 

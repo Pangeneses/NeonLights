@@ -15,7 +15,7 @@ export class LoginUserService implements OnInit {
   constructor(
     public userService: UserService,
     private http: HttpClient,
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.userService.currentUser$.subscribe((userForm) => {
@@ -25,6 +25,8 @@ export class LoginUserService implements OnInit {
 
   loginUser(userName: string, userPassword: string): Promise<boolean> {
     const formGroup = this.userService.formBuilder();
+
+    console.log(SERVER_URI);
 
     return new Promise<boolean>((resolve, reject) => {
       this.http

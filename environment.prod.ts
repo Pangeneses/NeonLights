@@ -1,1 +1,1 @@
-export const SERVER_URI = "https://reddragonsociety.com";
+export const SERVER_URI = "https://reddragonsociety.com/api";
