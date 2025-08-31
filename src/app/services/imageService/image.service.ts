@@ -17,13 +17,13 @@ export class ImageService {
 
     formData.append('file', imageFile);
 
-    return this.http.post(`${environment.SERVER_URI}/images`, formData);
+    return this.http.post(`${environment.IMAGE_REPO}`, formData);
 
   }
 
   deleteImageFileFromServer(filename: string) {
 
-    return this.http.delete(`${environment.SERVER_URI}/images/${filename}`);
+    return this.http.delete(`${environment.IMAGE_REPO}/${filename}`);
 
   }
 

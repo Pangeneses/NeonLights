@@ -44,7 +44,7 @@ export class ReplyComponent implements OnInit, AfterViewInit {
     ThreadHashtags: []
   };
 
-  SERVER_URI = environment.SERVER_URI;
+  IMAGE_REPO = environment.IMAGE_REPO;
 
   richTextContent: string = '';
 

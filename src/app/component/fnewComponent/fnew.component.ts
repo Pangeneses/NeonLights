@@ -38,7 +38,7 @@ Quill.register(Block, true);
 })
 export class FNewComponent implements OnInit, AfterViewInit {
 
-  SERVER_URI = environment.SERVER_URI;
+  IMAGE_REPO = environment.IMAGE_REPO;
 
   CurrentUser: any = null;
 

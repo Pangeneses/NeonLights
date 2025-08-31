@@ -22,7 +22,7 @@ import { environment } from '../../../environments/environment';
 })
 export class AReaderComponent implements OnInit {
 
-  SERVER_URI = environment.SERVER_URI;
+  IMAGE_REPO = environment.IMAGE_REPO;
 
   CurrentArticle: any | null = null;
 

@@ -27,7 +27,7 @@ import { environment } from '../../../environments/environment';
 })
 export class AIndexComponent implements OnInit {
 
-  SERVER_URI = environment.SERVER_URI;
+  IMAGE_REPO = environment.IMAGE_REPO;
 
   articleChunk: ArticleExtended[] = [];
 
