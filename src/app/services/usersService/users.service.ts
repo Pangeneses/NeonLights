@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-import { SERVER_URI } from '../../../../environment';
+import { environment } from '../../../environments/environment';
 
 export interface User {
     UserID: string;
@@ -73,7 +73,7 @@ export class UsersService {
             .set('cursor', cursor || '')
             .set('dir', direction);
 
-        const observable = this.http.get<User[]>(`${SERVER_URI}/api/users/search`, { params });
+        const observable = this.http.get<User[]>(`${environment.SERVER_URI}/api/users/search`, { params });
 
         observable.subscribe({
             next: (users) => this.setCurrentUsers(users),

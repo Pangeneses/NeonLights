@@ -9,7 +9,7 @@ import { FooterComponent } from '../footerComponent/footer.component';
 
 import { ThreadService, Thread, EnumForumCategory } from '../../services/threadService/thread.service';
 
-import { SERVER_URI } from '../../../../environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'thread-component-findex',
@@ -27,7 +27,7 @@ import { SERVER_URI } from '../../../../environment';
 })
 export class FIndexComponent implements OnInit {
 
-  SERVER_URI = SERVER_URI;
+  SERVER_URI = environment.SERVER_URI;
 
   threadChunk: Thread[] = [];
 

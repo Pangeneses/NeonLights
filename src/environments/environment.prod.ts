@@ -1,1 +1,4 @@
-export const SERVER_URI = "https://reddragonsociety.com/api";
+export const environment = {
+  production: true,
+  SERVER_URI: 'https://reddragonsociety.com/api'
+};

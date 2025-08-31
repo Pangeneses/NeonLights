@@ -12,7 +12,7 @@ import { UserService } from '../../services/userService/user.service';
 import { ImageService } from '../../services/imageService/image.service';
 import { ThreadService, EnumForumCategory } from '../../services/threadService/thread.service';
 
-import { SERVER_URI } from '../../../../environment';
+import { environment } from '../../../environments/environment';
 
 import Quill from 'quill';
 const Delta = Quill.import('delta');
@@ -38,7 +38,7 @@ Quill.register(Block, true);
 })
 export class FNewComponent implements OnInit, AfterViewInit {
 
-  SERVER_URI = SERVER_URI;
+  SERVER_URI = environment.SERVER_URI;
 
   CurrentUser: any = null;
 

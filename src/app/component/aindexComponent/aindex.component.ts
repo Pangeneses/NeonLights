@@ -9,7 +9,7 @@ import { FooterComponent } from '../footerComponent/footer.component';
 
 import { ArticleService, ArticleExtended, EnumArticleCategory } from '../../services/articleService/article.service';
 
-import { SERVER_URI } from '../../../../environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'article-component-aindex',
@@ -27,7 +27,7 @@ import { SERVER_URI } from '../../../../environment';
 })
 export class AIndexComponent implements OnInit {
 
-  SERVER_URI = SERVER_URI;
+  SERVER_URI = environment.SERVER_URI;
 
   articleChunk: ArticleExtended[] = [];
 

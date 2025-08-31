@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
-import { SERVER_URI } from '../../../../environment';
+import { environment } from '../../../environments/environment';
 
 export interface Article {
   ArticleID: string;
@@ -164,7 +164,7 @@ export class ArticleService {
 
     console.log(params);
 
-    return this.http.get<ArticleExtended[]>(`${SERVER_URI}/api/articles/chunk`, { params }).pipe(
+    return this.http.get<ArticleExtended[]>(`${environment.SERVER_URI}/api/articles/chunk`, { params }).pipe(
       switchMap((response: any) => {
 
         const articles = Array.isArray(response) ? response : response.Articles;
@@ -200,7 +200,7 @@ export class ArticleService {
 
   postArticle(articleData: Article): Observable<any> {
 
-    return this.http.post(`${SERVER_URI}/api/articles`, articleData);
+    return this.http.post(`${environment.SERVER_URI}/api/articles`, articleData);
 
   }
 

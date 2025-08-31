@@ -8,7 +8,7 @@ import { UserService } from '../../services/userService/user.service';
 import { EnumForumCategory, Thread } from '../../services/threadService/thread.service';
 import { PostService } from '../../services/postService/post.service';
 
-import { SERVER_URI } from '../../../../environment';
+import { environment } from '../../../environments/environment';
 
 import Quill from 'quill';
 const Delta = Quill.import('delta');
@@ -44,7 +44,7 @@ export class ReplyComponent implements OnInit, AfterViewInit {
     ThreadHashtags: []
   };
 
-  SERVER_URI = SERVER_URI;
+  SERVER_URI = environment.SERVER_URI;
 
   richTextContent: string = '';
 

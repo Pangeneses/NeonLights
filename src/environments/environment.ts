@@ -1,1 +1,5 @@
-export const SERVER_URI = 'http://localhost:8080';
+export const environment = {
+  production: false,
+  SERVER_URI: 'http://localhost:8080/api'
+};
+

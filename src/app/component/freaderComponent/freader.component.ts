@@ -10,7 +10,7 @@ import { ReplyComponent } from '../replyComponent/reply.component';
 import { Thread, ThreadService, EnumForumCategory } from '../../services/threadService/thread.service';
 import { PostService, Post } from '../../services/postService/post.service';
 
-import { SERVER_URI } from '../../../../environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'forum-component-freader',
@@ -29,7 +29,7 @@ import { SERVER_URI } from '../../../../environment';
 })
 export class FReaderComponent implements OnInit {
 
-  SERVER_URI = SERVER_URI;
+  SERVER_URI = environment.SERVER_URI;
 
   thread: Thread = {
     ThreadID: '',

@@ -3,7 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import io from 'socket.io-client';
 import { Observable, BehaviorSubject, switchMap } from 'rxjs';
 
-import { SERVER_URI } from '../../../../environment';
+import { environment } from '../../../environments/environment';
 
 export interface Post {
   PostID: string;
@@ -83,7 +83,7 @@ export class PostService {
 
     }
 
-    return this.http.get<Post[]>(`${SERVER_URI}/api/posts/batch`, { params }).pipe(
+    return this.http.get<Post[]>(`${environment.SERVER_URI}/api/posts/batch`, { params }).pipe(
       switchMap((response: any) => {
 
         const posts = Array.isArray(response) ? response : response.Posts;
@@ -119,7 +119,7 @@ export class PostService {
 
   newReply(replyData: any): Observable<any> {
 
-    return this.http.post(`${SERVER_URI}/api/posts`, replyData);
+    return this.http.post(`${environment.SERVER_URI}/api/posts`, replyData);
 
   }
 

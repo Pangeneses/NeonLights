@@ -4,7 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../../services/userService/user.service';
 import { ImageService } from '../../services/imageService/image.service';
 
-import { SERVER_URI } from '../../../../environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-component-profile',
@@ -20,9 +20,9 @@ export class ProfileComponent implements OnInit {
     public userService: UserService,
     public imageService: ImageService,
   ) {
-  
+
     this.form = userService.formBuilder();
-  
+
   }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
 
         if (importForm.get('Avatar')?.value !== '') {
 
-          this.avatarURL = `${SERVER_URI}/images/${importForm.get('Avatar')?.value}`;
+          this.avatarURL = `${environment.SERVER_URI}/images/${importForm.get('Avatar')?.value}`;
 
         }
 
@@ -79,7 +79,7 @@ export class ProfileComponent implements OnInit {
         return;
 
       },
-      
+
     });
 
   }
@@ -583,5 +583,5 @@ export class ProfileComponent implements OnInit {
     }
 
   }
-  
+
 }

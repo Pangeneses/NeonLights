@@ -7,7 +7,7 @@ import { ArticleService } from '../../services/articleService/article.service';
 import { HeaderComponent } from '../../component/headerComponent/header.component';
 import { FooterComponent } from '../../component/footerComponent/footer.component';
 
-import { SERVER_URI } from '../../../../environment';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'areader-component-reader',
@@ -22,7 +22,7 @@ import { SERVER_URI } from '../../../../environment';
 })
 export class AReaderComponent implements OnInit {
 
-  SERVER_URI = SERVER_URI;
+  SERVER_URI = environment.SERVER_URI;
 
   CurrentArticle: any | null = null;
 

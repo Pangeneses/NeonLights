@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-import { SERVER_URI } from '../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 import { UserService } from '../../services/userService/user.service';
 
@@ -26,11 +26,11 @@ export class LoginUserService implements OnInit {
   loginUser(userName: string, userPassword: string): Promise<boolean> {
     const formGroup = this.userService.formBuilder();
 
-    console.log(SERVER_URI);
+    console.log(environment.SERVER_URI);
 
     return new Promise<boolean>((resolve, reject) => {
       this.http
-        .post<any>(`${SERVER_URI}/api/users/auth/login`, {
+        .post<any>(`${environment.SERVER_URI}/api/users/auth/login`, {
           UserName: userName,
           Password: userPassword,
         })
