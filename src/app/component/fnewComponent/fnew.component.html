@@ -1,11 +1,11 @@
 <div class="fnew-container">
 
-  <app-component-header class="fnew-header"/>
+  <app-component-header class="fnew-header" />
 
   <div class="fnew-card">
 
     <div class="fnew-confirm">
-    
+
       <div class="fnew-confirm-accept" (click)="submitThread()">
         <mat-icon>save</mat-icon>
       </div>
@@ -18,12 +18,8 @@
 
     <div class="fnew-thread-info">
 
-      <img
-        class="fnew-image"
-        [src]="IMAGE_REPO + this.pictureURL"
-        alt="Thread Image"
-        (click)="this.onFileSelectTriggered()"
-      />
+      <img class="fnew-image" [src]="IMAGE_REPO + '/' + this.pictureURL" alt="Thread Image"
+        (click)="this.onFileSelectTriggered()" />
       <input type="file" #fileInput (change)="this.onFileSelected($event)" accept=".jpg,.webp" style="display: none" />
 
       <div class="fnew-details">
@@ -31,15 +27,8 @@
         <p>Date: {{ today | date: 'longDate' }}</p>
       </div>
 
-      <input 
-        type="number" 
-        class="fnew-access" 
-        [(ngModel)]="access" 
-        min="0" 
-        max="60" 
-        value="0" 
-        step="1" 
-        (keydown)="onAccessChange()"/>
+      <input type="number" class="fnew-access" [(ngModel)]="access" min="0" max="60" value="0" step="1"
+        (keydown)="onAccessChange()" />
 
       <!-- Category Dropdown -->
       <select class="fnew-category" [(ngModel)]="selectedCategory">
@@ -48,28 +37,16 @@
         </option>
       </select>
 
-      <input
-        type="text"
-        class="fnew-hashtags"
-        [(ngModel)]="hashtagInput"
-        placeholder="up to 5 #hashtags"
-        (input)="onHashtagInput($event)"
-        (keydown)="onHashtagKeyDown($event)"
-      />
+      <input type="text" class="fnew-hashtags" [(ngModel)]="hashtagInput" placeholder="up to 5 #hashtags"
+        (input)="onHashtagInput($event)" (keydown)="onHashtagKeyDown($event)" />
     </div>
 
     <div class="fnew-content">
       <textarea class="fnew-title" placeholder="THREAD TITLE" [(ngModel)]="threadTitle"></textarea>
 
       <div class="fnew-text-container">
-        <quill-editor
-          class="fnew-text"
-          #quillEditor
-          [(ngModel)]="richTextContent"
-          [styles]="{ height: '100%' }"
-          [modules]="quillModules"
-          theme="snow"
-        >
+        <quill-editor class="fnew-text" #quillEditor [(ngModel)]="richTextContent" [styles]="{ height: '100%' }"
+          [modules]="quillModules" theme="snow">
         </quill-editor>
       </div>
     </div>

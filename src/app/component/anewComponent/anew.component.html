@@ -17,13 +17,9 @@
     </div>
 
     <div class="anew-journal-info">
-      
-      <img
-        class="anew-image"
-        [src]="IMAGE_REPO + this.pictureURL"
-        alt="Article Image"
-        (click)="this.onFileSelectTriggered()"
-      />
+
+      <img class="anew-image" [src]="IMAGE_REPO + '/' + this.pictureURL" alt="Article Image"
+        (click)="this.onFileSelectTriggered()" />
       <input type="file" #fileInput (change)="this.onFileSelected($event)" accept=".jpg,.webp" style="display: none" />
 
       <div class="anew-details">
@@ -41,14 +37,8 @@
         </option>
       </select>
 
-      <input
-        type="text"
-        class="anew-hashtags"
-        [(ngModel)]="hashtagInput"
-        placeholder="up to 5 #hashtags"
-        (input)="onHashtagInput($event)"
-        (keydown)="onHashtagKeyDown($event)"
-      />
+      <input type="text" class="anew-hashtags" [(ngModel)]="hashtagInput" placeholder="up to 5 #hashtags"
+        (input)="onHashtagInput($event)" (keydown)="onHashtagKeyDown($event)" />
     </div>
 
     <div class="anew-content">
@@ -56,15 +46,9 @@
       <textarea class="anew-title" placeholder="ARTICLE TITLE" [(ngModel)]="articleTitle"></textarea>
 
       <div class="anew-text-container">
-        <quill-editor
-          class="anew-text"
-          #quillEditor
-          [(ngModel)]="richTextContent"
-          [styles]="{ height: '100%' }"
-          [modules]="quillModules"
-          theme="snow"
-        >
-        </quill-editor>        
+        <quill-editor class="anew-text" #quillEditor [(ngModel)]="richTextContent" [styles]="{ height: '100%' }"
+          [modules]="quillModules" theme="snow">
+        </quill-editor>
       </div>
 
     </div>

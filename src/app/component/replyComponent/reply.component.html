@@ -6,19 +6,14 @@
 
             <div class="reply-text-container">
 
-                <quill-editor 
-                    class="reply-text" 
-                    #quillEditor 
-                    [(ngModel)]="richTextContent" 
-                    [styles]="{ height: '100%' }" 
-                    [modules]="quillModules" 
-                    theme="snow">
+                <quill-editor class="reply-text" #quillEditor [(ngModel)]="richTextContent"
+                    [styles]="{ height: '100%' }" [modules]="quillModules" theme="snow">
                 </quill-editor>
 
             </div>
 
             <div class="user-image">
-                <img [src]="IMAGE_REPO + CurrentUser.Avatar" alt="User Image" />
+                <img [src]="IMAGE_REPO + '/' + CurrentUser.Avatar" alt="User Image" />
             </div>
 
         </div>
