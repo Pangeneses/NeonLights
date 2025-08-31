@@ -164,7 +164,7 @@ export class ArticleService {
 
     console.log(params);
 
-    return this.http.get<ArticleExtended[]>(`${environment.SERVER_URI}/api/articles/chunk`, { params }).pipe(
+    return this.http.get<ArticleExtended[]>(`${environment.SERVER_URI}/articles/chunk`, { params }).pipe(
       switchMap((response: any) => {
 
         const articles = Array.isArray(response) ? response : response.Articles;
@@ -200,7 +200,7 @@ export class ArticleService {
 
   postArticle(articleData: Article): Observable<any> {
 
-    return this.http.post(`${environment.SERVER_URI}/api/articles`, articleData);
+    return this.http.post(`${environment.SERVER_URI}/articles`, articleData);
 
   }
 

@@ -125,7 +125,7 @@ export class UserService {
 
     delete formData.ID;
 
-    this.http.post(`${environment.SERVER_URI}/api/users`, formData);
+    this.http.post(`${environment.SERVER_URI}/users`, formData);
 
     if (avatarFile) {
 
@@ -146,13 +146,13 @@ export class UserService {
 
           form.get('Avatar')?.setValue(uploadedFilename);
 
-          return this.http.post<any>(`${environment.SERVER_URI}/api/users`, formData);
+          return this.http.post<any>(`${environment.SERVER_URI}/users`, formData);
 
         }),
       );
     } else {
 
-      return this.http.post<any>(`${environment.SERVER_URI}/api/users`, formData);
+      return this.http.post<any>(`${environment.SERVER_URI}/users`, formData);
 
     }
 
@@ -191,7 +191,7 @@ export class UserService {
 
           const { ID, ...payload } = formData;
 
-          return this.http.put<any>(`${environment.SERVER_URI}/api/users/` + ID, payload);
+          return this.http.put<any>(`${environment.SERVER_URI}/users/` + ID, payload);
 
         }),
       );
@@ -201,7 +201,7 @@ export class UserService {
 
       const { ID, ...payload } = formData;
 
-      return this.http.put<any>(`${environment.SERVER_URI}/api/users/` + ID, payload);
+      return this.http.put<any>(`${environment.SERVER_URI}/users/` + ID, payload);
 
     }
 

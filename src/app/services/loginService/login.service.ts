@@ -30,7 +30,7 @@ export class LoginUserService implements OnInit {
 
     return new Promise<boolean>((resolve, reject) => {
       this.http
-        .post<any>(`${environment.SERVER_URI}/api/users/auth/login`, {
+        .post<any>(`${environment.SERVER_URI}/users/auth/login`, {
           UserName: userName,
           Password: userPassword,
         })

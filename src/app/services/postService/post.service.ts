@@ -83,7 +83,7 @@ export class PostService {
 
     }
 
-    return this.http.get<Post[]>(`${environment.SERVER_URI}/api/posts/batch`, { params }).pipe(
+    return this.http.get<Post[]>(`${environment.SERVER_URI}/posts/batch`, { params }).pipe(
       switchMap((response: any) => {
 
         const posts = Array.isArray(response) ? response : response.Posts;
@@ -119,7 +119,7 @@ export class PostService {
 
   newReply(replyData: any): Observable<any> {
 
-    return this.http.post(`${environment.SERVER_URI}/api/posts`, replyData);
+    return this.http.post(`${environment.SERVER_URI}/posts`, replyData);
 
   }
 

@@ -73,7 +73,7 @@ export class UsersService {
             .set('cursor', cursor || '')
             .set('dir', direction);
 
-        const observable = this.http.get<User[]>(`${environment.SERVER_URI}/api/users/search`, { params });
+        const observable = this.http.get<User[]>(`${environment.SERVER_URI}/users/search`, { params });
 
         observable.subscribe({
             next: (users) => this.setCurrentUsers(users),
