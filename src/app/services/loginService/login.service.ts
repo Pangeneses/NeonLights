@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
-import { SERVER_URI } from '../../../../environment';
+import { SERVER_URI } from '../../../environments/environment';
 
 import { UserService } from '../../services/userService/user.service';
 
