@@ -189,9 +189,17 @@ export class UserService {
 
           const formData = form.getRawValue();
 
-          const { ID, ...payload } = formData;
+          const { ID, Password, ReEnter, ...payload } = formData;
 
-          return this.http.put<any>(`${environment.SERVER_URI}/users/` + ID, payload);
+          if (Password && ReEnter) {
+
+            payload.Password = Password;
+            
+            payload.ReEnter = ReEnter;
+
+          }
+
+          return this.http.put<any>(`${environment.SERVER_URI}/users/${ID}`, payload);
 
         }),
       );
