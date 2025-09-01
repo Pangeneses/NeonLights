@@ -168,6 +168,24 @@ export class UserService {
 
     if (!this.isValid(form)) return null;
 
+    const sendUpdate = (payload: any, ID: string) => {
+      
+      if (!payload.Password || payload.Password.trim() === '') {
+
+        delete payload.Password;
+
+      }
+
+      if (!payload.ReEnter || payload.ReEnter.trim() === '') {
+
+        delete payload.ReEnter;
+
+      }
+
+      return this.http.put<any>(`${environment.SERVER_URI}/users/${ID}`, payload);
+
+    };
+
     if (avatarFile) {
 
       const maxSize = 1048576;
@@ -180,47 +198,29 @@ export class UserService {
 
       }
 
-      return this.imageService.sendImageFileToServer(avatarFile).pipe(
+      return this.imageService.sendImageFileToServer(avatarFile).pipe(        
         switchMap((res: any) => {
 
           const uploadedFilename = res.file.filename;
 
           form.get('Avatar')?.setValue(uploadedFilename);
 
-          const formData = form.getRawValue();
+          const { ID, ...payload } = form.getRawValue();
 
-          const { ID, Password, ReEnter, ...payload } = formData;
-
-          if (Password && ReEnter) {
-
-            payload.Password = Password;
-
-            payload.ReEnter = ReEnter;
-
-          }
-
-          return this.http.put<any>(`${environment.SERVER_URI}/users/${ID}`, payload);
+          return sendUpdate(payload, ID);
 
         }),
+
       );
+
     } else {
 
-      const formData = form.getRawValue();
+      const { ID, ...payload } = form.getRawValue();
 
-      const { ID, Password, ReEnter, ...payload } = formData;
-
-      if (Password && ReEnter) {
-
-        payload.Password = Password;
-
-        payload.ReEnter = ReEnter;
-
-      }
-
-      return this.http.put<any>(`${environment.SERVER_URI}/users/${ID}`, payload);
+      return sendUpdate(payload, ID);
 
     }
-
+    
   }
 
   isDirty(validateThis: FormGroup): Boolean {
