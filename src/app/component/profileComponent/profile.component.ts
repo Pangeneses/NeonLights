@@ -14,6 +14,8 @@ import { environment } from '../../../environments/environment';
 })
 export class ProfileComponent implements OnInit {
 
+  SERVER_URI = environment.SERVER_URI;
+
   form: FormGroup;
 
   constructor(
@@ -37,7 +39,7 @@ export class ProfileComponent implements OnInit {
 
         if (importForm.get('Avatar')?.value !== '') {
 
-          this.avatarURL = `${environment.SERVER_URI}/images/${importForm.get('Avatar')?.value}`;
+          this.avatarURL = `${importForm.get('Avatar')?.value}`;
 
         }
 
