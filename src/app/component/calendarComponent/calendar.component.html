@@ -12,11 +12,15 @@
                 [ngClass]="{ 'selected-edge': selectedEdge === 'from', 'unselected-edge': selectedEdge !== 'from' }"
                 (click)="selectedEdge = 'from'">
 
-                <span *ngIf="selectedFromDate; else noDate">
+                @if(selectedFromDate){
+                <span>
                     From: {{ selectedFromDate | date: 'EEE, MMMM d' }}<br>
                     {{ selectedFromDate | date: 'yyyy' }}
                 </span>
+                }
+                @else {
                 <ng-template #noDate>—</ng-template>
+                }
 
             </div>
 
@@ -24,11 +28,15 @@
                 [ngClass]="{ 'selected-edge': selectedEdge === 'to', 'unselected-edge': selectedEdge !== 'to' }"
                 (click)="selectedEdge = 'to'">
 
-                <span *ngIf="selectedToDate; else noDate">
+                @if(selectedToDate){
+                <span>
                     To: {{ selectedToDate | date: 'EEE, MMMM d' }}<br>
                     {{ selectedToDate | date: 'yyyy' }}
                 </span>
+                }
+                @else{
                 <ng-template #noDate>—</ng-template>
+                }                
             </div>
 
         </div>

@@ -32,9 +32,13 @@
 
       <!-- Category Dropdown -->
       <select class="fnew-category" [(ngModel)]="selectedCategory">
-        <option *ngFor="let cat of categoryOptions" [value]="cat.value">
+
+        @for (cat of categoryOptions; track catagoryTrackFN($index, cat)) {
+        <option [value]="cat.value">
           {{ cat.label }}
         </option>
+        }
+
       </select>
 
       <input type="text" class="fnew-hashtags" [(ngModel)]="hashtagInput" placeholder="up to 5 #hashtags"

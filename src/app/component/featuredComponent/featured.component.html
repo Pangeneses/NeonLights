@@ -11,7 +11,9 @@
     </div>
 
     <div #carousel class="featured-carousel-track">
-      <div *ngFor="let item of items" class="featured-articles">
+
+      @for (item of items; track articleTrackFN($index, item)) {
+      <div class="featured-articles">
         <div class="card">
           <div class="card-header">
             <p>{{ item.title }}</p>
@@ -24,6 +26,8 @@
           </div>
         </div>
       </div>
+      }
+
     </div>
   </div>
 

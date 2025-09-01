@@ -1,16 +1,22 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { NgFor } from '@angular/common';
 import { HeaderComponent } from '../../component/headerComponent/header.component';
 import { FooterComponent } from '../../component/footerComponent/footer.component';
 
 @Component({
   selector: 'shop-component-featured',
-  imports: [NgFor, HeaderComponent, FooterComponent],
+  imports: [HeaderComponent, FooterComponent],
   templateUrl: './featured.component.html',
   styleUrl: './featured.component.scss',
 })
 export class FeaturedComponent implements OnInit {
   @ViewChild('carousel') carousel!: ElementRef;
+
+
+
+  articleTrackFN(index: number, article: any): string {
+    return crypto.randomUUID();
+  }
+
 
   items = [
     {

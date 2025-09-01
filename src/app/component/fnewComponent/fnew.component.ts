@@ -164,6 +164,10 @@ export class FNewComponent implements OnInit, AfterViewInit {
 
   hashtagInput: string = '';
 
+  catagoryTrackFN(index: number, category: { label: string; value: string }): string {
+    return category.value; 
+  }
+
   onHashtagInput(event: Event): void {
 
     const input = (event.target as HTMLInputElement).value;

@@ -17,8 +17,9 @@
     </div>
   </div>
 
-  <app-component-about *ngIf="this.isAboutPopUp" (notify)="onClose($event)"></app-component-about>
-  <app-component-tos *ngIf="this.isToSPopUp" (notify)="onClose($event)"></app-component-tos>
-  <app-component-privacy *ngIf="this.isPrivacyPopUp" (notify)="onClose($event)"></app-component-privacy>
-  <app-component-legal *ngIf="this.isLegalPopUp" (notify)="onClose($event)"></app-component-legal>
+  @if(isAboutPopUp){<app-component-about (notify)="onClose($event)"></app-component-about>}
+  @if(isToSPopUp){<app-component-tos (notify)="onClose($event)"></app-component-tos>}
+  @if(isPrivacyPopUp){<app-component-privacy (notify)="onClose($event)"></app-component-privacy>}
+  @if(isLegalPopUp){<app-component-legal (notify)="onClose($event)"></app-component-legal>} 
+  
 </div>
