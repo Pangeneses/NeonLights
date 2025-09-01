@@ -60,8 +60,8 @@ export class UserService {
       EMail: ['', { validators: [Validators.required, Validators.email], updateOn: 'blur' }],
       Cellphone: ['', { validators: [], updateOn: 'blur' }],
       DateOfBirth: ['', { validators: [Validators.pattern('^(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])\/(19|20)\d{2}$')], updateOn: 'blur' }],
-      Password: ['', { validators: [Validators.required, Validators.pattern('^((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})$')], updateOn: 'blur' }],
-      ReEnter: ['', { validators: [Validators.required, Validators.pattern('^((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})$')], updateOn: 'blur' }],
+      Password: ['', { validators: [Validators.pattern('^((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})$')], updateOn: 'blur' }],
+      ReEnter: ['', { validators: [Validators.pattern('^((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{8,30})$')], updateOn: 'blur' }],
     });
 
   }
@@ -194,7 +194,7 @@ export class UserService {
           if (Password && ReEnter) {
 
             payload.Password = Password;
-            
+
             payload.ReEnter = ReEnter;
 
           }
@@ -207,9 +207,17 @@ export class UserService {
 
       const formData = form.getRawValue();
 
-      const { ID, ...payload } = formData;
+      const { ID, Password, ReEnter, ...payload } = formData;
 
-      return this.http.put<any>(`${environment.SERVER_URI}/users/` + ID, payload);
+      if (Password && ReEnter) {
+
+        payload.Password = Password;
+
+        payload.ReEnter = ReEnter;
+
+      }
+
+      return this.http.put<any>(`${environment.SERVER_URI}/users/${ID}`, payload);
 
     }
 
