@@ -14,7 +14,7 @@
       <div class="profile-content">
         <div class="profile-cover">
           <div class="profile-picture-card" (click)="this.onFileSelectTriggered()">
-            <img [src]="IMAGE_REPO + avatarURL"/>
+            <img [src]="IMAGE_REPO + '/' + avatarURL"/>
           </div>
           <input
             type="file"
