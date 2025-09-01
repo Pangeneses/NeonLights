@@ -33,6 +33,8 @@ export class ProfileComponent implements OnInit {
 
         this.form.patchValue(importForm.value);
 
+        console.log(importForm.get('Avatar')?.value)
+
         if (importForm.get('Avatar')?.value !== '') {
 
           this.avatarURL = `${environment.SERVER_URI}/images/${importForm.get('Avatar')?.value}`;
