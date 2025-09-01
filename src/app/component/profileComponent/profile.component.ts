@@ -14,7 +14,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ProfileComponent implements OnInit {
 
-  SERVER_URI = environment.SERVER_URI;
+  IMAGE_REPO = environment.IMAGE_REPO;
 
   form: FormGroup;
 
