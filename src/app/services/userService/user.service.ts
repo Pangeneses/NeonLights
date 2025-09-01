@@ -160,24 +160,16 @@ export class UserService {
 
   updateUser(form: FormGroup, avatarFile: File | null): Observable<any> | null {
 
-    if (form.get('Password')?.value !== '') {
-
-      if (!this.isValidAuth(form)) return null;
-
-    }
-
     if (!this.isValid(form)) return null;
 
     const sendUpdate = (payload: any, ID: string) => {
       
-      if (!payload.Password || payload.Password.trim() === '') {
+      if (!payload.Password || 
+          payload.Password.trim() === '' || 
+          !payload.ReEnter || 
+          payload.ReEnter.trim() === '') {
 
         delete payload.Password;
-
-      }
-
-      if (!payload.ReEnter || payload.ReEnter.trim() === '') {
-
         delete payload.ReEnter;
 
       }
@@ -220,7 +212,7 @@ export class UserService {
       return sendUpdate(payload, ID);
 
     }
-    
+
   }
 
   isDirty(validateThis: FormGroup): Boolean {
