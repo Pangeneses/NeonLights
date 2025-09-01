@@ -35,7 +35,7 @@ export class ProfileComponent implements OnInit {
 
         if (importForm.get('Avatar')?.value !== '') {
 
-          this.avatarURL = `${environment.IMAGE_REPO}/${importForm.get('Avatar')?.value}`;
+          this.avatarURL = ``${environment.SERVER_URI}/images/${importForm.get('Avatar')?.value}`;
 
         }
 
