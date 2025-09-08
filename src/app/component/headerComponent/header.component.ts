@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit {
 
   onNavigate003(): void {
 
-    this.router.navigate(['/featured']);
+    window.location.href = 'https://houseofreddragon.com';
 
     this.isHome = false;
 

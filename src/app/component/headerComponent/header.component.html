@@ -7,6 +7,7 @@
   <div class="header-title"></div>
 
   <div class="header-user">
+
     <div class="header-user-ico" aria-label="User">
       <mat-icon>person</mat-icon>
     </div>
@@ -15,6 +16,7 @@
       <p>{{ this.usersName }}</p>
       <p></p>
     </div>
+
   </div>
 
   @if(this.isHoverUser || this.isHoverUserDropDown || this.isUserForm){
@@ -31,7 +33,7 @@
 
     <div class="header-navigation" (click)="onNavigate003()">
       <mat-icon class="header-navigation-ico">shopping_cart</mat-icon>
-      <p class="header-navigation-text">Shop</p>
+      <p class="header-navigation-text">H.o.R.D.</p>
     </div>
 
     }
@@ -51,10 +53,6 @@
       <mat-icon class="header-navigation-ico">forum</mat-icon>
       <p class="header-navigation-text">Forum</p>
     </div>
-
-    }
-
-    @if(this.isHome){
 
     }
 

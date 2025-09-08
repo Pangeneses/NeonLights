@@ -1,7 +1,9 @@
 <div class="headlines-container">
+
   <app-component-header class="headlines-header"></app-component-header>
 
   <div class="headlines">
+
     <div class="headlines-scroll-button" (click)="scrollLeft()" style="left: 2%">
       <img src="LeftArrow.webp" />
     </div>
@@ -15,7 +17,9 @@
       @for(article of featuredArticles; track trackHeadlineFN($index, article)){
 
       <div class="headlines-articles">
+    
         <div class="card">
+    
           <div class="card-header">
             <p>{{ article.ArticleTitle }}</p>
           </div>
@@ -25,7 +29,9 @@
           <div class="card-content">
             <p>{{ article.ArticleBody }}</p>
           </div>
+    
         </div>
+    
       </div>
 
       }
