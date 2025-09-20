@@ -21,14 +21,14 @@
   flex-direction: row;
 }
 
-.footer-table-cell {
+.footer-cell {
   flex: 1 1 0;
   text-align: center;
   background-color: transparent;
   border-color: black;
 }
 
-.footer-table-text {
+.footer-text {
   margin: 0;
   font-size: 1.25em;
   align-content: center;
@@ -37,11 +37,11 @@
   text-decoration: none;
 }
 
-.footer-table-text:hover {
+.footer-text:hover {
   text-decoration: underline;
 }
 
-.footer-table-text-copyright {
+.footer-text-copyright {
   margin: 0;
   font-size: 1.25em;
   align-content: center;
