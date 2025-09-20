@@ -7,13 +7,18 @@
   background-color: #544380;
 }
 
-.footer-table {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.footer-card{
   position: absolute;
-  top: 0%;
+  width: 100%;
   height: 100%;
-  left: 5%;
-  width: 90%;
   display: flex;
+  flex-direction: row;
 }
 
 .footer-table-cell {
