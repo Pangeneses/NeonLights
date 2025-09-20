@@ -28,7 +28,7 @@
 }
 
 .footer-text {
-  margin: 0;
+  display: flex;
   font-size: 1.25em;
   align-content: center;
   justify-self: start;
@@ -41,7 +41,7 @@
 }
 
 .footer-text-copyright {
-  margin: 0;
+  display: flex;
   font-size: 1.25em;
   align-content: center;
   justify-self: end;
