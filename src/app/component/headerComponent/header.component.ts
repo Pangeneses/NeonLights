@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit {
 
   onNavigate003(): void {
 
-    window.location.href = 'https://houseofredcamera.webp.com';
+    window.location.href = 'https://your-url.com'; //sub
 
     this.isHome = false;
 
