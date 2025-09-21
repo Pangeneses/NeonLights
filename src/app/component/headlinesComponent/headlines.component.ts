@@ -33,19 +33,6 @@ export class HeadlinesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*
-        for(let i = 0; i < this.items.length; i++){
-      
-          var request = new XMLHttpRequest();
-      
-          request.open("GET", this.items[i].image, true);
-      
-          request.send();
-    
-          if (request.status != 200) {
-            //this.items[i].image="../RedDragon.webp"
-          }
-        }
-          */
+
   }
 }

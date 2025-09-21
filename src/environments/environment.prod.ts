@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  SERVER_URI: 'https://reddragonsociety.com/api',
-  IMAGE_REPO: 'https://reddragonsociety.com/images'
+  SERVER_URI: 'https://your-url.com/api',
+  IMAGE_REPO: 'https://your-url.com/images'
 };

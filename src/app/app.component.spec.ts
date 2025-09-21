@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'Red Dragon Society' title`, () => {
+  it(`should have the 'Your Site' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('Red Dragon Society');
+    expect(app.title).toEqual('Your Site');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, Red Dragon Society');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, Your Site');
   });
 });

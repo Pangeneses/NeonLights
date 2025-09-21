@@ -191,7 +191,7 @@ export class ThreadService {
 
 export enum EnumForumCategory {
   Unspecified = 'Unspecified',
-  RedDragonSociety = 'Red Dragon Society',
+  YourSite = 'Your Site',
   PoliticalSci = 'Political Science',
   SocialSci = 'Social Science',
   Economics = 'Economics',

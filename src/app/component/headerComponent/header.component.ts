@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private router: Router,
     public userService: UserService,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit {
 
   onNavigate003(): void {
 
-    window.location.href = 'https://houseofreddragon.com';
+    window.location.href = 'https://houseofredcamera.webp.com';
 
     this.isHome = false;
 
@@ -97,5 +97,5 @@ export class HeaderComponent implements OnInit {
     this.isUserForm = !this.isUserForm;
 
   }
-  
+
 }

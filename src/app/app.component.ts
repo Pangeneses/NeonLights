@@ -21,7 +21,7 @@ import { SplashComponent } from './component/splashComponent/splash.component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  title = 'Red Dragon Society';
+  title = 'Your Site';
 
   isLanding = true;
   isEnter = false;
@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   isNew = false;
   isLoaded = false;
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef) {}
+  constructor(private router: Router, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     if (this.router.url === '/') {
